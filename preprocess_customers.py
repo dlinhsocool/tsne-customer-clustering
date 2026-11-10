@@ -100,3 +100,31 @@ def tien_xu_ly_huan_luyen(df_nguon, ngay_tham_chieu="2025-05-05"):
     chuan_hoa = chuan_hoa_dac_trung(ma_hoa, scaler)
 
     return sach, chuan_hoa, scaler, danh_muc_chuan
+
+class CustomerPreprocessor:
+    """Chuyển DataFrame khách hàng thành bảng đặc trưng số."""
+
+    def __init__(self, ngay_tham_chieu="2025-05-05"):
+        self.ngay_tham_chieu = ngay_tham_chieu
+        self.scaler_ = None
+        self.danh_muc_chuan_ = None
+
+    def fit_transform(self, df):
+        """Học danh mục, scaler và trả về đặc trưng của dữ liệu đầu vào."""
+        _, features, scaler, danh_muc_chuan = tien_xu_ly_huan_luyen(
+            df, ngay_tham_chieu=self.ngay_tham_chieu
+        )
+        self.scaler_ = scaler
+        self.danh_muc_chuan_ = danh_muc_chuan
+        return features
+
+    def transform(self, df):
+        """Xử lý dữ liệu mới bằng danh mục và scaler đã học."""
+        if self.scaler_ is None:
+            raise RuntimeError("Hãy gọi fit_transform() trước transform().")
+
+        sach = lam_sach_khach_hang(df, ngay_tham_chieu=self.ngay_tham_chieu)
+        dac_trung = tao_dac_trung(sach)
+        bien_doi = bien_doi_dac_trung(dac_trung)
+        ma_hoa = ma_hoa_danh_muc(bien_doi, self.danh_muc_chuan_)
+        return chuan_hoa_dac_trung(ma_hoa, self.scaler_)
