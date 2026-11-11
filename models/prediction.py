@@ -27,7 +27,7 @@ from typing import Any
 
 import numpy as np
 import pandas as pd
-
+from sklearn.neighbors import NearestNeighbors
 
 def preprocess_new_customer(
     new_data: dict | pd.DataFrame,
@@ -94,32 +94,42 @@ def predict_customer_cluster(
     raise NotImplementedError("TODO (Duy Lĩnh): model.predict hoặc kNN; DBSCAN dùng kNN + eps")
 
 
-def transform_new_customer(
-    x_new: np.ndarray,
-    tsne_result: dict,
-    X_reference: np.ndarray,
-    method: str = "knn",
-    k: int = 5,
-) -> dict:
-    """Chiếu khách mới lên bản đồ t-SNE ĐÃ CÓ (chỉ để hiển thị).
+def transform_new_customer(x_new, tsne_result, X_reference, method="knn", k=5):
+    warnings=[]
 
-    Args:
-        x_new (np.ndarray): (1, m) ở cùng không gian với ma trận đã đưa vào run_tsne()
-            (thường là X_new_pca). Dùng đúng không gian ấy, không đổi.
-        tsne_result (dict): output của run_tsne() (cần "embedding", "tsne_model").
-        X_reference (np.ndarray): (n, m) ma trận đã đưa vào run_tsne().
-        method (str): "knn" | "opentsne". Mặc định "knn":
-            knn      = trung bình tọa độ t-SNE của k hàng xóm gần nhất trong X_reference.
-            opentsne = tsne_result["tsne_model"].transform(x_new); nếu tsne_model là None
-                       thì quay về "knn" và ghi warnings.
-        k (int): số hàng xóm cho kNN. Mặc định 5.
+    x_new = np.asarray(x_new)
+    if x_new.ndim == 1:
+        x_new = x_new.reshape(1, -1)
+    
+    method = str(method).lower()
+    if method not in ("knn", "opentsne"):
+        warnings.append(f"Phương thức '{method}' không hỗ trợ. Đã chuyển sang dùng kNN.")
+        method = "knn"
+    
+    if method == "opentsne" and (tsne_result.get("tsne_model") is None or not hasattr(tsne_result["tsne_model"], "transform")):
+        warnings.append("Mô hình t-SNE không hỗ trợ opentsne (thiếu tsne_model.transform). Chuyển sang dùng kNN.")
+        method = "knn"
 
-    Returns:
-        dict:
-            "coordinates": np.ndarray (1, n_components)
-            "n_components": int
-            "method_used": str               - "knn" | "opentsne"
-            "neighbor_indices": np.ndarray | None
-            "warnings": list[str]
-    """
-    raise NotImplementedError("TODO (Huỳnh Lân): kNN trên embedding hoặc openTSNE.transform")
+    if method == "knn":
+        k_valid = min(k, len(X_reference))
+        knn = NearestNeighbors(n_neighbors=k_valid)
+        knn.fit(X_reference)
+
+        distances, indices = knn.kneighbors(x_new)
+        neighbor_indices = indices[0]
+
+        neighbor_embeddings = tsne_result["embedding"][neighbor_indices]
+
+        coordinates = np.mean(neighbor_embeddings, axis=0).reshape(1, -1)
+
+    elif method == "opentsne":
+        coordinates = tsne_result["tsne_model"].transform(x_new)
+        neighbor_indices = None
+    
+    return {
+        "coordinates": coordinates,
+        "n_components": tsne_result["n_components"],
+        "method_used": method,
+        "neighbor_indices": neighbor_indices,
+        "warnings": warnings
+    }
