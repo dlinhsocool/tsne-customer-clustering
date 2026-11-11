@@ -53,7 +53,59 @@ def preprocess_new_customer(
                                                       (theo preprocess_config["feature_ranges"])
             "warnings": list[str]                   - tiếng Việt
     """
-    raise NotImplementedError("TODO (Ngọc Đức): áp dụng lại fill_values, log1p, scaler, PCA")
+    from .data_processing import scale_data
+
+    if isinstance(new_data, dict):
+        row = pd.DataFrame([new_data])
+    elif isinstance(new_data, pd.DataFrame):
+        row = new_data
+    else:
+        raise ValueError("Dữ liệu khách mới phải là dict hoặc DataFrame.")
+    if len(row) != 1:
+        raise ValueError("Hãy cung cấp đúng một dòng dữ liệu khách hàng mới.")
+    if scaler is None:
+        raise ValueError("Cần scaler đã fit để xử lý khách hàng mới.")
+
+    columns = preprocess_config["feature_columns"]
+    fill_values = preprocess_config["fill_values"]
+    raw = row.reindex(columns=columns).reset_index(drop=True)
+    warnings = []
+    for column in columns:
+        if pd.isna(raw.at[0, column]):
+            # Cấu hình cũ dùng 0 khi thiếu giá trị điền đã lưu.
+            value = float(fill_values.get(column, 0.0))
+            raw[column] = value
+            warnings.append(f"Thiếu {column}, đã điền giá trị {value:.3f}.")
+
+    try:
+        raw = raw.astype(float)
+    except (TypeError, ValueError) as exc:
+        raise ValueError("Đặc trưng của khách hàng mới phải là giá trị số.") from exc
+    if not np.isfinite(raw.to_numpy()).all():
+        raise ValueError("Đặc trưng của khách hàng mới phải là số hữu hạn.")
+
+    feature_ranges = preprocess_config["feature_ranges"]
+    out_of_range_features = [
+        column for column in columns
+        if not feature_ranges[column][0] <= raw.at[0, column] <= feature_ranges[column][1]
+    ]
+
+    features = raw.copy()
+    for column in preprocess_config["log_transform_columns"]:
+        features[column] = np.log1p(features[column].clip(lower=0))
+    X_scaled = scale_data(features, scaler=scaler)["X_scaled"]
+    try:
+        X_pca = pca_model.transform(X_scaled) if pca_model is not None else None
+    except (AttributeError, TypeError, ValueError) as exc:
+        raise ValueError("Không thể chiếu khách hàng mới. Hãy kiểm tra PCA đã fit.") from exc
+
+    return {
+        "X_new_raw": raw,
+        "X_new_scaled": X_scaled,
+        "X_new_pca": X_pca,
+        "out_of_range_features": out_of_range_features,
+        "warnings": warnings,
+    }
 
 
 def predict_customer_cluster(
