@@ -25,6 +25,7 @@ from __future__ import annotations
 
 from typing import Any
 
+import torch
 import numpy as np
 import pandas as pd
 from sklearn.neighbors import NearestNeighbors
@@ -146,42 +147,121 @@ def predict_customer_cluster(
     raise NotImplementedError("TODO (Duy Lĩnh): model.predict hoặc kNN; DBSCAN dùng kNN + eps")
 
 
-def transform_new_customer(x_new, tsne_result, X_reference, method="knn", k=5):
-    warnings=[]
+def transform_new_customer(
+    x_new: np.ndarray,
+    tsne_result: dict[str, Any],
+    X_reference: np.ndarray,
+    method: str = "knn",
+    k: int = 5,
+) -> dict[str, Any]:
+    """
+    Ước lượng tọa độ của một khách hàng mới trên bản đồ nhúng t-SNE hiện có.
 
-    x_new = np.asarray(x_new)
-    if x_new.ndim == 1:
-        x_new = x_new.reshape(1, -1)
-    
-    method = str(method).lower()
-    if method not in ("knn", "opentsne"):
-        warnings.append(f"Phương thức '{method}' không hỗ trợ. Đã chuyển sang dùng kNN.")
-        method = "knn"
-    
-    if method == "opentsne" and (tsne_result.get("tsne_model") is None or not hasattr(tsne_result["tsne_model"], "transform")):
-        warnings.append("Mô hình t-SNE không hỗ trợ opentsne (thiếu tsne_model.transform). Chuyển sang dùng kNN.")
-        method = "knn"
+    Nguyên lý toán học:
+    Vì thuật toán t-SNE gốc là ánh xạ phi tham số (non-parametric) không học hàm chiếu tường minh,
+    khi có điểm dữ liệu mới x_new ở không gian đặc trưng gốc:
+    - Với `method="knn"`: Sử dụng PyTorch tính khoảng cách Euclid ||x_new - x_i||_2 tới toàn bộ
+      tập tham chiếu X_reference, chọn k láng giềng gần nhất và nội suy tọa độ nhúng bằng trung bình
+      tọa độ t-SNE của k điểm đó.
+    - Với `method="opentsne"`: Gọi phương thức `.transform()` của đối tượng openTSNE nếu mô hình
+      được huấn luyện với backend openTSNE.
 
-    if method == "knn":
-        k_valid = min(k, len(X_reference))
-        knn = NearestNeighbors(n_neighbors=k_valid)
-        knn.fit(X_reference)
+    Tham số:
+        x_new: Vector đặc trưng của khách hàng mới, shape (n_features,) hoặc (1, n_features).
+        tsne_result: Dictionary kết quả trả về từ hàm `run_tsne`.
+        X_reference: Ma trận đặc trưng gốc (X_scaled hoặc X_pca) tương ứng với `tsne_result["embedding"]`.
+        method: Phương pháp chiếu tọa độ ("knn" hoặc "opentsne"). Mặc định là "knn".
+        k: Số lượng hàng xóm gần nhất dùng để nội suy khi method="knn". Mặc định là 5.
 
-        distances, indices = knn.kneighbors(x_new)
-        neighbor_indices = indices[0]
+    Trả về:
+        Dictionary gồm 5 keys:
+        - "coordinates": Mảng tọa độ nhúng của khách hàng mới, shape (1, n_components).
+        - "n_components": Số chiều không gian nhúng (int).
+        - "method_used": Phương pháp đã sử dụng ("knn" hoặc "opentsne").
+        - "neighbor_indices": Mảng chỉ số của k hàng xóm gần nhất (shape (k,)) hoặc None.
+        - "warnings": Danh sách các cảnh báo trong quá trình ước lượng (list[str]).
+    """
+    warnings_list: list[str] = []
 
-        neighbor_embeddings = tsne_result["embedding"][neighbor_indices]
+    # 1. Kiểm tra tính hợp lệ của dữ liệu đầu vào x_new và X_reference
+    x_arr = np.asarray(x_new, dtype=np.float64)
+    if x_arr.ndim == 1:
+        x_arr = x_arr.reshape(1, -1)
+    elif x_arr.ndim == 2:
+        if x_arr.shape[0] != 1:
+            raise ValueError(
+                f"x_new chỉ hỗ trợ 1 khách hàng mỗi lần gọi (shape (1, n_features)), nhận được {x_arr.shape}."
+            )
+    else:
+        raise ValueError(f"x_new phải là mảng 1D hoặc 2D, nhận được {x_arr.ndim}D.")
 
-        coordinates = np.mean(neighbor_embeddings, axis=0).reshape(1, -1)
+    if np.isnan(x_arr).any() or np.isinf(x_arr).any():
+        raise ValueError("x_new chứa giá trị NaN hoặc Inf.")
 
-    elif method == "opentsne":
-        coordinates = tsne_result["tsne_model"].transform(x_new)
+    X_ref_arr = np.asarray(X_reference, dtype=np.float64)
+    if X_ref_arr.ndim != 2:
+        raise ValueError(f"X_reference phải là mảng 2D, nhận được {X_ref_arr.ndim}D.")
+    if X_ref_arr.shape[1] != x_arr.shape[1]:
+        raise ValueError(
+            f"Số chiều đặc trưng không khớp: x_new có {x_arr.shape[1]} đặc trưng, "
+            f"trong khi X_reference có {X_ref_arr.shape[1]} đặc trưng."
+        )
+
+    if not isinstance(tsne_result, dict) or "embedding" not in tsne_result:
+        raise ValueError("tsne_result phải là dictionary hợp lệ trả về từ hàm run_tsne.")
+
+    embedding_ref = np.asarray(tsne_result["embedding"], dtype=np.float64)
+    if embedding_ref.shape[0] != X_ref_arr.shape[0]:
+        raise ValueError(
+            f"Số lượng mẫu không khớp giữa X_reference ({X_ref_arr.shape[0]}) "
+            f"và tsne_result['embedding'] ({embedding_ref.shape[0]})."
+        )
+
+    # 2. Kiểm tra tham số method và k
+    method_clean = method.strip().lower()
+    if method_clean not in {"knn", "opentsne"}:
+        raise ValueError(f"Phương pháp '{method}' không được hỗ trợ. Chỉ chấp nhận 'knn' hoặc 'opentsne'.")
+
+    if k <= 0:
+        raise ValueError("Số lượng hàng xóm k phải lớn hơn 0.")
+
+    # 3. Thực thi chiếu tọa độ khách hàng mới
+    if method_clean == "knn":
+        n_ref = X_ref_arr.shape[0]
+        if k > n_ref:
+            warnings_list.append(
+                f"Giá trị k={k} lớn hơn tổng số mẫu tham chiếu ({n_ref}). Tự động điều chỉnh k={n_ref}."
+            )
+        k_valid = min(int(k), n_ref)
+
+        # Chuyển sang PyTorch Tensor để tính khoảng cách Euclid song song
+        X_ref_tensor = torch.tensor(X_ref_arr, dtype=torch.float64)
+        x_new_tensor = torch.tensor(x_arr, dtype=torch.float64)
+        emb_tensor = torch.tensor(embedding_ref, dtype=torch.float64)
+
+        # Tính khoảng cách Euclid ||x_new - x_i||_2 và trích xuất k hàng xóm gần nhất
+        distances = torch.cdist(x_new_tensor, X_ref_tensor, p=2).squeeze(0)
+        neighbor_indices_tensor = torch.topk(distances, k=k_valid, largest=False).indices
+        neighbor_indices = neighbor_indices_tensor.cpu().numpy()
+
+        # Nội suy tọa độ nhúng bằng trung bình cộng tọa độ t-SNE của k hàng xóm gần nhất
+        neighbor_embeddings = emb_tensor[neighbor_indices_tensor]
+        coordinates = torch.mean(neighbor_embeddings, dim=0).cpu().numpy().reshape(1, -1)
+
+    else:  # method_clean == "opentsne"
+        tsne_model = tsne_result.get("tsne_model")
+        if tsne_model is None or not hasattr(tsne_model, "transform"):
+            raise ValueError(
+                "Không thể dùng method='opentsne' vì tsne_result không chứa đối tượng openTSNE hợp lệ. "
+                "Hãy chạy run_tsne(..., use_opentsne=True) hoặc chuyển sang method='knn'."
+            )
+        coordinates = np.asarray(tsne_model.transform(x_arr), dtype=np.float64).reshape(1, -1)
         neighbor_indices = None
-    
+
     return {
         "coordinates": coordinates,
-        "n_components": tsne_result["n_components"],
-        "method_used": method,
+        "n_components": int(coordinates.shape[1]),
+        "method_used": method_clean,
         "neighbor_indices": neighbor_indices,
-        "warnings": warnings
+        "warnings": warnings_list,
     }
