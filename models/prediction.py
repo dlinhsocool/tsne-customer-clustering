@@ -69,8 +69,10 @@ def preprocess_new_customer(
 
     columns = preprocess_config["feature_columns"]
     fill_values = preprocess_config["fill_values"]
+    # Xếp cột theo thứ tự lúc huấn luyện. Cột còn thiếu được tạo với giá trị NaN.
     raw = row.reindex(columns=columns).reset_index(drop=True)
     warnings = []
+    # Điền giá trị thiếu bằng các giá trị đã lưu từ bước tiền xử lý dữ liệu huấn luyện.
     for column in columns:
         if pd.isna(raw.at[0, column]):
             # Cấu hình cũ dùng 0 khi thiếu giá trị điền đã lưu.
@@ -84,8 +86,9 @@ def preprocess_new_customer(
         raise ValueError("Đặc trưng của khách hàng mới phải là giá trị số.") from exc
     if not np.isfinite(raw.to_numpy()).all():
         raise ValueError("Đặc trưng của khách hàng mới phải là số hữu hạn.")
-
+    # Kiểm tra min–max trên thang gốc để cảnh báo những giá trị nằm ngoài khoảng đã thấy.
     feature_ranges = preprocess_config["feature_ranges"]
+    	# Ghi nhận các cột vượt khoảng đã thấy để app cảnh báo. Khách mới vẫn tiếp tục qua bước chuẩn hóa.
     out_of_range_features = [
         column for column in columns
         if not feature_ranges[column][0] <= raw.at[0, column] <= feature_ranges[column][1]
@@ -94,8 +97,10 @@ def preprocess_new_customer(
     features = raw.copy()
     for column in preprocess_config["log_transform_columns"]:
         features[column] = np.log1p(features[column].clip(lower=0))
+    # Dùng lại scaler đã fit để khách mới được chuẩn hóa theo cùng thang với dữ liệu huấn luyện.
     X_scaled = scale_data(features, scaler=scaler)["X_scaled"]
     try:
+        	# Nếu có PCA, chiếu khách mới lên các thành phần chính đã học từ dữ liệu huấn luyện.
         X_pca = pca_model.transform(X_scaled) if pca_model is not None else None
     except (AttributeError, TypeError, ValueError) as exc:
         raise ValueError("Không thể chiếu khách hàng mới. Hãy kiểm tra PCA đã fit.") from exc

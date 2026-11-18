@@ -42,6 +42,7 @@ def load_dataset(file: Any, sep: str = ",", encoding: str = "utf-8") -> pd.DataF
         df = interface.load_dataset(uploaded_file, sep=",")
     """
     try:
+        # Đưa con trỏ về đầu nếu file tải lên đã được đọc trước đó.
         if hasattr(file, "seekable") and file.seekable():
             file.seek(0)
         df = pd.read_csv(file, sep=sep, encoding=encoding)
@@ -52,6 +53,7 @@ def load_dataset(file: Any, sep: str = ",", encoding: str = "utf-8") -> pd.DataF
 
     if df.empty:
         raise ValueError("File CSV không có dòng dữ liệu nào.")
+    # Sai dấu phân tách có thể khiến pandas đọc cả dòng thành một cột.
     if df.shape[1] < 2:
         raise ValueError("File chỉ có một cột. Hãy kiểm tra ký tự phân tách.")
     return df
@@ -81,6 +83,7 @@ def validate_dataset(df: pd.DataFrame, feature_columns: list[str] | None = None)
     Ví dụ output:
         {"is_valid": True, "n_rows": 600, "n_cols": 8, ..., "errors": [], "warnings": ["Cột income có 12 giá trị thiếu"]}
     """
+    #Pipeline dùng đặc trưng số. Các cột khác vẫn có trong báo cáo kiểm tra.
     numeric_columns = df.select_dtypes(include="number").columns.tolist()
     categorical_columns = [column for column in df.columns if column not in numeric_columns]
     missing_per_column = {column: int(count) for column, count in df.isna().sum().items()}
@@ -96,6 +99,7 @@ def validate_dataset(df: pd.DataFrame, feature_columns: list[str] | None = None)
         errors.append(f"Thiếu cột đặc trưng {', '.join(missing_columns)}.")
     if non_numeric:
         errors.append(f"Cột đặc trưng phải là kiểu số: {', '.join(non_numeric)}.")
+    # Chỉ đếm các cột số hợp lệ và khác nhau để kiểm tra số đặc trưng tối thiểu
     if len(set(selected_columns).intersection(numeric_columns)) < 2:
         errors.append("Cần ít nhất hai cột đặc trưng số để phân cụm.")
 
@@ -196,7 +200,7 @@ def preprocess_data(
     if drop_duplicates:
         work = work.drop_duplicates()
         steps_log.append(f"Bỏ {n_rows_before - len(work)} dòng trùng hoàn toàn.")
-
+    # Xử lý giá trị vô cực theo cùng chính sách với giá trị thiếu ở các cột đặc trưng
     work[columns] = work[columns].replace([np.inf, -np.inf], np.nan)
     if missing_strategy == "drop":
         n_before_drop = len(work)
@@ -204,7 +208,7 @@ def preprocess_data(
         steps_log.append(f"Bỏ {n_before_drop - len(work)} dòng thiếu đặc trưng.")
     if work.empty:
         raise ValueError("Không còn dòng dữ liệu để tiền xử lý.")
-
+    # Lưu giá trị điền thiếu để dùng lại khi xử lý khách hàng mới.
     fill_values = {}
     for column in columns:
         observed = work[column].dropna()
@@ -225,12 +229,14 @@ def preprocess_data(
 
     if outlier_method is not None:
         features = work[columns]
+        # Loại cả dòng nếu ít nhất một đặc trưng vượt ngưỡng IQR hoặc có Z-score tuyệt đối lớn hơn 3
         if outlier_method == "iqr":
             q1 = features.quantile(0.25)
             q3 = features.quantile(0.75)
             iqr = q3 - q1
             is_outlier = (features.lt(q1 - 1.5 * iqr) | features.gt(q3 + 1.5 * iqr)).any(axis=1)
         else:
+            # Cột hằng có độ lệch chuẩn bằng 0. Dùng mẫu số 1 để Z-score của cột là 0.
             std = features.std(ddof=0).replace(0, 1)
             zscore = (features - features.mean()) / std
             is_outlier = zscore.abs().gt(3).any(axis=1)
@@ -240,12 +246,14 @@ def preprocess_data(
         raise ValueError("Không còn dòng dữ liệu sau khi loại ngoại lai.")
 
     if sample_size is not None and len(work) > sample_size:
+        # Dùng seed để lần chạy lại chọn cùng các dòng. Sắp theo index để giữ thứ tự ban đầu của các dòng được chọn.
         work = work.sample(n=sample_size, random_state=random_state).sort_index()
         steps_log.append(f"Lấy mẫu {sample_size} dòng với random_state={random_state}.")
-
+    # Tạo cả hai bảng sau khi lọc và lấy mẫu để dòng i vẫn là cùng một hồ sơ.
     df_clean = work.reset_index(drop=True)
     X = df_clean[columns].astype(float)
     log_columns = [column for column in (log_transform_columns or []) if column in columns]
+    # Giữ thang đo gốc trong df_clean để hiển thị. Chỉ áp dụng log1p trên X sau khi chặn dưới tại 0.
     for column in log_columns:
         X[column] = np.log1p(X[column].clip(lower=0))
     if log_columns:
@@ -261,6 +269,7 @@ def preprocess_data(
             "fill_values": fill_values,
             "log_transform_columns": log_columns,
             "outlier_method": outlier_method,
+            # Lưu khoảng min–max trên thang gốc để cảnh báo giá trị của khách mới.
             "feature_ranges": {
                 column: (float(df_clean[column].min()), float(df_clean[column].max()))
                 for column in columns
@@ -306,9 +315,11 @@ def scale_data(X: pd.DataFrame | np.ndarray, scaler: Any | None = None) -> dict:
 
     try:
         if scaler is None:
+            # Học trung bình và thang chuẩn hóa từng cột từ dữ liệu huấn luyện
             scaler = StandardScaler()
             X_scaled = scaler.fit_transform(values)
         else:
+            # Dùng lại thống kê đã học và giữ tên cột nếu scaler đã fit với tên cột.
             scaler_input = X if columns is not None and hasattr(scaler, "feature_names_in_") else values
             X_scaled = scaler.transform(scaler_input)
     except (AttributeError, TypeError, ValueError) as exc:
