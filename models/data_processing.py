@@ -57,7 +57,6 @@ def load_dataset(file: Any, sep: str = ",", encoding: str = "utf-8") -> pd.DataF
     return df
 
 
-
 def validate_dataset(df: pd.DataFrame, feature_columns: list[str] | None = None) -> dict:
     """Kiểm tra chất lượng dữ liệu, KHÔNG sửa dữ liệu.
 
@@ -125,7 +124,6 @@ def validate_dataset(df: pd.DataFrame, feature_columns: list[str] | None = None)
         "errors": errors,
         "warnings": warnings,
     }
-
 
 
 def preprocess_data(
@@ -273,6 +271,7 @@ def preprocess_data(
         "n_removed": n_rows_before - len(df_clean),
         "steps_log": steps_log,
     }
+
 
 def scale_data(X: pd.DataFrame | np.ndarray, scaler: Any | None = None) -> dict:
     """Chuẩn hóa bằng StandardScaler.
