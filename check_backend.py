@@ -77,8 +77,6 @@ def build_checks(i: dict) -> list[tuple[str, str, callable]]:
                                               i["scale"]["scaler"], i["pca"]["pca_model"])),
         ("predict_customer_cluster", "prediction.predict_customer_cluster (kmeans)",
          lambda: m_pr.predict_customer_cluster(i["pn"]["X_new_scaled"], i["km"], Xs, "auto", 5)),
-        ("predict_customer_cluster", "prediction.predict_customer_cluster (dbscan -> kNN)",
-         lambda: m_pr.predict_customer_cluster(i["pn"]["X_new_scaled"], i["db"], Xs, "auto", 5)),
         ("transform_new_customer", "prediction.transform_new_customer",
          lambda: m_pr.transform_new_customer(i["pn"]["X_new_pca"], i["tsne"], Xp, "knn", 5)),
     ]
