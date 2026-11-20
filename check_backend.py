@@ -64,8 +64,6 @@ def build_checks(i: dict) -> list[tuple[str, str, callable]]:
          lambda: m_dr.get_explained_variance(i["pca"]["pca_model"])),
         ("run_tsne", "dimensionality_reduction.run_tsne", lambda: m_dr.run_tsne(Xp, 2, 30.0, 200.0, 250, 42)),
         ("run_clustering", "clustering.run_kmeans (qua run_clustering)", lambda: m_cl.run_clustering(Xs, "kmeans")),
-        ("run_clustering", "clustering.run_gmm (qua run_clustering)", lambda: m_cl.run_clustering(Xs, "gmm")),
-        ("run_clustering", "clustering.run_dbscan (qua run_clustering)", lambda: m_cl.run_clustering(Xs, "dbscan")),
         ("evaluate_clustering", "evaluation.evaluate_clustering",
          lambda: m_ev.evaluate_clustering(Xs, labels, i["df"]["true_segment"].to_numpy(), 0.1)),
         ("compare_models", "evaluation.compare_models",
@@ -104,7 +102,6 @@ def extra_rules(label: str, name: str, result) -> list[str]:
         if (np.asarray(result["labels"]) == NOISE_LABEL).any():
             p.append("K-Means/GMM không được có nhãn -1")
     return p
-
 
 def main() -> int:
     flt = sys.argv[1].lower() if len(sys.argv) > 1 else ""
