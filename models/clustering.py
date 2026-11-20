@@ -3,13 +3,13 @@ models/clustering.py
 ====================
 Người phụ trách: Duy Lĩnh (mô hình hóa & thực nghiệm)
 
-NHIỆM VỤ FILE: chạy K-Means, GMM, DBSCAN và trả về MỘT định dạng kết quả chung.
+NHIỆM VỤ FILE: chạy K-Means và trả về MỘT định dạng kết quả chung.
 
 QUY TẮC QUAN TRỌNG:
   * Phân cụm chạy trên X_scaled hoặc X_pca (đa chiều). KHÔNG chạy trên tọa độ t-SNE.
-  * Nhãn noise của DBSCAN = -1 (utils.constants.NOISE_LABEL). K-Means/GMM không có noise.
+  * K-Means không có noise.
   * labels là np.ndarray int (n,), CÙNG THỨ TỰ DÒNG với X. Nhãn cụm thường là 0..k-1.
-  * KHÔNG giả định mô hình nào cũng có predict(): DBSCAN không có (supports_predict=False).
+  * KHÔNG giả định mô hình nào cũng có predict().
   * Cách lưu model: để nguyên đối tượng trong result["model"] (không pickle ở đây).
   * Cả 3 hàm run_* PHẢI trả kết quả qua make_clustering_result() bên dưới để đúng key.
 
@@ -20,7 +20,8 @@ from __future__ import annotations
 from typing import Any
 
 import numpy as np
-
+import time
+from sklearn.cluster import KMeans
 from utils.constants import DEFAULT_PARAMS, NOISE_LABEL, RANDOM_STATE, SUPPORTS_PREDICT
 
 
@@ -104,13 +105,7 @@ def run_clustering(
     if algorithm not in DEFAULT_PARAMS:
         raise ValueError(f"algorithm phải thuộc {list(DEFAULT_PARAMS)}, nhận '{algorithm}'")
     merged = {**DEFAULT_PARAMS[algorithm], **(params or {})}
-    if algorithm == "kmeans":
-        result = run_kmeans(X, random_state=random_state, **merged)
-    elif algorithm == "gmm":
-        result = run_gmm(X, random_state=random_state, **merged)
-    else:
-        result = run_dbscan(X, **merged)
-    result["feature_space"] = feature_space
+    result = run_kmeans(X, random_state=random_state, **merged)
     return result
 
 
@@ -142,51 +137,28 @@ def run_kmeans(
         t0 = time.perf_counter(); model = KMeans(...).fit(X); labels = model.labels_
         return make_clustering_result("kmeans", model, labels, {...}, time.perf_counter() - t0, ...)
     """
-    raise NotImplementedError("TODO (Duy Lĩnh): sklearn.cluster.KMeans")
+    t0 = time.perf_counter()
+    model = KMeans(
+        n_clusters=n_clusters,
+        n_init=n_init,
+        max_iter=max_iter,
+        random_state=random_state,
+    ).fit(X)
+    runtime = time.perf_counter() - t0
 
-
-def run_gmm(
-    X: np.ndarray,
-    n_components: int = 5,
-    covariance_type: str = "full",
-    max_iter: int = 100,
-    random_state: int = 42,
-) -> dict:
-    """Gaussian Mixture Model (EM).
-
-    Args:
-        X (np.ndarray): (n, d).
-        n_components (int): số cụm. Mặc định 5.
-        covariance_type (str): "full" | "tied" | "diag" | "spherical". Mặc định "full".
-        max_iter (int): mặc định 100.
-        random_state (int): mặc định 42.
-
-    Returns:
-        dict ClusteringResult qua make_clustering_result(...):
-            algorithm="gmm", labels=model.predict(X), cluster_centers=model.means_,
-            probabilities=model.predict_proba(X) (n, k),
-            extra={"bic": model.bic(X), "aic": model.aic(X)}.
-    """
-    raise NotImplementedError("TODO (Duy Lĩnh): sklearn.mixture.GaussianMixture")
-
-
-def run_dbscan(
-    X: np.ndarray,
-    eps: float = 0.5,
-    min_samples: int = 5,
-) -> dict:
-    """DBSCAN. Không có predict() và không có random_state.
-
-    Args:
-        X (np.ndarray): (n, d).
-        eps (float): bán kính lân cận. Mặc định 0.5.
-        min_samples (int): số điểm tối thiểu để thành lõi. Mặc định 5.
-
-    Returns:
-        dict ClusteringResult qua make_clustering_result(...):
-            algorithm="dbscan", noise có nhãn -1, cluster_centers=None, probabilities=None,
-            extra={"core_sample_indices": model.core_sample_indices_}.
-        Trường hợp toàn bộ là noise hoặc chỉ 1 cụm: vẫn trả kết quả bình thường
-        (n_clusters = 0 hoặc 1); module evaluation sẽ tự trả None cho chỉ số không tính được.
-    """
-    raise NotImplementedError("TODO (Duy Lĩnh): sklearn.cluster.DBSCAN")
+    params = {
+        "n_clusters": n_clusters,
+        "n_init": n_init,
+        "max_iter": max_iter,
+        "random_state": random_state,
+    }
+    return make_clustering_result(
+        "kmeans",
+        model,
+        model.labels_,
+        params,
+        runtime,
+        cluster_centers=model.cluster_centers_,  # (k, d)
+        probabilities=None,  # K-Means không có xác suất
+        extra={"inertia": model.inertia_},
+    )
