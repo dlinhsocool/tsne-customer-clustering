@@ -19,7 +19,7 @@ import numpy as np
 import pandas as pd
 
 from utils.constants import NOISE_LABEL
-
+from sklearn.metrics import adjusted_rand_score, davies_bouldin_score, silhouette_score
 
 # ---------------------------------------------------------------------------
 # ĐÃ VIẾT SẴN - DÙNG, KHÔNG SỬA
@@ -68,7 +68,26 @@ def calculate_silhouette_score(
     Returns:
         float trong [-1, 1], hoặc None nếu is_computable(labels) báo không tính được.
     """
-    raise NotImplementedError("TODO (Duy Lĩnh): sklearn.metrics.silhouette_score trên dòng không noise")
+
+    def calculate_silhouette_score(
+            X: np.ndarray,
+            labels: np.ndarray,
+            sample_size: int | None = 10000,
+            random_state: int = 42,
+    ) -> float | None:
+        ok, _ = is_computable(labels)
+        if not ok:
+            return None
+        X, labels = np.asarray(X), np.asarray(labels)
+        mask = get_valid_mask(labels)
+        Xv, lv = X[mask], labels[mask]
+        try:
+            if sample_size is not None and len(lv) > sample_size:
+                return float(silhouette_score(Xv, lv, sample_size=sample_size,
+                                              random_state=random_state))
+            return float(silhouette_score(Xv, lv))
+        except ValueError:  # mẫu con chỉ rơi vào 1 cụm
+            return None
 
 
 def calculate_davies_bouldin_score(X: np.ndarray, labels: np.ndarray) -> float | None:
@@ -77,7 +96,12 @@ def calculate_davies_bouldin_score(X: np.ndarray, labels: np.ndarray) -> float |
     Returns:
         float >= 0, hoặc None nếu không tính được.
     """
-    raise NotImplementedError("TODO (Duy Lĩnh): sklearn.metrics.davies_bouldin_score trên dòng không noise")
+    ok, _ = is_computable(labels)
+    if not ok:
+        return None
+    X, labels = np.asarray(X), np.asarray(labels)
+    mask = get_valid_mask(labels)
+    return float(davies_bouldin_score(X[mask], labels[mask]))
 
 
 def calculate_ari(labels_true: np.ndarray | None, labels_pred: np.ndarray) -> float | None:
@@ -90,7 +114,11 @@ def calculate_ari(labels_true: np.ndarray | None, labels_pred: np.ndarray) -> fl
     Returns:
         float (1 = khớp hoàn toàn, ~0 = ngẫu nhiên), hoặc None nếu labels_true là None.
     """
-    raise NotImplementedError("TODO (Duy Lĩnh): sklearn.metrics.adjusted_rand_score")
+
+    def calculate_ari(labels_true, labels_pred):
+        if labels_true is None:
+            return None
+        return float(adjusted_rand_score(np.asarray(labels_true), np.asarray(labels_pred)))
 
 
 def evaluate_clustering(
@@ -115,7 +143,22 @@ def evaluate_clustering(
     Ví dụ gọi:
         m = interface.evaluate_clustering(X_scaled, res["labels"], labels_true=None, runtime_seconds=res["runtime_seconds"])
     """
-    raise NotImplementedError("TODO (Duy Lĩnh): gọi 3 hàm calculate_* và đóng gói")
+    labels = np.asarray(labels).astype(int)
+    n = len(labels)
+    mask = get_valid_mask(labels)
+    n_noise = int((~mask).sum())
+    n_clusters = int(len(np.unique(labels[mask])))
+    _, note = is_computable(labels)
+    return {
+        "silhouette_score": calculate_silhouette_score(X, labels),
+        "davies_bouldin_score": calculate_davies_bouldin_score(X, labels),
+        "ari_score": calculate_ari(labels_true, labels),
+        "n_clusters": n_clusters,
+        "n_noise": n_noise,
+        "noise_ratio": float(n_noise / n) if n > 0 else 0.0,
+        "runtime_seconds": runtime_seconds,
+        "note": note,
+    }
 
 
 def compare_models(
@@ -139,4 +182,16 @@ def compare_models(
             "silhouette_score", "davies_bouldin_score", "ari_score", "runtime_seconds"
         Giá trị không tính được là None/NaN (không xóa cột, không xóa dòng).
     """
-    raise NotImplementedError("TODO (Duy Lĩnh): lặp results, gọi evaluate_clustering, ghép DataFrame")
+    columns = ["algorithm", "n_clusters", "n_noise", "silhouette_score",
+               "davies_bouldin_score", "ari_score", "runtime_seconds"]
+    rows = []
+    for algo, res in results.items():
+        if res.get("feature_space") == "pca":
+            if X_pca is None:
+                raise ValueError(f"'{algo}' chạy trên PCA nhưng X_pca = None")
+            X = X_pca
+        else:
+            X = X_scaled
+        m = evaluate_clustering(X, res["labels"], labels_true, res.get("runtime_seconds"))
+        rows.append({"algorithm": algo, **{c: m[c] for c in columns[1:]}})
+    return pd.DataFrame(rows, columns=columns)  # results rỗng vẫn giữ đủ cột
