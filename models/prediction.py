@@ -149,7 +149,92 @@ def predict_customer_cluster(
     Ví dụ gọi:
         out = interface.predict_customer_cluster(prep_new["X_new_scaled"], res, X_scaled, method="auto", k=5)
     """
-    raise NotImplementedError("TODO (Duy Lĩnh): model.predict hoặc kNN; DBSCAN dùng kNN + eps")
+    outlier_std = 3.0  # ngoại lai: xa tâm cụm hơn (trung bình + 3 độ lệch chuẩn) của chính cụm đó
+
+    # 1. Kiểm tra đầu vào
+    x = np.asarray(x_new, dtype=np.float64)
+    if x.ndim != 2 or x.shape[0] != 1:
+        raise ValueError(f"x_new phải có shape (1, m), nhận {x.shape}.")
+    if not np.isfinite(x).all():
+        raise ValueError("x_new chứa NaN hoặc Inf.")
+    X_ref = np.asarray(X_reference, dtype=np.float64)
+    if X_ref.ndim != 2 or X_ref.shape[1] != x.shape[1]:
+        raise ValueError(f"X_reference phải có shape (n, {x.shape[1]}), nhận {X_ref.shape}.")
+    if clustering_result.get("algorithm") != "kmeans":
+        raise ValueError(f"Chỉ hỗ trợ kmeans, nhận '{clustering_result.get('algorithm')}'.")
+    labels = np.asarray(clustering_result["labels"]).astype(int)
+    if len(labels) != X_ref.shape[0]:
+        raise ValueError(f"labels có {len(labels)} dòng nhưng X_reference có {X_ref.shape[0]} dòng.")
+    if method not in {"auto", "model_predict", "knn"}:
+        raise ValueError("method phải là 'auto', 'model_predict' hoặc 'knn'.")
+    if k <= 0:
+        raise ValueError("k phải lớn hơn 0.")
+
+    model = clustering_result.get("model")
+    warnings: list[str] = []
+    if method == "knn":
+        warnings.append("Chỉ hỗ trợ K-Means nên đã dùng model.predict thay cho kNN.")
+
+    # 2. Tâm cụm: ưu tiên result["cluster_centers"], rồi model.cluster_centers_
+    centers = clustering_result.get("cluster_centers")
+    if centers is None:
+        centers = getattr(model, "cluster_centers_", None)
+    if centers is not None:
+        centers = np.asarray(centers, dtype=np.float64)
+        if centers.ndim != 2 or centers.shape[1] != x.shape[1]:
+            raise ValueError("Số chiều của x_new không khớp tâm cụm, có thể sai không gian (scaled/pca).")
+
+    # 3. Gán cụm: tâm gần nhất
+    if hasattr(model, "predict"):
+        cluster = int(np.asarray(model.predict(x)).ravel()[0])
+    elif centers is not None:
+        cluster = int(np.argmin(np.linalg.norm(centers - x, axis=1)))
+    else:
+        raise ValueError("Thiếu cả model.predict lẫn cluster_centers để gán cụm.")
+
+    # 4. k hàng xóm gần nhất (chỉ để hiển thị, không dùng để quyết định cụm)
+    n = X_ref.shape[0]
+    k_valid = min(int(k), n)
+    if k_valid < k:
+        warnings.append(f"k={k} lớn hơn số mẫu tham chiếu ({n}), đã dùng k={n}.")
+    dist, idx = NearestNeighbors(n_neighbors=k_valid, algorithm="brute").fit(X_ref).kneighbors(x)
+    neighbor_distances, neighbor_indices = dist[0], idx[0]
+
+    # 5. Ngoại lai: so khoảng cách tới tâm với các khách đã có trong cụm
+    members = X_ref[labels == cluster]
+    if centers is not None and 0 <= cluster < len(centers):
+        center = centers[cluster]
+    elif len(members) > 0:
+        center = members.mean(axis=0)
+    else:
+        center = None
+    is_outlier = False
+    if center is None or len(members) < 2:
+        warnings.append(f"Cụm {cluster} có dưới 2 khách nên không xác định được ngưỡng ngoại lai.")
+    else:
+        d_new = float(np.linalg.norm(x[0] - center))
+        d_members = np.linalg.norm(members - center, axis=1)
+        threshold = float(d_members.mean() + outlier_std * d_members.std())
+        is_outlier = bool(d_new > threshold)
+        if is_outlier:
+            warnings.append(
+                f"Khách mới cách tâm cụm {cluster} là {d_new:.3f}, vượt ngưỡng {threshold:.3f} "
+                f"(trung bình + {outlier_std:g} độ lệch chuẩn khoảng cách của các khách trong cụm), "
+                "có thể là ngoại lai."
+            )
+
+    return {
+        "cluster": cluster,
+        "is_noise": False,  # K-Means không có noise
+        "method_used": "model_predict",
+        "confidence": None,
+        "probabilities": None,
+        "neighbor_indices": neighbor_indices,
+        "neighbor_distances": neighbor_distances,
+        "mean_neighbor_distance": float(neighbor_distances.mean()),
+        "is_outlier": is_outlier,
+        "warnings": warnings,
+    }
 
 
 def transform_new_customer(
