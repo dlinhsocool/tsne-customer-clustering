@@ -106,6 +106,7 @@ def run_clustering(
         raise ValueError(f"algorithm phải thuộc {list(DEFAULT_PARAMS)}, nhận '{algorithm}'")
     merged = {**DEFAULT_PARAMS[algorithm], **(params or {})}
     result = run_kmeans(X, random_state=random_state, **merged)
+    result["feature_space"] = feature_space
     return result
 
 

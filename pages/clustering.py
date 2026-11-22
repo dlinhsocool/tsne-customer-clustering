@@ -1,4 +1,4 @@
-"""pages/clustering.py - Trang 4: chạy K-Means / GMM / DBSCAN."""
+"""pages/clustering.py - Trang 4: chạy K-Means / GMM ."""
 from __future__ import annotations
 
 import numpy as np
@@ -11,8 +11,6 @@ from utils.constants import ALGORITHMS, DEFAULT_PARAMS, FEATURE_SPACES, NOISE_LA
 _ALGO_NOTES = {
     "kmeans": "Chia thành K cụm hình cầu bằng cách cực tiểu tổng bình phương khoảng cách tới tâm. Phải chọn trước K.",
     "gmm": "Mỗi cụm là một phân phối Gauss; cho phép cụm hình elip và trả về xác suất thuộc cụm.",
-    "dbscan": "Cụm là vùng mật độ cao liên thông; không cần chọn K; điểm lẻ loi có nhãn Noise (-1). "
-              "Không có predict() nên khách mới được gán bằng kNN.",
 }
 
 

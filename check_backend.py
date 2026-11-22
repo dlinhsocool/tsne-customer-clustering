@@ -41,12 +41,11 @@ def build_inputs() -> dict:
     tsne = mock.run_tsne(pca["X_pca"], 2)
     km = mock.run_clustering(scale["X_scaled"], "kmeans")
     gmm = mock.run_clustering(scale["X_scaled"], "gmm")
-    db = mock.run_clustering(scale["X_scaled"], "dbscan")
     prof = mock.calculate_cluster_profiles(prep["df_clean"], km["labels"], feats)
     new = {f: float(prep["df_clean"][f].median()) for f in feats}
     pn = mock.preprocess_new_customer(new, prep["preprocess_config"], scale["scaler"], pca["pca_model"])
     return dict(df=df, feats=feats, prep=prep, scale=scale, pca=pca, tsne=tsne, km=km, gmm=gmm,
-                db=db, prof=prof, new=new, pn=pn)
+             prof=prof, new=new, pn=pn)
 
 
 def build_checks(i: dict) -> list[tuple[str, str, callable]]:
@@ -67,7 +66,7 @@ def build_checks(i: dict) -> list[tuple[str, str, callable]]:
         ("evaluate_clustering", "evaluation.evaluate_clustering",
          lambda: m_ev.evaluate_clustering(Xs, labels, i["df"]["true_segment"].to_numpy(), 0.1)),
         ("compare_models", "evaluation.compare_models",
-         lambda: m_ev.compare_models({"kmeans": i["km"], "gmm": i["gmm"], "dbscan": i["db"]}, Xs, Xp)),
+         lambda: m_ev.compare_models({"kmeans": i["km"], "gmm": i["gmm"]}, Xs, Xp)),
         ("calculate_cluster_profiles", "customer_profiling.calculate_cluster_profiles",
          lambda: m_cp.calculate_cluster_profiles(i["prep"]["df_clean"], labels, i["feats"])),
         ("generate_cluster_description", "customer_profiling.generate_cluster_description",
@@ -93,9 +92,7 @@ def _write_and_load(df):
 def extra_rules(label: str, name: str, result) -> list[str]:
     """Các quy tắc nghiệp vụ ngoài kiểm key."""
     p: list[str] = []
-    if name == "run_clustering" and "dbscan" in label:
-        if result["supports_predict"]:
-            p.append("DBSCAN phải có supports_predict=False")
+
     if name == "run_clustering" and ("kmeans" in label or "gmm" in label):
         if (np.asarray(result["labels"]) == NOISE_LABEL).any():
             p.append("K-Means/GMM không được có nhãn -1")
