@@ -150,16 +150,10 @@ class CustomTSNE:
         return torch.clamp(D, min=0.0)
 
     def _compute_joint_probabilities(self, D: torch.Tensor) -> torch.Tensor:
-        """
-        Tính ma trận xác suất đồng thời P ở không gian dữ liệu gốc:
-        - Tìm beta_i = 1 / (2 * sigma_i^2) cho mỗi điểm i sao cho H(P_i) = log2(perplexity).
-        - Xác suất có điều kiện: p_{j|i} = exp(-||x_i - x_j||^2 * beta_i) / sum_{k != i} exp(-||x_i - x_k||^2 * beta_i).
-        - Xác suất đồng thời đối xứng: p_ij = (p_{j|i} + p_{i|j}) / (2 * N).
-        """
+        """Tính ma trận xác suất liên hợp P đối xứng từ ma trận khoảng cách D bằng Binary Search."""
         n = D.shape[0]
         P = torch.zeros((n, n), dtype=torch.float64, device=self.device)
-        target_H = float(np.log2(self.perplexity))
-        log2_e = float(np.log2(np.e))
+        target_entropy = np.log2(self.perplexity)
 
         for i in range(n):
             beta_min = -float("inf")
@@ -173,18 +167,22 @@ class CustomTSNE:
 
             # Binary search tối đa 50 vòng lặp để hội tụ beta_i theo sai số 1e-5
             for _ in range(50):
-                P_i = torch.exp(-D_i * beta_i)
-                sum_P = torch.sum(P_i) + 1e-12
+                P_i_unnorm = torch.exp(-D_i * beta_i)
+                sum_P = torch.sum(P_i_unnorm)
 
-                # Tính Shannon Entropy cơ số 2:
-                # H(P_i) = log2(sum_P) + (beta_i * sum(D_i * P_i) / sum_P) * log2(e)
-                H_i = torch.log2(sum_P) + (beta_i * torch.sum(D_i * P_i) / sum_P) * log2_e
-                diff = float(H_i.item()) - target_H
+                if sum_P < 1e-12:
+                    P_i = torch.full_like(D_i, 1.0 / (n - 1))
+                else:
+                    P_i = P_i_unnorm / sum_P
 
-                if abs(diff) < 1e-5:
+                # Tính Shannon Entropy cơ số 2
+                H = -torch.sum(P_i * torch.log2(torch.clamp(P_i, min=1e-12))).item()
+                H_diff = H - target_entropy
+
+                if abs(H_diff) < 1e-5:
                     break
 
-                if diff > 0:
+                if H_diff > 0:
                     # Entropy đang lớn hơn mục tiêu -> cần thu hẹp phương sai sigma_i (tăng beta_i)
                     beta_min = beta_i
                     beta_i = beta_i * 2.0 if beta_max == float("inf") else (beta_i + beta_max) / 2.0
@@ -193,7 +191,7 @@ class CustomTSNE:
                     beta_max = beta_i
                     beta_i = beta_i / 2.0 if beta_min == -float("inf") else (beta_i + beta_min) / 2.0
 
-            P[i, mask] = P_i / sum_P
+            P[i, mask] = P_i
 
         # Đối xứng hóa ma trận P và chặn dưới 1e-12 để đảm bảo ổn định số học khi tính log
         P = (P + P.T) / (2.0 * n)
