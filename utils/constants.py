@@ -19,13 +19,13 @@ NOISE_LABEL = -1           # nhãn noise của DBSCAN. Dùng đúng giá trị n
 
 # True : hàm backend chưa viết (NotImplementedError) -> giao diện tự dùng mock + hiện cảnh báo.
 # False: hàm chưa viết -> giao diện báo lỗi và dừng (dùng khi nộp bài, để không lẫn mock).
-USE_MOCK_WHEN_NOT_IMPLEMENTED = True
+USE_MOCK_WHEN_NOT_IMPLEMENTED = False
 
 # ---------------------------------------------------------------------------
 # 2. Thuật toán và tham số mặc định
 # ---------------------------------------------------------------------------
 # key (dùng trong code, snake_case) -> tên hiển thị
-ALGORITHMS = {"kmeans": "K-Means", "gmm": "GMM", "dbscan": "DBSCAN"}
+ALGORITHMS = {"kmeans": "K-Means", "gmm": "GMM", "dbscan": "DBSCAN"}; 
 
 # Thuật toán nào có predict() trực tiếp. DBSCAN KHÔNG có.
 SUPPORTS_PREDICT = {"kmeans": True, "gmm": True, "dbscan": False}
@@ -33,7 +33,7 @@ SUPPORTS_PREDICT = {"kmeans": True, "gmm": True, "dbscan": False}
 DEFAULT_PARAMS = {
     "kmeans": {"n_clusters": 5, "n_init": 10, "max_iter": 300},
     "gmm": {"n_components": 5, "covariance_type": "full", "max_iter": 100},
-    "dbscan": {"eps": 0.5, "min_samples": 5},
+    "dbscan": {"eps": 0.5, "min_samples": 5}
 }
 
 # Không gian dữ liệu mà thuật toán phân cụm chạy trên đó (KHÔNG phải tọa độ t-SNE).

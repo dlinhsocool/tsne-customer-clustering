@@ -12,7 +12,7 @@ _ALGO_NOTES = {
     "kmeans": "Chia thành K cụm hình cầu bằng cách cực tiểu tổng bình phương khoảng cách tới tâm. Phải chọn trước K.",
     "gmm": "Mỗi cụm là một phân phối Gauss; cho phép cụm hình elip và trả về xác suất thuộc cụm.",
     "dbscan": "Cụm là vùng mật độ cao liên thông; không cần chọn K; điểm lẻ loi có nhãn Noise (-1). "
-              "Không có predict() nên khách mới được gán bằng kNN.",
+              "Rất nhạy với eps: dữ liệu đã chuẩn hóa nhiều chiều thường cần eps khoảng 1 đến 2.",
 }
 
 
@@ -26,7 +26,8 @@ def _params_form(algo: str) -> dict:
     if algo == "gmm":
         a, b, c = st.columns(3)
         return {"n_components": a.slider("Số thành phần", 2, 10, d["n_components"]),
-                "covariance_type": b.selectbox("Covariance", ["full", "tied", "diag", "spherical"]),
+                "covariance_type": b.selectbox("Covariance", ["full", "tied", "diag", "spherical"],
+                                               index=["full", "tied", "diag", "spherical"].index(d["covariance_type"])),
                 "max_iter": c.number_input("max_iter", 20, 1000, d["max_iter"], step=20)}
     a, b = st.columns(2)
     return {"eps": a.slider("eps", 0.1, 5.0, float(d["eps"]), step=0.1),
@@ -80,18 +81,22 @@ def render() -> None:
     with left:
         st.markdown("**Số khách hàng từng cụm**")
         st.plotly_chart(viz.plot_cluster_sizes(res["cluster_sizes"]), width="stretch")
-        st.caption(f"Phân cụm chạy trên: {FEATURE_SPACES[res['feature_space']].lower()}.")
+        st.caption(f"Phân cụm chạy trên: {FEATURE_SPACES.get(res.get('feature_space'), 'không rõ').lower()}.")
     with right:
         hover = interface.hover_dataframe()
+        has_umap = interface.get(SK.UMAP_2D) is not None or interface.get(SK.UMAP_3D) is not None
+        method = "t-SNE"
+        if has_umap:
+            method = st.radio("Bản đồ dùng", ["t-SNE", "UMAP"], horizontal=True, key="cluster_map_method")
         tab2, tab3 = st.tabs(["Bản đồ 2D", "Bản đồ 3D"])
         for tab, dims in ((tab2, 2), (tab3, 3)):
             with tab:
-                coords, source = interface.get_view_coordinates(dims)
+                coords, source = interface.get_view_coordinates(dims, method)
                 if coords is None:
-                    st.info("Chưa có tọa độ. Chạy PCA hoặc t-SNE ở trang Preprocessing & Dimensionality Reduction.")
+                    st.info("Chưa có tọa độ. Chạy PCA, t-SNE hoặc UMAP ở trang Preprocessing & Dimensionality Reduction.")
                     continue
                 if source == "PCA":
-                    st.caption("Chưa chạy t-SNE nên đang vẽ trên 2-3 thành phần PCA đầu tiên.")
+                    st.caption("Chưa chạy t-SNE/UMAP nên đang vẽ trên 2-3 thành phần PCA đầu tiên.")
                 fn = viz.plot_scatter_2d if dims == 2 else viz.plot_scatter_3d
                 st.plotly_chart(fn(coords, labels=res["labels"], hover_df=hover, axis_prefix=source),
                                 width="stretch")

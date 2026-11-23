@@ -21,7 +21,8 @@ from typing import Any
 
 import numpy as np
 import time
-from sklearn.cluster import KMeans
+from sklearn.cluster import DBSCAN, KMeans
+from sklearn.mixture import GaussianMixture
 from utils.constants import DEFAULT_PARAMS, NOISE_LABEL, RANDOM_STATE, SUPPORTS_PREDICT
 
 
@@ -105,7 +106,13 @@ def run_clustering(
     if algorithm not in DEFAULT_PARAMS:
         raise ValueError(f"algorithm phải thuộc {list(DEFAULT_PARAMS)}, nhận '{algorithm}'")
     merged = {**DEFAULT_PARAMS[algorithm], **(params or {})}
-    result = run_kmeans(X, random_state=random_state, **merged)
+    if algorithm == "kmeans":
+        result = run_kmeans(X, random_state=random_state, **merged)
+    elif algorithm == "gmm":
+        result = run_gmm(X, random_state=random_state, **merged)
+    else:
+        result = run_dbscan(X, **merged)
+    result["feature_space"] = feature_space
     return result
 
 
@@ -161,4 +168,64 @@ def run_kmeans(
         cluster_centers=model.cluster_centers_,  # (k, d)
         probabilities=None,  # K-Means không có xác suất
         extra={"inertia": model.inertia_},
+    )
+
+
+def run_gmm(
+    X: np.ndarray,
+    n_components: int = 5,
+    covariance_type: str = "full",
+    max_iter: int = 100,
+    random_state: int = 42,
+) -> dict:
+    """Gaussian Mixture Model (xem make_clustering_result: cluster_centers=means_, có probabilities)."""
+    t0 = time.perf_counter()
+    model = GaussianMixture(
+        n_components=n_components,
+        covariance_type=covariance_type,
+        max_iter=max_iter,
+        random_state=random_state,
+    ).fit(X)
+    labels = model.predict(X)
+    probs = model.predict_proba(X)
+    runtime = time.perf_counter() - t0
+
+    params = {
+        "n_components": n_components,
+        "covariance_type": covariance_type,
+        "max_iter": max_iter,
+        "random_state": random_state,
+    }
+    return make_clustering_result(
+        "gmm",
+        model,
+        labels,
+        params,
+        runtime,
+        cluster_centers=model.means_,  # (k, d)
+        probabilities=probs,  # (n, k)
+        extra={"bic": float(model.bic(X)), "aic": float(model.aic(X))},
+    )
+
+
+def run_dbscan(
+    X: np.ndarray,
+    eps: float = 0.5,
+    min_samples: int = 5,
+) -> dict:
+    """DBSCAN. Nhãn noise = -1; không có predict (supports_predict=False)."""
+    t0 = time.perf_counter()
+    model = DBSCAN(eps=eps, min_samples=min_samples).fit(X)
+    runtime = time.perf_counter() - t0
+
+    params = {"eps": eps, "min_samples": min_samples}
+    return make_clustering_result(
+        "dbscan",
+        model,
+        model.labels_,  # noise = -1
+        params,
+        runtime,
+        cluster_centers=None,
+        probabilities=None,
+        extra={"core_sample_indices": model.core_sample_indices_},
     )

@@ -68,6 +68,11 @@ def _extra_checks(name: str, r: dict) -> list[str]:
             if E.ndim != 2 or E.shape[1] != r["n_components"]:
                 p.append("run_tsne: embedding phải có shape (n, n_components)")
 
+        elif name == "run_umap":
+            E = np.asarray(r["embedding"])
+            if E.ndim != 2 or E.shape[1] != r["n_components"]:
+                p.append("run_umap: embedding phải có shape (n, n_components)")
+
         elif name == "run_clustering":
             lab = np.asarray(r["labels"])
             if lab.ndim != 1:
@@ -79,6 +84,9 @@ def _extra_checks(name: str, r: dict) -> list[str]:
                 p.append("run_clustering: n_noise không khớp số nhãn -1 trong labels")
             if r["algorithm"] not in ("kmeans", "gmm", "dbscan"):
                 p.append("run_clustering: algorithm phải là 'kmeans' | 'gmm' | 'dbscan'")
+            if r["feature_space"] not in ("scaled", "pca"):
+                p.append("run_clustering: feature_space phải là 'scaled' hoặc 'pca' "
+                         "(run_clustering phải gán result['feature_space'] = feature_space)")
 
         elif name == "predict_customer_cluster":
             if r["method_used"] not in ("model_predict", "knn"):
