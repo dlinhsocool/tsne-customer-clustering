@@ -1,4 +1,3 @@
-```python
 """
 check_backend.py - TỰ KIỂM TRA HÀM (không cần mở giao diện)
 
@@ -430,4 +429,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
-```
