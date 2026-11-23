@@ -1,6 +1,6 @@
-
+```python
 """
-check_backend.py - TỰ KIỂM TRA HÀM CỦA BẠN (không cần mở giao diện)
+check_backend.py - TỰ KIỂM TRA HÀM (không cần mở giao diện)
 
 Chạy:
     python check_backend.py
@@ -318,8 +318,6 @@ def build_checks(i: dict) -> list[tuple[str, str, callable]]:
 
 
 def _write_and_load(df):
-    """Ghi DataFrame vào bộ nhớ rồi gọi hàm load_dataset."""
-
     import io
 
     buf = io.StringIO()
@@ -343,7 +341,7 @@ def extra_rules(label: str, name: str, result) -> list[str]:
 
         labels = np.asarray(result["labels"])
 
-        # K-Means và GMM không được có nhãn -1
+        # Quy tắc 1: K-Means và GMM không được có nhãn -1
         if "kmeans" in label or "gmm" in label:
 
             if (labels == NOISE_LABEL).any():
@@ -351,12 +349,13 @@ def extra_rules(label: str, name: str, result) -> list[str]:
                     "K-Means/GMM không được có nhãn -1"
                 )
 
-        # DBSCAN cho phép nhãn -1 để biểu thị điểm nhiễu
+        # Quy tắc 2: DBSCAN được phép có nhãn -1
+        # Nhãn -1 biểu thị các điểm nhiễu (noise).
         if "dbscan" in label:
 
             if not np.issubdtype(labels.dtype, np.integer):
                 p.append(
-                    "DBSCAN phải trả về nhãn dạng số nguyên"
+                    "Nhãn DBSCAN phải có kiểu số nguyên"
                 )
 
     return p
@@ -431,3 +430,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     sys.exit(main())
+```
