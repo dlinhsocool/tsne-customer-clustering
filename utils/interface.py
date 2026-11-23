@@ -58,7 +58,6 @@ _REGISTRY: dict[str, tuple[Callable, Callable]] = {
     "scale_data": (m_data.scale_data, mock.scale_data),
     "get_explained_variance": (m_dr.get_explained_variance, mock.get_explained_variance),
     "run_tsne": (m_dr.run_tsne, mock.run_tsne),
-    "run_umap": (_real_or_todo(m_dr, "run_umap"), getattr(mock, "run_umap", mock.run_tsne)),
     "run_clustering": (m_clustering.run_clustering, mock.run_clustering),
     "evaluate_clustering": (m_eval.evaluate_clustering, mock.evaluate_clustering),
     "compare_models": (m_eval.compare_models, mock.compare_models),
@@ -118,7 +117,6 @@ _DEFAULTS: dict[str, Any] = {
     SK.RAW_DF: None, SK.IS_SAMPLE: False, SK.UPLOAD_SIG: None, SK.VALIDATION: None,
     SK.FEATURE_COLUMNS: None, SK.PREP: None, SK.SCALE: None,
     SK.TSNE_2D: None, SK.TSNE_3D: None, SK.TSNE_INPUT_SPACE: None,
-    SK.UMAP_2D: None, SK.UMAP_3D: None,
     SK.CLUSTER_RESULTS: {}, SK.ACTIVE_ALGO: None, SK.EVAL_TABLE: None,
     SK.PROFILES: {}, SK.CLUSTER_NAMES: {}, SK.NEW_CUSTOMER: None,
     SK.RANDOM_STATE: RANDOM_STATE, SK.BACKEND_STATUS: {},
@@ -127,9 +125,9 @@ _DEFAULTS: dict[str, Any] = {
 # Khi bước ở trái thay đổi thì các kết quả ở phải bị xóa (tránh dùng dữ liệu cũ)
 _RESET_GROUPS: dict[str, list[str]] = {
     "data": [SK.VALIDATION, SK.FEATURE_COLUMNS, SK.PREP, SK.SCALE, SK.TSNE_2D, SK.TSNE_3D,
-             SK.UMAP_2D, SK.UMAP_3D, SK.TSNE_INPUT_SPACE, SK.CLUSTER_RESULTS, SK.ACTIVE_ALGO, SK.EVAL_TABLE, SK.PROFILES,
+            SK.TSNE_INPUT_SPACE, SK.CLUSTER_RESULTS, SK.ACTIVE_ALGO, SK.EVAL_TABLE, SK.PROFILES,
              SK.CLUSTER_NAMES, SK.NEW_CUSTOMER],
-    "prep": [SK.SCALE, SK.TSNE_2D, SK.TSNE_3D, SK.UMAP_2D, SK.UMAP_3D, SK.TSNE_INPUT_SPACE, SK.CLUSTER_RESULTS,
+    "prep": [SK.SCALE, SK.TSNE_2D, SK.TSNE_3D, SK.TSNE_INPUT_SPACE, SK.CLUSTER_RESULTS,
              SK.ACTIVE_ALGO, SK.EVAL_TABLE, SK.PROFILES, SK.CLUSTER_NAMES, SK.NEW_CUSTOMER],
     "tsne": [SK.NEW_CUSTOMER],
     "cluster": [SK.EVAL_TABLE, SK.NEW_CUSTOMER],
@@ -191,9 +189,6 @@ def run_tsne(*a: Any, **k: Any) -> dict:
     return _call("run_tsne", *a, **k)
 
 
-def run_umap(*a: Any, **k: Any) -> dict:
-    return _call("run_umap", *a, **k)
-
 
 def run_clustering(*a: Any, **k: Any) -> dict:
     return _call("run_clustering", *a, **k)
@@ -253,11 +248,9 @@ def matrix_for_space(space: str) -> np.ndarray | None:
 
 
 def get_view_coordinates(n_components: int, method: str = "t-SNE") -> tuple[np.ndarray | None, str | None]:
-    """Tọa độ để vẽ bản đồ theo method ("t-SNE" | "UMAP");
+    """Tọa độ để vẽ bản đồ theo method ("t-SNE");
     Trả (coords, nguồn)."""
-    if method == "UMAP":
-        res = get(SK.UMAP_2D if n_components == 2 else SK.UMAP_3D)
-    else:
+    if method == "t-SNE":
         res = get(SK.TSNE_2D if n_components == 2 else SK.TSNE_3D)
     if res is not None:
         return np.asarray(res["embedding"]), method
