@@ -1,6 +1,6 @@
 
 """
-check_backend.py - TỰ KIỂM TRA HÀM (không cần mở giao diện)
+check_backend.py - TỰ KIỂM TRA HÀM CỦA BẠN (không cần mở giao diện)
 
 Chạy:
     python check_backend.py
@@ -190,4 +190,244 @@ def build_checks(i: dict) -> list[tuple[str, str, callable]]:
             )
         ),
 
-        # =================
+        # =========================
+        # CLUSTERING
+        # =========================
+
+        (
+            "run_clustering",
+            "clustering.run_kmeans (qua run_clustering)",
+            lambda: m_cl.run_clustering(Xs, "kmeans")
+        ),
+
+        (
+            "run_clustering",
+            "clustering.run_gmm (qua run_clustering)",
+            lambda: m_cl.run_clustering(Xs, "gmm")
+        ),
+
+        (
+            "run_clustering",
+            "clustering.run_dbscan (qua run_clustering)",
+            lambda: m_cl.run_clustering(Xs, "dbscan")
+        ),
+
+        # =========================
+        # EVALUATION
+        # =========================
+
+        (
+            "evaluate_clustering",
+            "evaluation.evaluate_clustering",
+            lambda: m_ev.evaluate_clustering(
+                Xs,
+                labels,
+                i["df"]["true_segment"].to_numpy(),
+                0.1
+            )
+        ),
+
+        (
+            "compare_models",
+            "evaluation.compare_models",
+            lambda: m_ev.compare_models(
+                {
+                    "kmeans": i["km"],
+                    "gmm": i["gmm"],
+                    "dbscan": i["db"]
+                },
+                Xs,
+                Xp
+            )
+        ),
+
+        # =========================
+        # CUSTOMER PROFILING
+        # =========================
+
+        (
+            "calculate_cluster_profiles",
+            "customer_profiling.calculate_cluster_profiles",
+            lambda: m_cp.calculate_cluster_profiles(
+                i["prep"]["df_clean"],
+                labels,
+                i["feats"]
+            )
+        ),
+
+        (
+            "generate_cluster_description",
+            "customer_profiling.generate_cluster_description",
+            lambda: m_cp.generate_cluster_description(
+                int(i["prof"]["cluster_ids"][0]),
+                i["prof"]
+            )
+        ),
+
+        # =========================
+        # PREDICTION
+        # =========================
+
+        (
+            "preprocess_new_customer",
+            "prediction.preprocess_new_customer",
+            lambda: m_pr.preprocess_new_customer(
+                i["new"],
+                i["prep"]["preprocess_config"],
+                i["scale"]["scaler"],
+                i["pca"]["pca_model"]
+            )
+        ),
+
+        (
+            "predict_customer_cluster",
+            "prediction.predict_customer_cluster (kmeans)",
+            lambda: m_pr.predict_customer_cluster(
+                i["pn"]["X_new_scaled"],
+                i["km"],
+                Xs,
+                "auto",
+                5
+            )
+        ),
+
+        (
+            "predict_customer_cluster",
+            "prediction.predict_customer_cluster (dbscan)",
+            lambda: m_pr.predict_customer_cluster(
+                i["pn"]["X_new_scaled"],
+                i["db"],
+                Xs,
+                "auto",
+                5
+            )
+        ),
+
+        (
+            "transform_new_customer",
+            "prediction.transform_new_customer",
+            lambda: m_pr.transform_new_customer(
+                i["pn"]["X_new_pca"],
+                i["tsne"],
+                Xp,
+                "knn",
+                5
+            )
+        ),
+    ]
+
+
+def _write_and_load(df):
+    """Ghi DataFrame vào bộ nhớ rồi gọi hàm load_dataset."""
+
+    import io
+
+    buf = io.StringIO()
+
+    df.to_csv(
+        buf,
+        index=False
+    )
+
+    buf.seek(0)
+
+    return m_dp.load_dataset(buf)
+
+
+def extra_rules(label: str, name: str, result) -> list[str]:
+    """Các quy tắc nghiệp vụ ngoài kiểm key."""
+
+    p: list[str] = []
+
+    if name == "run_clustering":
+
+        labels = np.asarray(result["labels"])
+
+        # K-Means và GMM không được có nhãn -1
+        if "kmeans" in label or "gmm" in label:
+
+            if (labels == NOISE_LABEL).any():
+                p.append(
+                    "K-Means/GMM không được có nhãn -1"
+                )
+
+        # DBSCAN cho phép nhãn -1 để biểu thị điểm nhiễu
+        if "dbscan" in label:
+
+            if not np.issubdtype(labels.dtype, np.integer):
+                p.append(
+                    "DBSCAN phải trả về nhãn dạng số nguyên"
+                )
+
+    return p
+
+
+def main() -> int:
+
+    flt = sys.argv[1].lower() if len(sys.argv) > 1 else ""
+
+    inputs = build_inputs()
+
+    todo = 0
+    ok = 0
+    bad = 0
+
+    print(f"{'Trạng thái':<8} Hàm")
+    print("-" * 78)
+
+    for name, label, fn in build_checks(inputs):
+
+        if flt and flt not in label.lower():
+            continue
+
+        try:
+            result = fn()
+
+        except NotImplementedError:
+
+            print(f"{'TODO':<8} {label}")
+            todo += 1
+            continue
+
+        except Exception as exc:  # noqa: BLE001
+
+            print(
+                f"{'LOI':<8} {label}\n"
+                f"         {type(exc).__name__}: {exc}"
+            )
+
+            traceback.print_exc(limit=3)
+
+            bad += 1
+            continue
+
+        problems = (
+            check_contract(name, result)
+            + extra_rules(label, name, result)
+        )
+
+        if problems:
+
+            print(f"{'LOI':<8} {label}")
+
+            for p in problems:
+                print(f"         - {p}")
+
+            bad += 1
+
+        else:
+
+            print(f"{'OK':<8} {label}")
+            ok += 1
+
+    print("-" * 78)
+
+    print(
+        f"OK: {ok}   TODO: {todo}   LOI: {bad}"
+    )
+
+    return 1 if bad else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
