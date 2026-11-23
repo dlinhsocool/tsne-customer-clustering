@@ -11,7 +11,7 @@ LỚP TRUNG GIAN giữa giao diện (pages/) và backend (models/).
   * Quản lý st.session_state ở một chỗ duy nhất (init_state / get / put / reset_from).
 
 Tên và tham số của các hàm bọc dưới đây GIỐNG HỆT hàm trong models/, nên ví dụ gọi trong
-docstring của models/ dùng được nguyên văn: interface.run_pca(...), interface.run_tsne(...).
+docstring của models/ dùng được nguyên văn: interface.run_tsne(...).
 """
 from __future__ import annotations
 
@@ -56,7 +56,6 @@ _REGISTRY: dict[str, tuple[Callable, Callable]] = {
     "validate_dataset": (m_data.validate_dataset, mock.validate_dataset),
     "preprocess_data": (m_data.preprocess_data, mock.preprocess_data),
     "scale_data": (m_data.scale_data, mock.scale_data),
-    "run_pca": (m_dr.run_pca, mock.run_pca),
     "get_explained_variance": (m_dr.get_explained_variance, mock.get_explained_variance),
     "run_tsne": (m_dr.run_tsne, mock.run_tsne),
     "run_umap": (_real_or_todo(m_dr, "run_umap"), getattr(mock, "run_umap", mock.run_tsne)),
@@ -117,7 +116,7 @@ def _call(name: str, *args: Any, **kwargs: Any) -> Any:
 # ---------------------------------------------------------------------------
 _DEFAULTS: dict[str, Any] = {
     SK.RAW_DF: None, SK.IS_SAMPLE: False, SK.UPLOAD_SIG: None, SK.VALIDATION: None,
-    SK.FEATURE_COLUMNS: None, SK.PREP: None, SK.SCALE: None, SK.PCA: None,
+    SK.FEATURE_COLUMNS: None, SK.PREP: None, SK.SCALE: None,
     SK.TSNE_2D: None, SK.TSNE_3D: None, SK.TSNE_INPUT_SPACE: None,
     SK.UMAP_2D: None, SK.UMAP_3D: None,
     SK.CLUSTER_RESULTS: {}, SK.ACTIVE_ALGO: None, SK.EVAL_TABLE: None,
@@ -127,13 +126,11 @@ _DEFAULTS: dict[str, Any] = {
 
 # Khi bước ở trái thay đổi thì các kết quả ở phải bị xóa (tránh dùng dữ liệu cũ)
 _RESET_GROUPS: dict[str, list[str]] = {
-    "data": [SK.VALIDATION, SK.FEATURE_COLUMNS, SK.PREP, SK.SCALE, SK.PCA, SK.TSNE_2D, SK.TSNE_3D,
+    "data": [SK.VALIDATION, SK.FEATURE_COLUMNS, SK.PREP, SK.SCALE, SK.TSNE_2D, SK.TSNE_3D,
              SK.UMAP_2D, SK.UMAP_3D, SK.TSNE_INPUT_SPACE, SK.CLUSTER_RESULTS, SK.ACTIVE_ALGO, SK.EVAL_TABLE, SK.PROFILES,
              SK.CLUSTER_NAMES, SK.NEW_CUSTOMER],
-    "prep": [SK.SCALE, SK.PCA, SK.TSNE_2D, SK.TSNE_3D, SK.UMAP_2D, SK.UMAP_3D, SK.TSNE_INPUT_SPACE, SK.CLUSTER_RESULTS,
+    "prep": [SK.SCALE, SK.TSNE_2D, SK.TSNE_3D, SK.UMAP_2D, SK.UMAP_3D, SK.TSNE_INPUT_SPACE, SK.CLUSTER_RESULTS,
              SK.ACTIVE_ALGO, SK.EVAL_TABLE, SK.PROFILES, SK.CLUSTER_NAMES, SK.NEW_CUSTOMER],
-    "pca": [SK.TSNE_2D, SK.TSNE_3D, SK.UMAP_2D, SK.UMAP_3D, SK.TSNE_INPUT_SPACE, SK.CLUSTER_RESULTS, SK.ACTIVE_ALGO,
-            SK.EVAL_TABLE, SK.PROFILES, SK.CLUSTER_NAMES, SK.NEW_CUSTOMER],
     "tsne": [SK.NEW_CUSTOMER],
     "cluster": [SK.EVAL_TABLE, SK.NEW_CUSTOMER],
 }
@@ -154,7 +151,7 @@ def put(key: str, value: Any) -> None:
 
 
 def reset_from(step: str) -> None:
-    """Xóa kết quả phía sau `step` ("data" | "prep" | "pca" | "tsne" | "cluster")."""
+    """Xóa kết quả phía sau `step` ("data" | "prep" | "tsne" | "cluster")."""
     for key in _RESET_GROUPS[step]:
         st.session_state[key] = copy.deepcopy(_DEFAULTS[key])
 
@@ -184,10 +181,6 @@ def preprocess_data(*a: Any, **k: Any) -> dict:
 
 def scale_data(*a: Any, **k: Any) -> dict:
     return _call("scale_data", *a, **k)
-
-
-def run_pca(*a: Any, **k: Any) -> dict:
-    return _call("run_pca", *a, **k)
 
 
 def get_explained_variance(*a: Any, **k: Any) -> pd.DataFrame:
@@ -252,18 +245,15 @@ def default_feature_columns(numeric_columns: list[str]) -> list[str]:
 
 
 def matrix_for_space(space: str) -> np.ndarray | None:
-    """Ma trận theo không gian: "scaled" -> X_scaled, "pca" -> X_pca. None nếu chưa có."""
+    """Ma trận theo không gian: "scaled" -> X_scaled, None nếu chưa có."""
     if space == "scaled":
         scale = get(SK.SCALE)
         return None if scale is None else np.asarray(scale["X_scaled"])
-    if space == "pca":
-        pca = get(SK.PCA)
-        return None if pca is None else np.asarray(pca["X_pca"])
     return None
 
 
 def get_view_coordinates(n_components: int, method: str = "t-SNE") -> tuple[np.ndarray | None, str | None]:
-    """Tọa độ để vẽ bản đồ theo method ("t-SNE" | "UMAP"); chưa chạy thì dùng PCA.
+    """Tọa độ để vẽ bản đồ theo method ("t-SNE" | "UMAP");
     Trả (coords, nguồn)."""
     if method == "UMAP":
         res = get(SK.UMAP_2D if n_components == 2 else SK.UMAP_3D)
@@ -271,9 +261,6 @@ def get_view_coordinates(n_components: int, method: str = "t-SNE") -> tuple[np.n
         res = get(SK.TSNE_2D if n_components == 2 else SK.TSNE_3D)
     if res is not None:
         return np.asarray(res["embedding"]), method
-    pca = get(SK.PCA)
-    if pca is not None and np.asarray(pca["X_pca"]).shape[1] >= n_components:
-        return np.asarray(pca["X_pca"])[:, :n_components], "PCA"
     return None, None
 
 
