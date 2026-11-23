@@ -20,7 +20,6 @@ from typing import Any
 import numpy as np
 import pandas as pd
 import torch
-from sklearn.decomposition import PCA
 
 
 def _validate_2d_array(X: np.ndarray, name: str = "X") -> np.ndarray:
@@ -38,39 +37,6 @@ def _validate_2d_array(X: np.ndarray, name: str = "X") -> np.ndarray:
         raise ValueError(f"{name} chứa giá trị NaN hoặc Inf. Cần làm sạch dữ liệu trước khi giảm chiều.")
     return X
 
-
-def run_pca(
-    X_scaled: np.ndarray,
-    n_components: int | float = 0.95,
-    random_state: int = 42,
-) -> dict[str, Any]:
-    """
-    Thực hiện giảm chiều tuyến tính bằng PCA trên dữ liệu đã chuẩn hóa.
-
-    Tham số:
-        X_scaled: Ma trận dữ liệu đã chuẩn hóa kích thước (n_samples, n_features).
-        n_components: Số chiều giữ lại (int) hoặc tỷ lệ phương sai tích lũy mục tiêu (float trong (0, 1)).
-        random_state: Hạt giống ngẫu nhiên để đảm bảo tính tái lập.
-
-    Trả về:
-        Dictionary chứa kết quả biến đổi và thông tin phương sai giải thích.
-    """
-    X_arr = _validate_2d_array(X_scaled, name="X_scaled")
-
-    pca_model = PCA(n_components=n_components, random_state=random_state)
-    X_pca = pca_model.fit_transform(X_arr)
-
-    explained_ratio = pca_model.explained_variance_ratio_
-    cumulative_variance = np.cumsum(explained_ratio)
-
-    return {
-        "X_pca": X_pca,
-        "pca_model": pca_model,
-        "components": pca_model.components_,
-        "n_components": int(pca_model.n_components_),
-        "explained_variance_ratio": explained_ratio,
-        "cumulative_variance": cumulative_variance,
-    }
 
 
 def get_explained_variance(pca_input: Any) -> pd.DataFrame:
