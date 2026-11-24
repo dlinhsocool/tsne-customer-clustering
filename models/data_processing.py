@@ -13,21 +13,47 @@ ID_HINTS = ("id", "customer_id", "cust_id", "user_id", "ma_kh", "stt")
 LABEL_HINTS = ("segment", "cluster", "label", "true_label", "target", "nhom")
 
 
-def load_dataset(filepath: str | Path | io.IOBase) -> pd.DataFrame:
-    """Đọc dữ liệu CSV hoặc Excel từ đường dẫn hoặc đối tượng file-like (StringIO/BytesIO)."""
-    if isinstance(filepath, (io.StringIO, io.BytesIO)) or hasattr(filepath, "read"):
-        name = getattr(filepath, "name", "")
-        if str(name).lower().endswith((".xlsx", ".xls")):
+def load_dataset(
+    filepath: str | Path | io.IOBase,
+    sep: str = ",",
+    encoding: str = "utf-8",
+) -> pd.DataFrame:
+    """Đọc CSV/Excel từ đường dẫn hoặc file-like (Streamlit UploadedFile, StringIO...).
+
+    `sep` và `encoding` được hỗ trợ để khớp với trang tải dữ liệu.
+    Với Excel, hai tham số này không được sử dụng.
+    """
+    if filepath is None:
+        raise ValueError("Bạn chưa chọn tệp dữ liệu.")
+
+    is_file_like = hasattr(filepath, "read")
+    if is_file_like:
+        name = str(getattr(filepath, "name", "")).lower()
+        suffix = Path(name).suffix.lower() if name else ".csv"
+        if hasattr(filepath, "seek"):
+            filepath.seek(0)
+
+        if suffix in {".xlsx", ".xls"}:
             df = pd.read_excel(filepath)
         else:
-            df = pd.read_csv(filepath)
+            read_kwargs: dict[str, Any] = {"encoding": encoding}
+            if sep is None:
+                read_kwargs.update({"sep": None, "engine": "python"})
+            else:
+                read_kwargs["sep"] = sep
+            df = pd.read_csv(filepath, **read_kwargs)
     else:
         path = Path(filepath)
         if not path.exists():
             raise FileNotFoundError(f"Không tìm thấy tệp dữ liệu: {path}")
         suffix = path.suffix.lower()
         if suffix == ".csv":
-            df = pd.read_csv(path)
+            read_kwargs = {"encoding": encoding}
+            if sep is None:
+                read_kwargs.update({"sep": None, "engine": "python"})
+            else:
+                read_kwargs["sep"] = sep
+            df = pd.read_csv(path, **read_kwargs)
         elif suffix in {".xlsx", ".xls"}:
             df = pd.read_excel(path)
         else:
@@ -35,6 +61,9 @@ def load_dataset(filepath: str | Path | io.IOBase) -> pd.DataFrame:
 
     if df.empty:
         raise ValueError("Tập dữ liệu rỗng.")
+
+    # Loại BOM ở đầu tên cột (thường gặp khi CSV lưu dạng UTF-8-SIG).
+    df.columns = [str(column).lstrip("\ufeff").strip() for column in df.columns]
     return df
 
 
@@ -121,43 +150,63 @@ def validate_dataset(df: pd.DataFrame) -> dict[str, Any]:
     }
 
 
-def _extract_date_features(df: pd.DataFrame) -> tuple[pd.DataFrame, list[str], pd.Timestamp | None]:
-    """Chuyển đổi các cột ngày tháng thành đặc trưng hành vi số học (Recency, Tenure)."""
+def _extract_date_features(
+    df: pd.DataFrame,
+) -> tuple[pd.DataFrame, list[str], pd.Timestamp | None]:
+    """Chuyển cột ngày thành đặc trưng số; tránh One-Hot từng ngày riêng lẻ."""
     out = df.copy()
     date_cols: list[str] = []
 
     for col in out.columns:
-        col_low = col.lower()
+        col_low = str(col).lower().strip()
+        is_date_named = any(token in col_low for token in ("date", "ngay", "time"))
         if pd.api.types.is_datetime64_any_dtype(out[col]):
             date_cols.append(col)
-        elif "date" in col_low or "ngay" in col_low or "time" in col_low:
-            parsed = pd.to_datetime(out[col], errors="coerce", format="mixed")
-            if parsed.notna().mean() >= 0.7:
-                out[col] = parsed
-                date_cols.append(col)
+            continue
+        if not is_date_named:
+            continue
+
+        source = out[col]
+        non_empty = source.notna() & source.astype(str).str.strip().ne("")
+        if int(non_empty.sum()) == 0:
+            continue
+
+        parsed = pd.to_datetime(source, errors="coerce", format="mixed")
+        parse_ratio = float(parsed[non_empty].notna().mean())
+        # Chỉ coi là ngày khi phần lớn giá trị không rỗng parse được.
+        if parse_ratio >= 0.80:
+            out[col] = parsed
+            date_cols.append(col)
 
     if not date_cols:
         return out, [], None
 
-    valid_maxes = [out[c].max() for c in date_cols if out[c].notna().any()]
+    valid_maxes = [out[col].max() for col in date_cols if out[col].notna().any()]
     if not valid_maxes:
         return out.drop(columns=date_cols), date_cols, None
 
     ref_date = max(valid_maxes)
-
-    first_col = next((c for c in date_cols if "first" in c.lower()), None)
-    last_col = next((c for c in date_cols if "last" in c.lower()), None)
+    first_col = next((col for col in date_cols if "first" in str(col).lower()), None)
+    last_col = next((col for col in date_cols if "last" in str(col).lower()), None)
 
     if last_col is not None:
-        out["recency_days"] = (ref_date - out[last_col]).dt.days.fillna(0).clip(lower=0)
+        out["recency_days"] = (
+            ref_date - out[last_col]
+        ).dt.days.fillna(0).clip(lower=0)
     if first_col is not None:
-        out["tenure_days"] = (ref_date - out[first_col]).dt.days.fillna(0).clip(lower=0)
+        out["tenure_days"] = (
+            ref_date - out[first_col]
+        ).dt.days.fillna(0).clip(lower=0)
     if first_col is not None and last_col is not None:
-        out["active_span_days"] = (out[last_col] - out[first_col]).dt.days.fillna(0).clip(lower=0)
+        out["active_span_days"] = (
+            out[last_col] - out[first_col]
+        ).dt.days.fillna(0).clip(lower=0)
 
     for col in date_cols:
         if col not in {first_col, last_col}:
-            out[f"{col}_days_ago"] = (ref_date - out[col]).dt.days.fillna(0).clip(lower=0)
+            out[f"{col}_days_ago"] = (
+                ref_date - out[col]
+            ).dt.days.fillna(0).clip(lower=0)
 
     out = out.drop(columns=date_cols)
     return out, date_cols, ref_date
@@ -244,10 +293,12 @@ def preprocess_data(
 
     final_feature_columns = X_df.columns.tolist()
 
+    # Ghi đè cả những cột vốn đã tồn tại trong dữ liệu gốc.
+    # Nếu chỉ thêm cột chưa tồn tại, df_clean có thể giữ lại giá trị chưa fillna,
+    # chưa log-transform hoặc chưa được xử lý như ma trận X_df.
     df_clean = df_work.copy()
     for col in final_feature_columns:
-        if col not in df_clean.columns:
-            df_clean[col] = X_df[col].values
+        df_clean[col] = X_df[col].to_numpy(copy=True)
 
     n_rows_after = int(len(X_df))
     preprocess_config = {
