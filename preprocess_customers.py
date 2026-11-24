@@ -1,60 +1,130 @@
-"""
-preprocess_customers.py
-=======================
-Script dòng lệnh gọi lại pipeline chuẩn từ models/data_processing.py
-để xử lý Data/raw/synthetic_customers_11cols.csv và lưu ra Data/processed/.
-"""
-from __future__ import annotations
-
-import os
-import joblib
 import pandas as pd
+import numpy as np
+from sklearn.preprocessing import StandardScaler
 
-from models.data_processing import load_dataset, preprocess_data, scale_data
 
-FEATURE_COLS_11 = [
-    "first_purchase_date",
-    "last_purchase_date",
+def lam_sach_khach_hang(df_nguon, ngay_tham_chieu="2025-05-05"):
+    khach_hang_sach = df_nguon.copy()
+    khach_hang_sach.insert(0, "record_id", range(1, len(khach_hang_sach) + 1))
+
+    for cot_ngay in ["first_purchase_date", "last_purchase_date"]:
+        khach_hang_sach[cot_ngay] = pd.to_datetime(
+            khach_hang_sach[cot_ngay],
+            format="%Y-%m-%d",
+            errors="raise",
+        )
+
+    khach_hang_sach["recency_days"] = (
+        pd.Timestamp(ngay_tham_chieu) - khach_hang_sach["last_purchase_date"]
+    ).dt.days
+
+    return khach_hang_sach
+
+def tao_dac_trung(khach_hang_sach):
+    cot_dac_trung = [
+        "total_spent",
+        "avg_order_value",
+        "loyalty_points",
+        "support_tickets",
+        "subscription",
+        "favorite_category",
+        "recency_days",
+    ]
+
+    bang_theo_ma = khach_hang_sach.set_index(
+        "record_id",
+        verify_integrity=True,
+    )
+
+    return bang_theo_ma[cot_dac_trung].copy()
+
+def bien_doi_dac_trung(dac_trung):
+    bang = dac_trung.copy()
+
+    bang["avg_order_value_log"] = np.log1p(bang["avg_order_value"])
+    bang = bang.drop(columns="avg_order_value")
+
+    bang["subscription"] = bang["subscription"].astype(int)
+
+    return bang
+
+def ma_hoa_danh_muc(dac_trung, danh_muc_chuan):
+    bang = dac_trung.copy()
+    danh_muc = bang["favorite_category"]
+
+    if not danh_muc.isin(danh_muc_chuan).all():
+        raise ValueError("favorite_category bị thiếu hoặc có danh mục ngoài danh sách chuẩn.")
+
+    bang["favorite_category"] = pd.Categorical(
+        danh_muc,
+        categories=danh_muc_chuan,
+    )
+
+    return pd.get_dummies(
+        bang,
+        columns=["favorite_category"],
+        dtype=int,
+    )
+
+
+COT_CAN_CHUAN_HOA = [
     "total_spent",
-    "avg_order_value",
+    "avg_order_value_log",
     "loyalty_points",
-    "favorite_category",
-    "subscription",
     "support_tickets",
-    "churn_risk",
+    "recency_days",
 ]
 
 
-def main() -> None:
-    root = os.path.dirname(os.path.abspath(__file__))
-    raw_path = os.path.join(root, "Data", "raw", "synthetic_customers_11cols.csv")
-    out_dir = os.path.join(root, "Data", "processed")
-    os.makedirs(out_dir, exist_ok=True)
-
-    df_raw = load_dataset(raw_path)
-    prep = preprocess_data(
-        df_raw,
-        feature_columns=FEATURE_COLS_11,
-        missing_strategy="median",
-        drop_duplicates=True,
-        outlier_method=None,
-        log_transform_columns=["avg_order_value"],
-        sample_size=None,
-        random_state=42,
-    )
-    sc = scale_data(prep["X"])
-
-    df_clean = prep["df_clean"]
-    df_scaled = pd.DataFrame(sc["X_scaled"], columns=prep["feature_columns"])
-
-    df_clean.to_csv(os.path.join(out_dir, "customers_clean.csv"), index=False)
-    df_scaled.to_csv(os.path.join(out_dir, "customers_scaled.csv"), index=False)
-    joblib.dump(
-        {"scaler": sc["scaler"], "preprocess_config": prep["preprocess_config"]},
-        os.path.join(out_dir, "scaler.pkl"),
-    )
-    print(f"Hoàn tất tiền xử lý 11 cột: {df_clean.shape[0]} dòng, {df_scaled.shape[1]} đặc trưng.")
+def fit_bo_chuan_hoa(dac_trung_ma_hoa):
+    scaler = StandardScaler()
+    scaler.fit(dac_trung_ma_hoa[COT_CAN_CHUAN_HOA])
+    return scaler
 
 
-if __name__ == "__main__":
-    main()
+def chuan_hoa_dac_trung(dac_trung_ma_hoa, scaler):
+    bang = dac_trung_ma_hoa.copy()
+    bang[COT_CAN_CHUAN_HOA] = scaler.transform(bang[COT_CAN_CHUAN_HOA])
+    return bang
+
+
+def tien_xu_ly_huan_luyen(df_nguon, ngay_tham_chieu="2025-05-05"):
+    sach = lam_sach_khach_hang(df_nguon, ngay_tham_chieu)
+    dac_trung = tao_dac_trung(sach)
+    bien_doi = bien_doi_dac_trung(dac_trung)
+
+    danh_muc_chuan = sorted(bien_doi["favorite_category"].unique())
+    ma_hoa = ma_hoa_danh_muc(bien_doi, danh_muc_chuan)
+
+    scaler = fit_bo_chuan_hoa(ma_hoa)
+    chuan_hoa = chuan_hoa_dac_trung(ma_hoa, scaler)
+
+    return sach, chuan_hoa, scaler, danh_muc_chuan
+
+class CustomerPreprocessor:
+    """Chuyển DataFrame khách hàng thành bảng đặc trưng số."""
+
+    def __init__(self, ngay_tham_chieu="2025-05-05"):
+        self.ngay_tham_chieu = ngay_tham_chieu
+        self.scaler_ = None
+        self.danh_muc_chuan_ = None
+
+    def fit_transform(self, df):
+        """Học danh mục, scaler và trả về đặc trưng của dữ liệu đầu vào."""
+        _, features, scaler, danh_muc_chuan = tien_xu_ly_huan_luyen(
+            df, ngay_tham_chieu=self.ngay_tham_chieu
+        )
+        self.scaler_ = scaler
+        self.danh_muc_chuan_ = danh_muc_chuan
+        return features
+
+    def transform(self, df):
+        """Xử lý dữ liệu mới bằng danh mục và scaler đã học."""
+        if self.scaler_ is None:
+            raise RuntimeError("Hãy gọi fit_transform() trước transform().")
+
+        sach = lam_sach_khach_hang(df, ngay_tham_chieu=self.ngay_tham_chieu)
+        dac_trung = tao_dac_trung(sach)
+        bien_doi = bien_doi_dac_trung(dac_trung)
+        ma_hoa = ma_hoa_danh_muc(bien_doi, self.danh_muc_chuan_)
+        return chuan_hoa_dac_trung(ma_hoa, self.scaler_)

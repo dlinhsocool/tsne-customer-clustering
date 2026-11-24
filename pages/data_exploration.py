@@ -1,4 +1,4 @@
-"""pages/data_exploration.py - Trang 2: tải CSV, phân loại vai trò cột và khám phá dữ liệu."""
+"""pages/data_exploration.py - Trang 2: tải CSV và khám phá dữ liệu."""
 from __future__ import annotations
 
 import pandas as pd
@@ -25,59 +25,19 @@ def _load_uploaded(upload, sep: str) -> None:
     interface.put(SK.VALIDATION, interface.validate_dataset(df))
 
 
-def _build_role_table(val: dict) -> pd.DataFrame:
-    id_set = set(val.get("id_columns", []))
-    dt_set = set(val.get("datetime_columns", []))
-    num_set = set(val.get("numeric_columns", []))
-    cat_set = set(val.get("categorical_columns", []))
-
-    rows = []
-    for col in val["columns"]:
-        low = col.lower()
-        if col in id_set:
-            role = "ID / Hiển thị"
-            action = "Loại khỏi mô hình (giữ để tra cứu & hover)"
-        elif any(h in low for h in ("segment", "label", "true", "nhom")):
-            role = "Nhãn tham chiếu (Label)"
-            action = "Chỉ dùng tính ARI, không đưa vào đặc trưng"
-        elif col in dt_set:
-            role = "Ngày tháng (Date)"
-            action = "Trích xuất Recency / Tenure (số ngày)"
-        elif col in cat_set:
-            role = "Phân loại / Boolean"
-            action = "Chuyển 0/1 hoặc One-Hot Encoding"
-        elif col in num_set:
-            role = "Số (Numeric)"
-            action = "Đưa trực tiếp vào StandardScaler"
-        else:
-            role = "Khác"
-            action = "Không dùng"
-
-        rows.append({
-            "Tên cột": col,
-            "Kiểu dữ liệu": val["dtypes"][col],
-            "Vai trò": role,
-            "Cách xử lý trong Pipeline": action,
-            "Giá trị thiếu": val["missing_per_column"][col],
-        })
-    return pd.DataFrame(rows)
-
-
 def render() -> None:
     st.title("Data Exploration")
 
     c1, c2, c3 = st.columns([3, 1, 2])
     with c1:
-        upload = st.file_uploader("Tải file CSV (ví dụ: synthetic_customers_11cols.csv)", type=["csv"])
+        upload = st.file_uploader("Tải file CSV", type=["csv"])
     with c2:
         sep = st.selectbox("Ký tự phân tách", [",", ";", "\t", "|"], format_func=lambda s: {"\t": "Tab"}.get(s, s))
     with c3:
         st.write("")
         st.write("")
-        use_sample = st.button(
-            "Dùng dữ liệu mẫu giả lập", width="stretch",
-            help="Chỉ để thử giao diện khi chưa có dữ liệu chuẩn.",
-        )
+        use_sample = st.button("Dùng dữ liệu mẫu giả lập", width="stretch",
+                               help="Chỉ để thử giao diện khi chưa có dữ liệu chuẩn.")
 
     if upload is not None:
         sig = (upload.name, upload.size, sep)
@@ -85,7 +45,7 @@ def render() -> None:
             try:
                 _load_uploaded(upload, sep)
                 interface.put(SK.UPLOAD_SIG, sig)
-            except Exception as exc:
+            except Exception as exc:  # file hỏng, sai định dạng...
                 st.error(f"Không đọc được file: {exc}")
                 return
     elif use_sample:
@@ -113,20 +73,17 @@ def render() -> None:
     m3.metric("Dòng trùng", f"{val['n_duplicates']:,}")
     m4.metric("Giá trị thiếu", f"{sum(val['missing_per_column'].values()):,}")
 
-    tab_prev, tab_roles, tab_stat, tab_miss, tab_dist, tab_corr = st.tabs(
-        ["Xem trước", "Vai trò cột (Schema)", "Thống kê", "Giá trị thiếu", "Phân phối", "Tương quan"]
-    )
+    tab_prev, tab_stat, tab_miss, tab_dist, tab_corr = st.tabs(
+        ["Xem trước", "Thống kê", "Giá trị thiếu", "Phân phối", "Tương quan"])
 
     with tab_prev:
         st.dataframe(df.head(200), width="stretch")
         st.caption(f"Hiển thị 200 dòng đầu trong {val['n_rows']:,} dòng.")
 
-    with tab_roles:
-        st.markdown("**Phân loại vai trò từng cột trước khi tiền xử lý**")
-        st.dataframe(_build_role_table(val), hide_index=True, width="stretch")
-
     with tab_stat:
         st.dataframe(df.describe(include="all").T, width="stretch")
+        dtypes = pd.DataFrame({"Cột": list(val["dtypes"]), "Kiểu": list(val["dtypes"].values())})
+        st.dataframe(dtypes, hide_index=True, width="stretch")
 
     numeric = val["numeric_columns"]
     with tab_miss:

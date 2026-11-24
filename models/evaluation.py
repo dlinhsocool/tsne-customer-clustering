@@ -1,19 +1,22 @@
 """
 models/evaluation.py
 ====================
-Người phụ trách: Duy Lĩnh (đánh giá & benchmark)
+Người phụ trách: Duy Lĩnh (đánh giá)
 
-Gồm 3 nhóm:
-  1. Clustering Evaluation: Silhouette, Davies-Bouldin, ARI, evaluate_clustering()
-  2. Dimensionality Reduction Evaluation: Trustworthiness, Continuity, k-NN Preservation,
-     Spearman, Stability, compare_dimensionality_reduction_method()
-  3. Multi-space Benchmark: benchmark_clustering_spaces() (4 không gian x 3 thuật toán = 12 cấu hình)
+NHIỆM VỤ FILE: Silhouette, Davies-Bouldin, ARI và bảng so sánh các thuật toán.
+
+QUY TẮC "KHÔNG TÍNH CHỈ SỐ KHÔNG HỢP LỆ":
+  * Điểm noise (-1) bị LOẠI khỏi tính Silhouette và Davies-Bouldin.
+  * Cần ít nhất 2 cụm (không tính noise) và nhiều điểm hơn số cụm. Không đủ => trả None.
+  * ARI trả None nếu labels_true là None. ARI tính trên TẤT CẢ dòng (noise coi như một nhóm riêng).
+  * Dùng hàm is_computable() bên dưới để quyết định, đừng tự viết lại điều kiện.
+
+QUY ĐỊNH CHUNG: xem đầu file models/data_processing.py.
 """
 from __future__ import annotations
 
 import inspect
 import time
-from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -22,29 +25,31 @@ from scipy.stats import rankdata, spearmanr
 from sklearn.cluster import DBSCAN, KMeans
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE, trustworthiness
+from sklearn.mixture import GaussianMixture
 from sklearn.metrics import (
     adjusted_rand_score,
     davies_bouldin_score,
     silhouette_score,
 )
 from sklearn.metrics.pairwise import pairwise_distances
-from sklearn.mixture import GaussianMixture
 from sklearn.neighbors import NearestNeighbors
 
-from models.clustering import estimate_dbscan_eps, run_clustering
-from utils.constants import ALGORITHMS, DEFAULT_PARAMS, FEATURE_SPACES, NOISE_LABEL
-
+from utils.constants import NOISE_LABEL
 
 # ---------------------------------------------------------------------------
-# NHÓM 1: CLUSTERING EVALUATION
+# ĐÃ VIẾT SẴN - DÙNG, KHÔNG SỬA
 # ---------------------------------------------------------------------------
 def get_valid_mask(labels: np.ndarray) -> np.ndarray:
-    """Mask các dòng không phải noise."""
+    """Mask các dòng không phải noise. Dùng để loại noise trước khi tính chỉ số."""
     return np.asarray(labels) != NOISE_LABEL
 
 
 def is_computable(labels: np.ndarray) -> tuple[bool, str | None]:
-    """Kiểm tra có tính được Silhouette / Davies-Bouldin không."""
+    """Có tính được Silhouette / Davies-Bouldin không?
+
+    Returns:
+        (True, None) nếu tính được; (False, "lý do tiếng Việt") nếu không.
+    """
     labels = np.asarray(labels)
     mask = get_valid_mask(labels)
     n_valid = int(mask.sum())
@@ -58,13 +63,26 @@ def is_computable(labels: np.ndarray) -> tuple[bool, str | None]:
     return True, None
 
 
+# ---------------------------------------------------------------------------
+# DUY LĨNH VIẾT THÂN HÀM
+# ---------------------------------------------------------------------------
 def calculate_silhouette_score(
     X: np.ndarray,
     labels: np.ndarray,
     sample_size: int | None = 10000,
     random_state: int = 42,
 ) -> float | None:
-    """Silhouette Score trung bình (loại noise)."""
+    """Silhouette Score trung bình (loại noise).
+
+    Args:
+        X (np.ndarray): (n, d) CÙNG không gian mà thuật toán đã chạy (X_scaled hoặc X_pca).
+        labels (np.ndarray): (n,) nhãn cụm, noise = -1.
+        sample_size (int | None): tính trên mẫu cho nhanh khi n lớn. None = dùng hết. Mặc định 10000.
+        random_state (int): seed lấy mẫu. Mặc định 42.
+
+    Returns:
+        float trong [-1, 1], hoặc None nếu is_computable(labels) báo không tính được.
+    """
     ok, _ = is_computable(labels)
     if not ok:
         return None
@@ -73,29 +91,37 @@ def calculate_silhouette_score(
     Xv, lv = X[mask], labels[mask]
     try:
         if sample_size is not None and len(lv) > sample_size:
-            return float(
-                silhouette_score(Xv, lv, sample_size=sample_size, random_state=random_state)
-            )
+            return float(silhouette_score(Xv, lv, sample_size=sample_size,
+                                          random_state=random_state))
         return float(silhouette_score(Xv, lv))
-    except ValueError:
+    except ValueError:  # mẫu con chỉ rơi vào 1 cụm
         return None
 
 
 def calculate_davies_bouldin_score(X: np.ndarray, labels: np.ndarray) -> float | None:
-    """Davies-Bouldin Index (loại noise). Càng NHỎ càng tốt."""
+    """Davies-Bouldin Index (loại noise). Càng NHỎ càng tốt.
+
+    Returns:
+        float >= 0, hoặc None nếu không tính được.
+    """
     ok, _ = is_computable(labels)
     if not ok:
         return None
     X, labels = np.asarray(X), np.asarray(labels)
     mask = get_valid_mask(labels)
-    try:
-        return float(davies_bouldin_score(X[mask], labels[mask]))
-    except ValueError:
-        return None
+    return float(davies_bouldin_score(X[mask], labels[mask]))
 
 
 def calculate_ari(labels_true: np.ndarray | None, labels_pred: np.ndarray) -> float | None:
-    """Adjusted Rand Index so với nhãn tham chiếu."""
+    """Adjusted Rand Index so với nhãn tham chiếu.
+
+    Args:
+        labels_true (np.ndarray | None): nhãn thật (n,) hoặc None nếu không có.
+        labels_pred (np.ndarray): nhãn do thuật toán tìm ra (n,).
+
+    Returns:
+        float (1 = khớp hoàn toàn, ~0 = ngẫu nhiên), hoặc None nếu labels_true là None.
+    """
     if labels_true is None:
         return None
     return float(adjusted_rand_score(np.asarray(labels_true), np.asarray(labels_pred)))
@@ -107,7 +133,22 @@ def evaluate_clustering(
     labels_true: np.ndarray | None = None,
     runtime_seconds: float | None = None,
 ) -> dict:
-    """Gom các chỉ số của MỘT kết quả phân cụm."""
+    """Gom các chỉ số của MỘT kết quả phân cụm.
+
+    Returns:
+        dict (đủ key, không đổi tên):
+            "silhouette_score": float | None
+            "davies_bouldin_score": float | None
+            "ari_score": float | None
+            "n_clusters": int              - không tính noise
+            "n_noise": int
+            "noise_ratio": float           - n_noise / n, trong [0, 1]
+            "runtime_seconds": float | None
+            "note": str | None             - lý do nếu có chỉ số None (lấy từ is_computable)
+
+    Ví dụ gọi:
+        m = interface.evaluate_clustering(X_scaled, res["labels"], labels_true=None, runtime_seconds=res["runtime_seconds"])
+    """
     labels = np.asarray(labels).astype(int)
     n = len(labels)
     mask = get_valid_mask(labels)
@@ -126,10 +167,12 @@ def evaluate_clustering(
     }
 
 
+
 # ---------------------------------------------------------------------------
-# NHÓM 2: DIMENSIONALITY REDUCTION EVALUATION
+# ĐÁNH GIÁ CLUSTERING TRÊN KHÔNG GIAN t-SNE (THỰC NGHIỆM RIÊNG)
 # ---------------------------------------------------------------------------
 def _validate_matrix(X: np.ndarray, name: str = "X") -> np.ndarray:
+    """Kiểm tra ma trận số 2 chiều dùng trong các phép đánh giá mới."""
     X = np.asarray(X, dtype=np.float64)
     if X.ndim != 2 or X.shape[0] < 2 or X.shape[1] < 1:
         raise ValueError(f"{name} phải có shape (n_samples >= 2, n_features >= 1).")
@@ -143,7 +186,17 @@ def calculate_dbcv_score(
     labels: np.ndarray,
     metric: str = "euclidean",
 ) -> float | None:
-    """Tính Density-Based Clustering Validation (DBCV), giữ nguyên nhãn noise -1."""
+    """Tính Density-Based Clustering Validation (DBCV), giữ nguyên nhãn noise -1.
+
+    DBCV được triển khai bởi hdbscan.validity.validity_index. Không lọc noise
+    trước khi gọi thư viện vì thuật toán DBCV tự xử lý nhãn noise.
+
+    Returns:
+        float trong [-1, 1], hoặc None nếu phân cụm không đủ điều kiện.
+
+    Raises:
+        ImportError: nếu chưa cài ``hdbscan``.
+    """
     X = _validate_matrix(X)
     labels = np.asarray(labels)
     if labels.ndim != 1 or len(labels) != len(X):
@@ -157,14 +210,17 @@ def calculate_dbcv_score(
         raise ImportError(
             "Chưa có thư viện hdbscan để tính DBCV. Hãy cài bằng `pip install hdbscan`."
         ) from exc
-    score = float(validity_index(X, labels.astype(int), metric=metric))
+    score = validity_index(X, labels.astype(int), metric=metric)
+    score = float(score)
     return score if np.isfinite(score) else None
 
 
 def calculate_noise_ratio(labels: np.ndarray) -> float:
-    """Tỷ lệ noise theo phần trăm (0–100)."""
+    """Tỷ lệ noise theo phần trăm (0–100); thuật toán không có noise trả về 0."""
     labels = np.asarray(labels)
-    if labels.ndim != 1 or len(labels) == 0:
+    if labels.ndim != 1:
+        raise ValueError("labels phải là mảng 1 chiều.")
+    if len(labels) == 0:
         return 0.0
     return float(np.mean(labels == NOISE_LABEL) * 100.0)
 
@@ -172,6 +228,8 @@ def calculate_noise_ratio(labels: np.ndarray) -> float:
 def calculate_n_clusters(labels: np.ndarray) -> int:
     """Đếm số cụm, không tính nhãn noise -1."""
     labels = np.asarray(labels)
+    if labels.ndim != 1:
+        raise ValueError("labels phải là mảng 1 chiều.")
     return int(len(np.unique(labels[labels != NOISE_LABEL])))
 
 
@@ -192,6 +250,7 @@ def _fit_tsne_embedding(
     }
     params.update(tsne_params or {})
     params["random_state"] = random_state
+    # sklearn đổi tên n_iter thành max_iter ở các phiên bản mới.
     tsne_signature = inspect.signature(TSNE).parameters
     if "max_iter" in tsne_signature:
         if "n_iter" in params and "max_iter" not in (tsne_params or {}):
@@ -214,8 +273,27 @@ def calculate_dbscan_eps(
     min_samples: int = 5,
     quantile: float = 90.0,
 ) -> float:
-    """Ước lượng eps khởi tạo từ phân vị của khoảng cách k-NN."""
-    return estimate_dbscan_eps(X, min_samples=min_samples, quantile=quantile)
+    """Ước lượng eps khởi tạo từ phân vị của khoảng cách k-NN.
+
+    Đây là giá trị khởi tạo có thể thay thế bằng eps do người dùng tinh chỉnh.
+    Dùng phân vị cao của khoảng cách tới láng giềng thứ min_samples để tránh
+    dùng eps=0.5 cố định vốn không phù hợp với thang tọa độ t-SNE.
+    """
+    X = _validate_matrix(X)
+    if min_samples < 1 or min_samples > len(X):
+        raise ValueError("min_samples phải nằm trong [1, n_samples].")
+    if not 0 < quantile <= 100:
+        raise ValueError("quantile phải thuộc (0, 100].")
+    # DBSCAN tính cả chính điểm đó vào min_samples, còn kneighbors() không
+    # trả chính điểm truy vấn; vì vậy cần min_samples - 1 láng giềng khác.
+    n_neighbors = max(1, min_samples - 1)
+    model = NearestNeighbors(n_neighbors=n_neighbors, metric="euclidean").fit(X)
+    distances = model.kneighbors(return_distance=True)[0][:, -1]
+    eps = float(np.percentile(distances, quantile))
+    if not np.isfinite(eps) or eps <= 0:
+        positive = distances[distances > 0]
+        eps = float(np.median(positive)) if len(positive) else 1e-6
+    return eps
 
 
 def _fit_cluster_labels(
@@ -244,12 +322,44 @@ def _fit_cluster_labels(
     elif algorithm == "dbscan":
         config = {"eps": None, "min_samples": min(5, len(X)), "metric": "euclidean"}
         config.update(params)
+        # eps=None: ước lượng theo phân vị khoảng cách k-NN của embedding hiện tại.
         if config["eps"] is None:
             config["eps"] = calculate_dbscan_eps(X, min_samples=config["min_samples"])
+        # DBSCAN không có random_state.
         model = DBSCAN(**config)
     else:
         raise ValueError("algorithm phải là 'kmeans', 'gmm' hoặc 'dbscan'.")
     return np.asarray(model.fit_predict(X), dtype=int)
+
+
+def calculate_clustering_stability(
+    X_input: np.ndarray,
+    algorithm: str,
+    clustering_params: dict | None = None,
+    tsne_params: dict | None = None,
+    random_states: tuple[int, ...] | list[int] = (42, 43, 44, 45, 46),
+) -> float | None:
+    """Đo stability bằng ARI trung bình giữa các lần t-SNE + clustering.
+
+    Mỗi random_state tạo một embedding t-SNE mới và chạy lại cùng thuật toán.
+    ARI được tính trên toàn bộ dòng, trong đó noise -1 của DBSCAN vẫn được giữ
+    như một nhãn nhóm riêng. Cần ít nhất hai random_state.
+    """
+    X_input = _validate_matrix(X_input, "X_input")
+    seeds = list(dict.fromkeys(int(seed) for seed in random_states))
+    if len(seeds) < 2:
+        return None
+    all_labels = []
+    for seed in seeds:
+        embedding = _fit_tsne_embedding(X_input, tsne_params, seed)
+        labels = _fit_cluster_labels(embedding, algorithm, clustering_params, seed)
+        all_labels.append(labels)
+    scores = [
+        adjusted_rand_score(all_labels[i], all_labels[j])
+        for i in range(len(all_labels))
+        for j in range(i + 1, len(all_labels))
+    ]
+    return float(np.mean(scores)) if scores else None
 
 
 def compare_cluster_method(
@@ -261,7 +371,30 @@ def compare_cluster_method(
     silhouette_sample_size: int | None = 10000,
     random_state: int = 42,
 ) -> pd.DataFrame:
-    """So sánh K-Means, GMM và DBSCAN trên cùng embedding t-SNE."""
+    """So sánh K-Means, GMM và DBSCAN trên cùng embedding t-SNE.
+
+    Args:
+        X_tsne: Tọa độ t-SNE (n, 2) hoặc (n, 3) dùng để fit ba thuật toán.
+        X_input: Dữ liệu trước t-SNE. Truyền đối số này để tính clustering
+            stability bằng cách chạy lại t-SNE với nhiều random_state.
+        clustering_params: Tham số riêng cho từng thuật toán, ví dụ:
+            {"kmeans": {"n_clusters": 5}, "gmm": {"n_components": 5},
+             "dbscan": {"eps": 1.2, "min_samples": 5}}. Nếu bỏ qua eps,
+            chương trình ước lượng eps từ phân vị 90% khoảng cách k-NN.
+        tsne_params: Tham số t-SNE dùng khi tính stability. Cần trùng với cấu
+            hình t-SNE đã dùng để tạo X_tsne.
+        random_states: Các seed dùng cho clustering stability; mặc định 5 lần.
+        silhouette_sample_size: Số mẫu tối đa dùng cho Silhouette.
+        random_state: Seed lấy mẫu Silhouette.
+
+    Returns:
+        DataFrame gồm một dòng cho mỗi thuật toán và các chỉ số DBCV,
+        Silhouette (đã loại noise), stability ARI, số cụm, noise ratio (%) và runtime.
+
+    Lưu ý:
+        X_input là bắt buộc nếu cần cột stability_ari có giá trị. DBCV cần
+        ``pip install hdbscan``; nếu chưa cài, cột DBCV là None và note nêu rõ.
+    """
     X_tsne = _validate_matrix(X_tsne, "X_tsne")
     if X_input is not None:
         X_input = _validate_matrix(X_input, "X_input")
@@ -290,6 +423,8 @@ def compare_cluster_method(
         "dbcv_score", "silhouette_score", "stability_ari",
         "runtime_seconds", "note",
     ]
+    # Tạo các embedding t-SNE chỉ một lần cho cả ba thuật toán để tránh
+    # chạy lặp lại 3 x số_seed lần không cần thiết.
     seeds = list(dict.fromkeys(int(seed) for seed in random_states))
     stability_labels = {name: [] for name in ("kmeans", "gmm", "dbscan")}
     stability_note = None
@@ -310,6 +445,7 @@ def compare_cluster_method(
         stability_note = "Cần ít nhất hai random_state để đo stability."
 
     rows = []
+    # Luôn báo cáo đủ ba thuật toán để việc so sánh không bị thiếu dòng.
     for algorithm in ("kmeans", "gmm", "dbscan"):
         start = time.perf_counter()
         labels = _fit_cluster_labels(
@@ -349,14 +485,10 @@ def compare_cluster_method(
 
         actual_eps = None
         if algorithm == "dbscan":
-            actual_eps = (
-                calculate_dbscan_eps(
-                    X_tsne,
-                    min_samples=default_params[algorithm].get("min_samples", 5),
-                )
-                if default_params[algorithm].get("eps") is None
-                else float(default_params[algorithm]["eps"])
-            )
+            actual_eps = calculate_dbscan_eps(
+                X_tsne,
+                min_samples=default_params[algorithm].get("min_samples", 5),
+            ) if default_params[algorithm].get("eps") is None else float(default_params[algorithm]["eps"])
 
         rows.append({
             "algorithm": algorithm,
@@ -373,6 +505,9 @@ def compare_cluster_method(
     return pd.DataFrame(rows, columns=columns)
 
 
+# ---------------------------------------------------------------------------
+# CÁC HÀM ĐÁNH GIÁ CHẤT LƯỢNG GIẢM CHIỀU
+# ---------------------------------------------------------------------------
 def _nearest_neighbor_indices(X: np.ndarray, n_neighbors: int) -> np.ndarray:
     """Lấy k láng giềng gần nhất, loại chính điểm truy vấn khỏi kết quả."""
     X = _validate_matrix(X)
@@ -410,7 +545,11 @@ def calculate_continuity(
     X_reduced: np.ndarray,
     n_neighbors: int = 10,
 ) -> float:
-    """Continuity: đo láng giềng trong dữ liệu gốc bị tách xa ở embedding."""
+    """Continuity: đo láng giềng trong dữ liệu gốc bị tách xa ở embedding.
+
+    Tính theo công thức rank-penalty đối ngẫu với Trustworthiness. Mỗi hàng
+    được xử lý riêng để tránh tạo một ma trận khoảng cách n x n trong RAM.
+    """
     X_original = _validate_matrix(X_original, "X_original")
     X_reduced = _validate_matrix(X_reduced, "X_reduced")
     if len(X_original) != len(X_reduced):
@@ -484,7 +623,11 @@ def calculate_embedding_stability(
     sample_size: int | None = 2000,
     random_state: int = 42,
 ) -> float | None:
-    """Đo ổn định giữa các embedding bằng Spearman của khoảng cách từng cặp."""
+    """Đo ổn định giữa các embedding bằng Spearman của khoảng cách từng cặp.
+
+    So sánh khoảng cách cặp điểm thay vì tọa độ trực tiếp để không bị ảnh hưởng
+    bởi phép quay, tịnh tiến hoặc phản chiếu embedding.
+    """
     if len(embeddings) < 2:
         return None
     arrays = [_validate_matrix(item, "embedding") for item in embeddings]
@@ -515,7 +658,7 @@ def _fit_reduction_embedding(
     """Fit một thuật toán giảm chiều bằng thư viện chuyên dụng."""
     params = dict(method_params or {})
     if method == "pca":
-        config = {"n_components": n_components, "random_state": random_state}
+        config = {"n_components": n_components, "svd_solver": "full"}
         config.update(params)
         model = PCA(**config)
     elif method == "tsne":
@@ -529,7 +672,7 @@ def _fit_reduction_embedding(
         return _fit_tsne_embedding(X, config, random_state)
     elif method == "umap":
         try:
-            from umap import UMAP
+            from umap.umap_ import UMAP
         except ImportError as exc:
             raise ImportError(
                 "Chưa có thư viện umap-learn. Hãy cài bằng `pip install umap-learn`."
@@ -558,10 +701,24 @@ def compare_dimensionality_reduction_method(
     umap_params: dict | None = None,
     sample_size: int | None = 2000,
     random_state: int = 42,
-    compute_stability: bool = False,
-    precomputed: dict[str, dict[str, Any]] | None = None,
 ) -> pd.DataFrame:
-    """So sánh Original, PCA, UMAP và t-SNE bằng metric local, global, engineering."""
+    """So sánh PCA, t-SNE và UMAP bằng metric local, global, engineering.
+
+    Args:
+        X_scaled: Ma trận dữ liệu trước giảm chiều (n, d).
+        n_components: Số chiều đích, mặc định 2 để so sánh công bằng.
+        n_neighbors: k dùng cho Trustworthiness, Continuity và k-NN Preservation.
+        random_states: 5–10 seed dùng để đo Stability; mặc định 5 seed.
+        pca_params, tsne_params, umap_params: Tham số bổ sung cho từng framework.
+        sample_size: Số dòng tối đa dùng cho toàn bộ phép so sánh. None = dùng hết.
+            Mặc định 2000 để khống chế bộ nhớ của ma trận khoảng cách cặp điểm.
+        random_state: Seed lấy mẫu cố định.
+
+    Returns:
+        DataFrame một dòng cho mỗi phương pháp, gồm Trustworthiness,
+        Continuity, k-NN Preservation, Spearman, runtime và stability.
+        Nếu chưa cài umap-learn, dòng UMAP vẫn được giữ và note ghi rõ lý do.
+    """
     X_scaled = _validate_matrix(X_scaled, "X_scaled")
     if n_components < 1 or n_components > min(X_scaled.shape):
         raise ValueError("n_components phải từ 1 đến min(n_samples, n_features).")
@@ -576,253 +733,79 @@ def compare_dimensionality_reduction_method(
             X_eval = X_scaled
     else:
         X_eval = X_scaled
-
     if n_neighbors < 1 or n_neighbors >= len(X_eval) / 2:
         raise ValueError(
             f"n_neighbors phải lớn hơn 0 và nhỏ hơn n_samples/2 (n_samples={len(X_eval)})."
         )
 
-    seeds = list(dict.fromkeys(int(seed) for seed in random_states)) if compute_stability else [int(random_state)]
+    seeds = list(dict.fromkeys(int(seed) for seed in random_states))
     if not seeds:
         seeds = [int(random_state)]
-
     method_configs = {
         "pca": pca_params,
-        "umap": umap_params,
         "tsne": tsne_params,
+        "umap": umap_params,
     }
     columns = [
-        "method", "n_components", "trustworthiness", "continuity", "knn_preservation",
+        "method", "trustworthiness", "continuity", "knn_preservation",
         "spearman_rank_correlation", "runtime_seconds", "stability_score",
         "n_samples", "n_neighbors", "note",
     ]
-    rows = [
-        {
-            "method": "original",
-            "n_components": int(X_eval.shape[1]),
-            "trustworthiness": None,
-            "continuity": None,
-            "knn_preservation": None,
-            "spearman_rank_correlation": None,
-            "runtime_seconds": 0.0,
-            "stability_score": None,
-            "n_samples": int(len(X_eval)),
-            "n_neighbors": int(n_neighbors),
-            "note": "Dữ liệu chuẩn hóa gốc (không gian tham chiếu).",
-        }
-    ]
-
-    for method in ("pca", "umap", "tsne"):
-        embeddings: list[np.ndarray] = []
-        runtime: float | None = None
-        note: str | None = None
-        actual_dim = int(n_components)
-
-        if precomputed and method in precomputed and precomputed[method] is not None:
-            item = precomputed[method]
-            emb0 = _validate_matrix(item["embedding"], f"{method}_embedding")
-            if len(emb0) != len(X_eval):
-                raise ValueError(f"precomputed['{method}'] không khớp số dòng X_eval.")
-            embeddings.append(emb0)
-            actual_dim = int(emb0.shape[1])
-            runtime = float(item.get("runtime_seconds", 0.0))
-            if compute_stability and len(seeds) > 1:
-                for seed in seeds[1:]:
-                    embeddings.append(
-                        _fit_reduction_embedding(X_eval, method, actual_dim, seed, method_configs[method])
-                    )
-        else:
-            try:
-                for run_index, seed in enumerate(seeds):
-                    start = time.perf_counter()
-                    embedding = _fit_reduction_embedding(
-                        X_eval, method, n_components, seed, method_configs[method]
-                    )
-                    elapsed = time.perf_counter() - start
-                    if run_index == 0:
-                        runtime = float(elapsed)
-                        actual_dim = int(embedding.shape[1])
-                    embeddings.append(embedding)
-            except ImportError as exc:
-                rows.append({
-                    "method": method,
-                    "n_components": None,
-                    "trustworthiness": None,
-                    "continuity": None,
-                    "knn_preservation": None,
-                    "spearman_rank_correlation": None,
-                    "runtime_seconds": None,
-                    "stability_score": None,
-                    "n_samples": int(len(X_eval)),
-                    "n_neighbors": int(n_neighbors),
-                    "note": str(exc),
-                })
-                continue
+    rows = []
+    for method in ("pca", "tsne", "umap"):
+        embeddings = []
+        runtime = None
+        note = None
+        try:
+            for run_index, seed in enumerate(seeds):
+                start = time.perf_counter()
+                embedding = _fit_reduction_embedding(
+                    X_eval, method, n_components, seed, method_configs[method]
+                )
+                elapsed = time.perf_counter() - start
+                if run_index == 0:
+                    runtime = float(elapsed)
+                embeddings.append(embedding)
+        except ImportError as exc:
+            rows.append({
+                "method": method,
+                "trustworthiness": None,
+                "continuity": None,
+                "knn_preservation": None,
+                "spearman_rank_correlation": None,
+                "runtime_seconds": None,
+                "stability_score": None,
+                "n_samples": len(X_eval),
+                "n_neighbors": n_neighbors,
+                "note": str(exc),
+            })
+            continue
 
         main_embedding = embeddings[0]
-        stability = (
-            calculate_embedding_stability(embeddings, sample_size=sample_size, random_state=random_state)
-            if len(embeddings) >= 2
-            else None
-        )
-        if not compute_stability:
-            note = "Chưa bật chạy nhiều seed để đo Stability."
-
         rows.append({
             "method": method,
-            "n_components": actual_dim,
-            "trustworthiness": calculate_trustworthiness(X_eval, main_embedding, n_neighbors),
-            "continuity": calculate_continuity(X_eval, main_embedding, n_neighbors),
-            "knn_preservation": calculate_knn_preservation(X_eval, main_embedding, n_neighbors),
+            "trustworthiness": calculate_trustworthiness(
+                X_eval, main_embedding, n_neighbors
+            ),
+            "continuity": calculate_continuity(
+                X_eval, main_embedding, n_neighbors
+            ),
+            "knn_preservation": calculate_knn_preservation(
+                X_eval, main_embedding, n_neighbors
+            ),
             "spearman_rank_correlation": calculate_spearman_rank_correlation(
-                X_eval, main_embedding, sample_size=sample_size, random_state=random_state
+                X_eval, main_embedding, sample_size=sample_size,
+                random_state=random_state,
             ),
             "runtime_seconds": runtime,
-            "stability_score": stability,
-            "n_samples": int(len(X_eval)),
-            "n_neighbors": int(n_neighbors),
+            "stability_score": calculate_embedding_stability(
+                embeddings, sample_size=sample_size, random_state=random_state
+            ),
+            "n_samples": len(X_eval),
+            "n_neighbors": n_neighbors,
             "note": note,
         })
     return pd.DataFrame(rows, columns=columns)
-
-
-# ---------------------------------------------------------------------------
-# NHÓM 3: BENCHMARK CLUSTERING TRÊN NHIỀU KHÔNG GIAN
-# ---------------------------------------------------------------------------
-def benchmark_clustering_spaces(
-    X_spaces: dict[str, dict[str, Any] | np.ndarray],
-    clustering_params: dict[str, dict[str, Any]] | None = None,
-    X_original: np.ndarray | None = None,
-    labels_true: np.ndarray | None = None,
-    random_state: int = 42,
-) -> dict[str, Any]:
-    """Chạy K-Means, GMM, DBSCAN trên từng không gian ('original', 'pca', 'umap', 'tsne').
-
-    Args:
-        X_spaces: dict dạng:
-            {
-                "original": {"X": X_scaled, "reduction_runtime": 0.0},
-                "pca": {"X": X_pca, "reduction_runtime": 0.12},
-                "umap": {"X": X_umap, "reduction_runtime": 1.45},
-                "tsne": {"X": X_tsne, "reduction_runtime": 3.20},
-            }
-            (cũng chấp nhận truyền trực tiếp ndarray cho từng value, khi đó reduction_runtime = 0.0).
-        clustering_params: tham số theo thuật toán hoặc theo (space, algo).
-            Hỗ trợ dạng {"kmeans": {...}, "gmm": {...}, "dbscan": {...}}
-            hoặc {"dbscan": {"original": {"eps": 1.5}, "pca": {"eps": 1.2}, ...}}.
-        X_original: ma trận X_scaled dùng làm mặt bằng chung để tính
-            silhouette_original và davies_bouldin_original. Nếu None sẽ lấy từ X_spaces["original"].
-        labels_true: nhãn thật (n,) để tính ARI nếu có.
-        random_state: seed cố định.
-
-    Returns:
-        dict:
-            "table": pd.DataFrame (tối đa 12 dòng: 4 không gian x 3 thuật toán)
-            "results": dict[str, dict[str, dict]] - {space: {algo: ClusteringResult}}
-    """
-    ordered_spaces = [s for s in ("original", "pca", "umap", "tsne") if s in X_spaces and X_spaces[s] is not None]
-    if not ordered_spaces:
-        raise ValueError("X_spaces phải chứa ít nhất một không gian dữ liệu hợp lệ.")
-
-    parsed_spaces: dict[str, tuple[np.ndarray, float]] = {}
-    for space in ordered_spaces:
-        item = X_spaces[space]
-        if isinstance(item, dict):
-            mat = _validate_matrix(item["X"], f"X_spaces['{space}']['X']")
-            red_rt = float(item.get("reduction_runtime") or 0.0)
-        else:
-            mat = _validate_matrix(item, f"X_spaces['{space}']")
-            red_rt = 0.0
-        parsed_spaces[space] = (mat, red_rt)
-
-    if X_original is not None:
-        X_orig_arr = _validate_matrix(X_original, "X_original")
-    elif "original" in parsed_spaces:
-        X_orig_arr = parsed_spaces["original"][0]
-    else:
-        X_orig_arr = None
-
-    columns = [
-        "space", "algorithm", "n_samples", "n_features",
-        "n_clusters", "n_noise", "noise_ratio",
-        "reduction_runtime", "clustering_runtime", "total_runtime",
-        "silhouette_space", "davies_bouldin_space",
-        "silhouette_original", "davies_bouldin_original",
-        "ari_score", "note",
-    ]
-    rows: list[dict[str, Any]] = []
-    all_results: dict[str, dict[str, dict]] = {}
-
-    for space in ordered_spaces:
-        X_mat, red_rt = parsed_spaces[space]
-        n_samples, n_features = X_mat.shape
-        all_results[space] = {}
-
-        for algo in ("kmeans", "gmm", "dbscan"):
-            raw_cfg = (clustering_params or {}).get(algo, {})
-            if space in raw_cfg and isinstance(raw_cfg[space], dict):
-                algo_cfg = {**DEFAULT_PARAMS[algo], **raw_cfg[space]}
-            else:
-                algo_cfg = {**DEFAULT_PARAMS[algo], **raw_cfg}
-
-            # DBSCAN bắt buộc thích ứng eps theo không gian nếu người dùng không ép riêng
-            if algo == "dbscan":
-                space_specific = isinstance(raw_cfg.get(space), dict) and "eps" in raw_cfg[space]
-                if not space_specific and raw_cfg.get("eps") is None:
-                    algo_cfg["eps"] = estimate_dbscan_eps(
-                        X_mat, min_samples=int(algo_cfg.get("min_samples", 5))
-                    )
-
-            res = run_clustering(
-                X_mat,
-                algo,
-                params=algo_cfg,
-                feature_space=space,
-                random_state=random_state,
-            )
-            all_results[space][algo] = res
-
-            labels = res["labels"]
-            clust_rt = float(res["runtime_seconds"] or 0.0)
-            total_rt = float(red_rt + clust_rt)
-
-            eval_space = evaluate_clustering(X_mat, labels, labels_true=labels_true, runtime_seconds=clust_rt)
-            if X_orig_arr is not None and len(X_orig_arr) == n_samples:
-                sil_orig = calculate_silhouette_score(X_orig_arr, labels, random_state=random_state)
-                db_orig = calculate_davies_bouldin_score(X_orig_arr, labels)
-            else:
-                sil_orig = None
-                db_orig = None
-
-            note_parts = []
-            if eval_space["note"]:
-                note_parts.append(eval_space["note"])
-            if algo == "dbscan":
-                note_parts.append(f"eps={res['params']['eps']:.3f}")
-
-            rows.append({
-                "space": space,
-                "algorithm": algo,
-                "n_samples": int(n_samples),
-                "n_features": int(n_features),
-                "n_clusters": int(eval_space["n_clusters"]),
-                "n_noise": int(eval_space["n_noise"]),
-                "noise_ratio": float(eval_space["noise_ratio"]),
-                "reduction_runtime": float(red_rt),
-                "clustering_runtime": float(clust_rt),
-                "total_runtime": float(total_rt),
-                "silhouette_space": eval_space["silhouette_score"],
-                "davies_bouldin_space": eval_space["davies_bouldin_score"],
-                "silhouette_original": sil_orig,
-                "davies_bouldin_original": db_orig,
-                "ari_score": eval_space["ari_score"],
-                "note": "; ".join(note_parts) if note_parts else None,
-            })
-
-    return {
-        "table": pd.DataFrame(rows, columns=columns),
-        "results": all_results,
-    }
 
 
 def compare_models(
@@ -830,27 +813,32 @@ def compare_models(
     X_scaled: np.ndarray,
     X_pca: np.ndarray | None = None,
     labels_true: np.ndarray | None = None,
-    X_umap: np.ndarray | None = None,
-    X_tsne: np.ndarray | None = None,
 ) -> pd.DataFrame:
-    """Bảng so sánh các thuật toán trên không gian tương ứng của từng kết quả."""
-    columns = [
-        "algorithm", "n_clusters", "n_noise", "silhouette_score",
-        "davies_bouldin_score", "ari_score", "runtime_seconds",
-    ]
-    space_map = {
-        "original": X_scaled,
-        "scaled": X_scaled,
-        "pca": X_pca,
-        "umap": X_umap,
-        "tsne": X_tsne,
-    }
+    """Bảng so sánh nhiều thuật toán.
+
+    Args:
+        results (dict): {"kmeans": ClusteringResult, "gmm": ..., "dbscan": ...} (có thể thiếu).
+        X_scaled (np.ndarray): (n, d).
+        X_pca (np.ndarray | None): (n, k). Với mỗi kết quả, chọn X theo result["feature_space"]
+            ("scaled" -> X_scaled, "pca" -> X_pca).
+        labels_true (np.ndarray | None): nhãn tham chiếu cho ARI.
+
+    Returns:
+        pd.DataFrame, MỖI THUẬT TOÁN MỘT DÒNG, đúng các cột:
+            "algorithm" (str: "kmeans"|"gmm"|"dbscan"), "n_clusters", "n_noise",
+            "silhouette_score", "davies_bouldin_score", "ari_score", "runtime_seconds"
+        Giá trị không tính được là None/NaN (không xóa cột, không xóa dòng).
+    """
+    columns = ["algorithm", "n_clusters", "n_noise", "silhouette_score",
+               "davies_bouldin_score", "ari_score", "runtime_seconds"]
     rows = []
     for algo, res in results.items():
-        space = res.get("feature_space") or "original"
-        X = space_map.get(space)
-        if X is None:
-            raise ValueError(f"'{algo}' chạy trên '{space}' nhưng chưa truyền ma trận của không gian này.")
+        if res.get("feature_space") == "pca":
+            if X_pca is None:
+                raise ValueError(f"'{algo}' chạy trên PCA nhưng X_pca = None")
+            X = X_pca
+        else:
+            X = X_scaled
         m = evaluate_clustering(X, res["labels"], labels_true, res.get("runtime_seconds"))
         rows.append({"algorithm": algo, **{c: m[c] for c in columns[1:]}})
-    return pd.DataFrame(rows, columns=columns)
+    return pd.DataFrame(rows, columns=columns)  # results rỗng vẫn giữ đủ cột
