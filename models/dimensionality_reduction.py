@@ -1,25 +1,22 @@
 """
 models/dimensionality_reduction.py
 ==================================
-Người phụ trách: Huỳnh Lân (toán & cài đặt t-SNE)
+Người phụ trách: Huỳnh Lân (toán & cài đặt giảm chiều)
 
-NHIỆM VỤ FILE: PCA và t-SNE.
-
-PHÂN BIỆT ĐẦU VÀO (rất dễ nhầm):
-    * run_pca  : nhận X_scaled (n, d)  -> trả X_pca (n, k)     [dùng để TÍNH TOÁN, k <= d]
-    * run_tsne : nhận ma trận (n, m)   -> trả embedding (n, 2|3) [dùng để NHÌN]
-                 ma trận vào nên là X_pca (khuyến nghị) hoặc X_scaled.
-    * Phân cụm KHÔNG chạy trên embedding của t-SNE (xem models/clustering.py).
-
-QUY ĐỊNH CHUNG: xem đầu file models/data_processing.py (giữ tên hàm, tham số, key; thứ tự dòng
-không đổi; không print/streamlit; dùng random_state).
+NHIỆM VỤ FILE: PCA, UMAP và t-SNE.
+  * run_pca  : nhận X_scaled (n, d) -> trả X_pca (n, k)
+  * run_umap : nhận X_scaled (n, d) -> trả embedding (n, k)
+  * run_tsne : nhận ma trận (n, m) -> trả embedding (n, 2|3)
 """
 from __future__ import annotations
 
+import time
 from typing import Any
+
 import numpy as np
 import pandas as pd
 import torch
+from sklearn.decomposition import PCA
 
 
 def _validate_2d_array(X: np.ndarray, name: str = "X") -> np.ndarray:
@@ -38,11 +35,47 @@ def _validate_2d_array(X: np.ndarray, name: str = "X") -> np.ndarray:
     return X
 
 
+def run_pca(
+    X_scaled: np.ndarray,
+    n_components: int | float = 0.95,
+    random_state: int = 42,
+) -> dict[str, Any]:
+    """Chạy Principal Component Analysis (PCA) trên dữ liệu đã chuẩn hóa."""
+    X_arr = _validate_2d_array(X_scaled, name="X_scaled")
+    n_samples, n_features = X_arr.shape
+
+    if isinstance(n_components, float) and not isinstance(n_components, bool):
+        if not (0.0 < n_components <= 1.0):
+            raise ValueError("n_components dạng tỷ lệ phương sai phải nằm trong (0, 1].")
+        target_comp: int | float = float(n_components)
+    else:
+        k = int(n_components)
+        max_k = min(n_samples, n_features)
+        if k < 1 or k > max_k:
+            raise ValueError(f"n_components phải từ 1 đến {max_k}, nhận được {k}.")
+        target_comp = k
+
+    t0 = time.perf_counter()
+    model = PCA(n_components=target_comp, random_state=int(random_state))
+    X_pca = np.asarray(model.fit_transform(X_arr), dtype=np.float64)
+    runtime = time.perf_counter() - t0
+
+    ratio = np.asarray(model.explained_variance_ratio_, dtype=np.float64)
+    cum_var = np.cumsum(ratio)
+
+    return {
+        "pca_model": model,
+        "X_pca": X_pca,
+        "n_components": int(X_pca.shape[1]),
+        "explained_variance_ratio": ratio,
+        "cumulative_variance": cum_var,
+        "components": np.asarray(model.components_, dtype=np.float64),
+        "runtime_seconds": float(runtime),
+    }
+
 
 def get_explained_variance(pca_input: Any) -> pd.DataFrame:
-    """
-    Trích xuất bảng thống kê phương sai giải thích từ kết quả hoặc mô hình PCA.
-    """
+    """Trích xuất bảng thống kê phương sai giải thích từ kết quả hoặc mô hình PCA."""
     if isinstance(pca_input, dict):
         if "pca_model" in pca_input and pca_input["pca_model"] is not None:
             pca_obj = pca_input["pca_model"]
@@ -65,20 +98,60 @@ def get_explained_variance(pca_input: Any) -> pd.DataFrame:
         "cumulative_variance": cum_var,
     })
 
+
+def run_umap(
+    X_input: np.ndarray,
+    n_components: int = 5,
+    n_neighbors: int = 15,
+    min_dist: float = 0.1,
+    metric: str = "euclidean",
+    random_state: int = 42,
+) -> dict[str, Any]:
+    """Chạy UMAP (Uniform Manifold Approximation and Projection)."""
+    X_arr = _validate_2d_array(X_input, name="X_input")
+    n_samples = X_arr.shape[0]
+    k = int(n_components)
+    if k < 1 or k >= n_samples:
+        raise ValueError(f"n_components ({k}) phải >= 1 và < n_samples ({n_samples}).")
+
+    eff_neighbors = min(int(n_neighbors), n_samples - 1)
+    if eff_neighbors < 2:
+        raise ValueError("Số mẫu quá ít để chạy UMAP (cần ít nhất 3 mẫu).")
+
+    try:
+        from umap import UMAP
+    except ImportError as exc:
+        raise ImportError(
+            "Thư viện umap-learn chưa được cài đặt. Hãy cài bằng `pip install umap-learn`."
+        ) from exc
+
+    params = {
+        "n_components": k,
+        "n_neighbors": eff_neighbors,
+        "min_dist": float(min_dist),
+        "metric": str(metric),
+        "random_state": int(random_state),
+    }
+
+    t0 = time.perf_counter()
+    model = UMAP(**params)
+    embedding = np.asarray(model.fit_transform(X_arr), dtype=np.float64)
+    runtime = time.perf_counter() - t0
+
+    return {
+        "model": model,
+        "embedding": embedding,
+        "n_components": int(embedding.shape[1]),
+        "params": params,
+        "runtime_seconds": float(runtime),
+        "backend": "umap-learn",
+    }
+
+
 class CustomTSNE:
     """
     Cài đặt thuật toán t-SNE (t-Distributed Stochastic Neighbor Embedding) từ cơ sở lý thuyết
-    toán học bằng PyTorch Tensor.
-
-    Các thành phần toán học chính:
-    1. Ma trận khoảng cách Euclid bình phương ||x_i - x_j||^2 ở không gian gốc.
-    2. Tìm kiếm nhị phân (Binary Search) độ chính xác beta_i = 1 / (2 * sigma_i^2) cho từng điểm
-       để phân phối xác suất có điều kiện P_{j|i} đạt Shannon Entropy H(P_i) = log2(perplexity).
-    3. Đối xứng hóa phân phối đồng thời P_ij = (P_{j|i} + P_{i|j}) / (2N).
-    4. Mô hình hóa phân phối Student-t (1 bậc tự do) Q_ij ở không gian thấp chiều nhằm khắc phục
-       vấn đề dồn cục (crowding problem).
-    5. Tối ưu hàm mất mát Kullback-Leibler Divergence KL(P || Q) bằng Gradient Descent kết hợp
-       Early Exaggeration và Momentum schedule.
+    toán học bằng PyTorch Tensor (tự động chọn CUDA nếu khả dụng).
     """
 
     def __init__(
@@ -99,24 +172,17 @@ class CustomTSNE:
         self.random_state = int(random_state)
         self.kl_divergence_: float | None = None
 
-        # Tự động ưu tiên GPU (CUDA) nếu khả dụng, ngược lại chạy trên CPU
         if device is None:
             self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         else:
             self.device = torch.device(device)
 
     def _pairwise_squared_distances(self, X: torch.Tensor) -> torch.Tensor:
-        """
-        Tính ma trận khoảng cách Euclid bình phương toàn cặp điểm bằng khai triển ma trận:
-        ||x_i - x_j||^2 = ||x_i||^2 + ||x_j||^2 - 2 * (X @ X^T)
-        """
         sum_X = torch.sum(X ** 2, dim=1, keepdim=True)
         D = sum_X + sum_X.T - 2.0 * torch.matmul(X, X.T)
-        # Chặn dưới tại 0.0 để tránh sai số dấu phẩy động tạo ra giá trị âm rất nhỏ
         return torch.clamp(D, min=0.0)
 
     def _compute_joint_probabilities(self, D: torch.Tensor) -> torch.Tensor:
-        """Tính ma trận xác suất liên hợp P đối xứng từ ma trận khoảng cách D bằng Binary Search."""
         n = D.shape[0]
         P = torch.zeros((n, n), dtype=torch.float64, device=self.device)
         target_entropy = np.log2(self.perplexity)
@@ -126,12 +192,10 @@ class CustomTSNE:
             beta_max = float("inf")
             beta_i = 1.0
 
-            # Loại bỏ chính điểm i (j != i) khi tính phân phối lân cận
             mask = torch.ones(n, dtype=torch.bool, device=self.device)
             mask[i] = False
             D_i = D[i, mask]
 
-            # Binary search tối đa 50 vòng lặp để hội tụ beta_i theo sai số 1e-5
             for _ in range(50):
                 P_i_unnorm = torch.exp(-D_i * beta_i)
                 sum_P = torch.sum(P_i_unnorm)
@@ -141,7 +205,6 @@ class CustomTSNE:
                 else:
                     P_i = P_i_unnorm / sum_P
 
-                # Tính Shannon Entropy cơ số 2
                 H = -torch.sum(P_i * torch.log2(torch.clamp(P_i, min=1e-12))).item()
                 H_diff = H - target_entropy
 
@@ -149,25 +212,18 @@ class CustomTSNE:
                     break
 
                 if H_diff > 0:
-                    # Entropy đang lớn hơn mục tiêu -> cần thu hẹp phương sai sigma_i (tăng beta_i)
                     beta_min = beta_i
                     beta_i = beta_i * 2.0 if beta_max == float("inf") else (beta_i + beta_max) / 2.0
                 else:
-                    # Entropy đang nhỏ hơn mục tiêu -> cần mở rộng phương sai sigma_i (giảm beta_i)
                     beta_max = beta_i
                     beta_i = beta_i / 2.0 if beta_min == -float("inf") else (beta_i + beta_min) / 2.0
 
             P[i, mask] = P_i
 
-        # Đối xứng hóa ma trận P và chặn dưới 1e-12 để đảm bảo ổn định số học khi tính log
         P = (P + P.T) / (2.0 * n)
         return torch.clamp(P, min=1e-12)
 
     def fit_transform(self, X: np.ndarray) -> np.ndarray:
-        """
-        Huấn luyện và ánh xạ ma trận X sang không gian n_components chiều.
-        """
-        # Cố định seed của PyTorch để tái lập kết quả khởi tạo ngẫu nhiên
         torch.manual_seed(self.random_state)
         if torch.cuda.is_available():
             torch.cuda.manual_seed_all(self.random_state)
@@ -175,53 +231,38 @@ class CustomTSNE:
         X_tensor = torch.tensor(X, dtype=torch.float64, device=self.device)
         n = X_tensor.shape[0]
 
-        # Quy đổi learning_rate="auto" theo công thức chuẩn max(N / 12, 50)
         if isinstance(self.learning_rate, str) and self.learning_rate.lower() == "auto":
             lr = max(n / 12.0, 50.0)
         else:
             lr = float(self.learning_rate)
 
-        # Bước 1: Tính ma trận xác suất đồng thời P ở không gian cao chiều
         D = self._pairwise_squared_distances(X_tensor)
         P = self._compute_joint_probabilities(D)
 
-        # Early Exaggeration: Nhân P với hệ số 4.0 trong giai đoạn đầu để kéo các cụm tách xa nhau
         exaggeration_iters = 250 if self.n_iter > 250 else max(1, self.n_iter // 2)
         P_opt = P * 4.0
 
-        # Bước 2: Khởi tạo tọa độ thấp chiều Y theo phân phối chuẩn N(0, 10^-4 * I)
         Y = torch.randn((n, self.n_components), dtype=torch.float64, device=self.device) * 1e-4
         dY = torch.zeros_like(Y)
 
-        # Bước 3: Tối ưu hóa KL Divergence bằng Gradient Descent + Momentum
         for it in range(self.n_iter):
             if it == exaggeration_iters:
-                # Kết thúc giai đoạn Early Exaggeration, đưa P về giá trị thực
                 P_opt = P
 
-            # Tính phân phối Student-t (1 bậc tự do) trong không gian thấp chiều:
-            # inv_dist_ij = (1 + ||y_i - y_j||^2)^(-1)
             dist_Y = self._pairwise_squared_distances(Y)
             inv_dist = 1.0 / (1.0 + dist_Y)
             inv_dist.fill_diagonal_(0.0)
             Q = torch.clamp(inv_dist / torch.sum(inv_dist), min=1e-12)
 
-            # Vector hóa công thức đạo hàm hàm mất mát KL(P || Q) theo tọa độ Y:
-            # grad_i = 4 * sum_j (p_ij - q_ij) * (1 + ||y_i - y_j||^2)^(-1) * (y_i - y_j)
-            # Khai triển tổng hiệu thành phép nhân ma trận để tính song song trên toàn bộ N điểm
             PQ_mul_inv = (P_opt - Q) * inv_dist
             row_sums = torch.sum(PQ_mul_inv, dim=1, keepdim=True)
             grad = 4.0 * (row_sums * Y - torch.matmul(PQ_mul_inv, Y))
 
-            # Cập nhật vận tốc dY và tọa độ Y theo lịch trình Momentum (0.5 -> self.momentum)
             current_momentum = 0.5 if it < exaggeration_iters else self.momentum
             dY = current_momentum * dY - lr * grad
             Y = Y + dY
-
-            # Dịch chuyển tâm đám mây điểm về gốc tọa độ sau mỗi bước lặp
             Y = Y - torch.mean(Y, dim=0, keepdim=True)
 
-        # Bước 4: Tính giá trị KL Divergence cuối cùng trên ma trận P gốc (không phóng đại)
         dist_Y = self._pairwise_squared_distances(Y)
         inv_dist = 1.0 / (1.0 + dist_Y)
         inv_dist.fill_diagonal_(0.0)
@@ -241,30 +282,7 @@ def run_tsne(
     random_state: int = 42,
     use_opentsne: bool = False,
 ) -> dict[str, Any]:
-    """
-    Chạy thuật toán t-SNE để nhúng dữ liệu nhiều chiều xuống không gian 2D hoặc 3D.
-
-    Tham số:
-        X_input: Ma trận dữ liệu đầu vào (X_scaled hoặc X_pca) dạng (n_samples, n_features).
-        n_components: Số chiều không gian đích (thường là 2 hoặc 3).
-        perplexity: Tham số cân bằng lân cận cục bộ và toàn cục (bắt buộc < n_samples).
-        learning_rate: Tốc độ học (số thực dương hoặc chuỗi "auto").
-        n_iter: Số vòng lặp tối ưu hóa Gradient Descent.
-        random_state: Hạt giống ngẫu nhiên để tái lập kết quả.
-        use_opentsne: Nếu True, sử dụng thư viện openTSNE (hỗ trợ transform out-of-sample trực tiếp);
-                      nếu False (mặc định), sử dụng CustomTSNE cài đặt bằng PyTorch.
-
-    Trả về:
-        Dictionary chuẩn gồm 8 keys:
-        - "embedding": Ma trận tọa độ sau giảm chiều (n_samples, n_components).
-        - "n_components": Số chiều đầu ra.
-        - "perplexity": Giá trị perplexity đã dùng.
-        - "learning_rate": Giá trị learning_rate đã truyền.
-        - "n_iter": Số vòng lặp tối ưu hóa.
-        - "kl_divergence": Giá trị hàm mất mát KL Divergence cuối cùng.
-        - "tsne_model": Đối tượng mô hình (nếu dùng openTSNE) hoặc None.
-        - "backend": Tên backend thực thi ("custom" hoặc "opentsne").
-    """
+    """Chạy thuật toán t-SNE để nhúng dữ liệu nhiều chiều xuống không gian 2D hoặc 3D."""
     X_arr = _validate_2d_array(X_input, name="X_input")
     n_samples = X_arr.shape[0]
 
@@ -282,6 +300,7 @@ def run_tsne(
     elif float(learning_rate) <= 0:
         raise ValueError("learning_rate phải là số dương.")
 
+    t0 = time.perf_counter()
     if use_opentsne:
         try:
             from openTSNE import TSNE as OpenTSNE
@@ -300,6 +319,7 @@ def run_tsne(
             random_state=int(random_state),
         )
         embedding_obj = opentsne_model.fit(X_arr)
+        runtime = time.perf_counter() - t0
         embedding = np.asarray(embedding_obj, dtype=np.float64)
         kl_div = float(getattr(embedding_obj, "kl_divergence", np.nan))
 
@@ -312,9 +332,10 @@ def run_tsne(
             "kl_divergence": kl_div,
             "tsne_model": embedding_obj,
             "backend": "opentsne",
+            "device": "cpu",
+            "runtime_seconds": float(runtime),
         }
 
-    # Mặc định: Thực thi CustomTSNE tự cài đặt bằng PyTorch
     tsne_model = CustomTSNE(
         n_components=int(n_components),
         perplexity=float(perplexity),
@@ -323,6 +344,7 @@ def run_tsne(
         random_state=int(random_state),
     )
     embedding = tsne_model.fit_transform(X_arr)
+    runtime = time.perf_counter() - t0
 
     return {
         "embedding": embedding,
@@ -333,4 +355,6 @@ def run_tsne(
         "kl_divergence": tsne_model.kl_divergence_,
         "tsne_model": None,
         "backend": "custom",
+        "device": str(tsne_model.device),
+        "runtime_seconds": float(runtime),
     }
