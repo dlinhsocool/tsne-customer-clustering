@@ -10,7 +10,7 @@ from __future__ import annotations
 # 1. Thông tin chung
 # ---------------------------------------------------------------------------
 APP_TITLE = "Customer Segmentation"
-CONTRACT_VERSION = "2.0"
+CONTRACT_VERSION = "2.1"
 
 RANDOM_STATE = 42
 NOISE_LABEL = -1
@@ -56,13 +56,31 @@ TSNE_DEFAULTS = {
 # ---------------------------------------------------------------------------
 # 3. Tiền xử lý & hiển thị cột
 # ---------------------------------------------------------------------------
-MISSING_STRATEGIES = ["median", "mean", "most_frequent", "drop"]
-OUTLIER_METHODS = [None, "iqr", "zscore"]
+# Cột chứa các từ này là định danh/nhãn/nhiều chiều -> không chọn mặc định làm đặc trưng
+NON_FEATURE_HINTS = ("id", "name", "email", "segment", "label", "true", "nhom", "city", "country")
 
-# Cột chứa các từ này là định danh/nhãn -> không chọn mặc định làm đặc trưng
-NON_FEATURE_HINTS = ("id", "name", "email", "segment", "label", "true", "nhom")
+# Bộ cột khuyến nghị khi tải file thô 20 cột (synthetic_customers_20cols.csv). Kết quả: 13 đặc trưng
+#   recency_days, n_orders, total_spent, loyalty_points, support_tickets, subscription + 7 cột danh mục.
+# `avg_order_value` được thay bằng `n_orders` (= total_spent / avg_order_value) để tránh cộng tuyến.
+RECOMMENDED_FEATURES = [
+    "first_purchase_date",
+    "last_purchase_date",
+    "total_spent",
+    "avg_order_value",
+    "loyalty_points",
+    "support_tickets",
+    "subscription",
+    "favorite_category",
+]
+# Cột nhân khẩu/nhiễu trong file 20 cột: độc lập ngẫu nhiên với hành vi mua, KHÔNG chọn mặc định.
+# Có thể thêm thủ công để quan sát ảnh hưởng của chiều nhiễu lên phân cụm và giảm chiều.
+OPTIONAL_NOISE_FEATURES = ["age", "income", "credit_score", "gender", "device_type", "marketing_opt_in", "churn_risk"]
+
+# Ngày tham chiếu cố định cho recency (= ngày mua muộn nhất của bộ dữ liệu + 1 ngày)
+REFERENCE_DATE = "2025-05-05"
 
 FEATURE_DISPLAY = {
+    "n_orders": "Số đơn hàng (Frequency)",
     "total_spent": "Tổng chi tiêu",
     "avg_order_value": "Giá trị đơn TB",
     "loyalty_points": "Điểm thân thiết",
@@ -126,6 +144,7 @@ class SK:
     BENCHMARK_REDUCTION_TABLE = "benchmark_reduction_table"
     BENCHMARK_CLUSTER_TABLE = "benchmark_cluster_table"
     BENCHMARK_CLUSTER_RESULTS = "benchmark_cluster_results"
+    BENCHMARK_REPEATS = "benchmark_repeat_tables"
 
     # Hệ thống
     RANDOM_STATE = "random_state"

@@ -1,4 +1,11 @@
-"""models/prediction.py - Tiền xử lý, chiếu tọa độ và dự đoán cụm cho khách hàng mới."""
+"""models/prediction.py - Tiền xử lý, gán cụm và chiếu tọa độ cho khách hàng mới.
+
+Nguyên tắc:
+  * Khách mới đi qua ĐÚNG pipeline của khách cũ: cùng ngày tham chiếu, cùng công thức n_orders,
+    cùng log1p, cùng danh sách mức One-Hot, cùng scaler đã fit (chỉ transform, không fit lại).
+  * Cụm được quyết định ở không gian phân cụm; vị trí trên bản đồ t-SNE chỉ để quan sát
+    (t-SNE không có phép chiếu cố định cho điểm mới).
+"""
 from __future__ import annotations
 
 from typing import Any
@@ -6,6 +13,8 @@ from typing import Any
 import numpy as np
 import pandas as pd
 from sklearn.neighbors import NearestNeighbors
+
+_REFERENCE_SAMPLE = 2000  # số điểm huấn luyện dùng để ước lượng phân phối khoảng cách hàng xóm
 
 
 def _as_2d_float(values: Any, name: str) -> np.ndarray:
@@ -28,56 +37,11 @@ def _get_scaler(scale_info: Any) -> tuple[Any, list[int]]:
         scaler = scale_info.get("scaler")
         if scaler is None:
             raise KeyError("scale_info phải chứa key 'scaler'.")
-        log_cols_idx = scale_info.get(
-            "log_cols_idx", getattr(scaler, "_custom_log_cols_idx", [])
-        )
+        log_cols_idx = scale_info.get("log_cols_idx", getattr(scaler, "_custom_log_cols_idx", []))
     else:
         scaler = scale_info
         log_cols_idx = getattr(scaler, "_custom_log_cols_idx", [])
-
-    return scaler, [int(index) for index in log_cols_idx]
-
-
-def _detect_out_of_range_features(
-    X_raw: np.ndarray,
-    X_scaled: np.ndarray,
-    scaler: Any,
-    feature_columns: list[str],
-) -> tuple[list[str], list[str]]:
-    """Tìm đặc trưng vượt miền huấn luyện khi scaler có lưu được miền đó.
-
-    Với StandardScaler, không có min/max huấn luyện; dùng ngưỡng |z| > 3 như
-    một cảnh báo thống kê, không coi đó là giới hạn tuyệt đối của dữ liệu.
-    """
-    found: set[str] = set()
-    warnings: list[str] = []
-
-    data_min = getattr(scaler, "data_min_", None)
-    data_max = getattr(scaler, "data_max_", None)
-    if data_min is not None and data_max is not None:
-        lower = np.asarray(data_min, dtype=float).reshape(-1)
-        upper = np.asarray(data_max, dtype=float).reshape(-1)
-        for index, feature in enumerate(feature_columns):
-            if index < len(lower) and index < len(upper):
-                if X_raw[0, index] < lower[index] or X_raw[0, index] > upper[index]:
-                    found.add(feature)
-        if found:
-            warnings.append(
-                "Một số đặc trưng nằm ngoài khoảng min/max đã thấy khi huấn luyện."
-            )
-        return sorted(found), warnings
-
-    if scaler.__class__.__name__ == "StandardScaler":
-        for index, feature in enumerate(feature_columns):
-            if index < X_scaled.shape[1] and np.any(np.abs(X_scaled[:, index]) > 3.0):
-                found.add(feature)
-        if found:
-            warnings.append(
-                "Một số đặc trưng có |z-score| > 3; đây là cảnh báo thống kê, "
-                "không phải giới hạn min/max tuyệt đối."
-            )
-
-    return sorted(found), warnings
+    return scaler, [int(i) for i in log_cols_idx]
 
 
 def _get_pca_model(pca_info: Any) -> Any | None:
@@ -86,11 +50,12 @@ def _get_pca_model(pca_info: Any) -> Any | None:
         return None
     if isinstance(pca_info, dict):
         return pca_info.get("pca_model") or pca_info.get("model")
-    if hasattr(pca_info, "transform"):
-        return pca_info
-    return None
+    return pca_info if hasattr(pca_info, "transform") else None
 
 
+# ---------------------------------------------------------------------------
+# 1. Tiền xử lý khách mới
+# ---------------------------------------------------------------------------
 def preprocess_new_customer(
     new_customer: dict[str, Any] | pd.DataFrame,
     preprocess_info: dict[str, Any],
@@ -99,13 +64,16 @@ def preprocess_new_customer(
     *,
     pca_model: Any | None = None,
 ) -> dict[str, Any]:
-    """Biến đổi khách hàng mới theo pipeline đã fit và trả về dict chuẩn.
+    """Biến đổi khách hàng mới theo pipeline đã fit.
 
-    X_new_raw là DataFrame đã làm sạch/mã hóa/căn chỉnh cột nhưng chưa scale.
-    X_new_scaled là ma trận sau scaler. X_new_pca là None nếu không truyền PCA model.
+    `new_customer` có thể dùng:
+      * tên đặc trưng sau xử lý: recency_days, n_orders, total_spent, loyalty_points, support_tickets,
+        subscription, favorite_category (khớp form), hoặc
+      * tên cột thô: first_purchase_date, last_purchase_date, avg_order_value... (recency_days và n_orders
+        được tính lại bằng đúng công thức của dữ liệu huấn luyện).
 
-    `pca_info` là tên tham số cũ; `pca_model` được hỗ trợ để tương thích với
-    pages/new_customer.py. Có thể truyền model PCA trực tiếp hoặc dict từ run_pca().
+    Lỗi dữ liệu không hợp lý (âm, ngày đảo ngược, thiếu cột bắt buộc) -> ValueError tiếng Việt.
+    Giá trị ngoài khoảng đã thấy khi huấn luyện -> cảnh báo (out_of_range_features), không chặn.
     """
     if pca_model is not None:
         if pca_info is not None:
@@ -118,7 +86,6 @@ def preprocess_new_customer(
         df_new = new_customer.copy()
     else:
         raise TypeError("new_customer phải là dict hoặc pandas DataFrame.")
-
     if df_new.empty:
         raise ValueError("new_customer không được rỗng.")
 
@@ -127,142 +94,159 @@ def preprocess_new_customer(
         raise KeyError("preprocess_info phải chứa 'feature_columns'.")
 
     warnings: list[str] = []
-
-    # 1. Xử lý ngày tháng giống preprocess_data.
-    date_cols = cfg.get("date_columns", [])
-    if date_cols:
-        parsed_new = {
-            column: pd.to_datetime(df_new[column], errors="coerce", format="mixed")
-            for column in date_cols
-            if column in df_new.columns
-        }
-        if parsed_new:
-            ref_str = cfg.get("ref_date")
-            if ref_str:
-                ref_date = pd.to_datetime(ref_str)
-            else:
-                valid_maxes = [series.max() for series in parsed_new.values() if series.notna().any()]
-                ref_date = max(valid_maxes) if valid_maxes else pd.NaT
-
-            first_col = next(
-                (column for column in parsed_new if "first" in column.lower()), None
-            )
-            last_col = next(
-                (column for column in parsed_new if "last" in column.lower()), None
-            )
-
-            if pd.isna(ref_date):
-                warnings.append(
-                    "Không xác định được ngày tham chiếu; các đặc trưng ngày thiếu được gán 0."
-                )
-            else:
-                if last_col:
-                    df_new["recency_days"] = (
-                        ref_date - parsed_new[last_col]
-                    ).dt.days.fillna(0).clip(lower=0)
-                if first_col:
-                    df_new["tenure_days"] = (
-                        ref_date - parsed_new[first_col]
-                    ).dt.days.fillna(0).clip(lower=0)
-                if first_col and last_col:
-                    df_new["active_span_days"] = (
-                        parsed_new[last_col] - parsed_new[first_col]
-                    ).dt.days.fillna(0).clip(lower=0)
-                for column in parsed_new:
-                    if column not in {first_col, last_col}:
-                        df_new[f"{column}_days_ago"] = (
-                            ref_date - parsed_new[column]
-                        ).dt.days.fillna(0).clip(lower=0)
-
-            df_new = df_new.drop(columns=list(parsed_new.keys()))
-
-    # 2. Điền missing bằng median học từ tập train TRƯỚC khi log-transform,
-    # đúng thứ tự xử lý trong preprocess_data().
     medians = cfg.get("medians", {})
-    for column in cfg.get("numeric_columns", []):
-        fill_value = float(medians.get(column, 0.0))
-        if column not in df_new.columns:
-            df_new[column] = fill_value
-        else:
-            df_new[column] = (
-                pd.to_numeric(df_new[column], errors="coerce")
-                .replace([np.inf, -np.inf], np.nan)
-                .fillna(fill_value)
-            )
+    num_cols = list(cfg.get("numeric_columns", []))
+    bin_cols = list(cfg.get("binary_columns", []))
+    cat_cols = list(cfg.get("categorical_columns", []))
 
-    # 3. Log-transform các cột được chỉ định ở bước preprocessing.
-    for column in cfg.get("log_transform_columns", []):
-        if column in df_new.columns:
-            values = pd.to_numeric(df_new[column], errors="coerce").fillna(0.0).to_numpy(dtype=float)
-            df_new[column] = np.log1p(np.maximum(values, 0.0))
+    # 1. Cột ngày thô -> recency_days / tenure_days bằng NGÀY THAM CHIẾU ĐÃ LƯU.
+    ref_str = cfg.get("ref_date")
+    first_col, last_col = cfg.get("first_date_column"), cfg.get("last_date_column")
+    parsed: dict[str, pd.Series] = {}
+    for col in cfg.get("date_columns", []):
+        if col in df_new.columns:
+            parsed[col] = pd.to_datetime(df_new[col], errors="coerce", format="mixed")
+            if parsed[col].isna().any():
+                raise ValueError(f"Ngày không hợp lệ ở cột '{col}'. Dùng định dạng YYYY-MM-DD.")
+    if parsed and ref_str:
+        ref_ts = pd.Timestamp(ref_str)
+        if first_col in parsed and last_col in parsed and (parsed[last_col] < parsed[first_col]).any():
+            raise ValueError("Ngày mua gần nhất không được trước ngày mua đầu tiên.")
+        for col, series in parsed.items():
+            if (series > ref_ts).any():
+                raise ValueError(
+                    f"'{col}' sau ngày tham chiếu {ref_ts.date()} của dữ liệu huấn luyện; "
+                    "hãy nhập số ngày từ lần mua cuối (recency_days) thay vì ngày hôm nay."
+                )
+        if last_col in parsed and "recency_days" not in df_new.columns:
+            df_new["recency_days"] = (ref_ts - parsed[last_col]).dt.days.clip(lower=0)
+        if first_col in parsed and "tenure_days" in cfg.get("feature_columns", []) and "tenure_days" not in df_new.columns:
+            df_new["tenure_days"] = (ref_ts - parsed[first_col]).dt.days.clip(lower=0)
 
-    # 4. One-Hot Encode đúng những biến phân loại đã biết.
-    categorical_cols = list(cfg.get("categorical_columns", []))
-    for column in categorical_cols:
-        if column not in df_new.columns:
-            df_new[column] = "Unknown"
-        else:
-            df_new[column] = df_new[column].fillna("Unknown").astype(str)
-    if categorical_cols:
-        df_new = pd.get_dummies(
-            df_new, columns=categorical_cols, drop_first=False, dtype=float
-        )
+    # 2. n_orders = round(total_spent / avg_order_value) nếu chưa có.
+    src = cfg.get("n_orders_source")
+    if "n_orders" in num_cols and "n_orders" not in df_new.columns and src:
+        spent, avg = src
+        if spent in df_new.columns and avg in df_new.columns:
+            denom = pd.to_numeric(df_new[avg], errors="coerce")
+            if (denom <= 0).any() or denom.isna().any():
+                raise ValueError(f"'{avg}' phải là số dương để tính số đơn hàng.")
+            df_new["n_orders"] = (pd.to_numeric(df_new[spent], errors="coerce") / denom).round().clip(lower=1)
 
-    # 5. Căn chỉnh thứ tự và số lượng cột theo dữ liệu huấn luyện.
-    feature_columns = list(cfg["feature_columns"])
-    aligned = pd.DataFrame(0.0, index=df_new.index, columns=feature_columns)
+    # 3. Kiểm tra cột số bắt buộc, giá trị âm, thiếu.
+    for col in num_cols:
+        if col not in df_new.columns:
+            warnings.append(f"Thiếu '{col}': dùng trung vị của dữ liệu huấn luyện ({medians.get(col, 0.0):g}).")
+            df_new[col] = float(medians.get(col, 0.0))
+        values = pd.to_numeric(df_new[col], errors="coerce").replace([np.inf, -np.inf], np.nan)
+        if values.isna().any():
+            warnings.append(f"'{col}' trống/không hợp lệ: dùng trung vị của dữ liệu huấn luyện.")
+            values = values.fillna(float(medians.get(col, 0.0)))
+        if (values < 0).any():
+            raise ValueError(f"'{col}' không được âm.")
+        df_new[col] = values
 
-    extra_columns = [column for column in df_new.columns if column not in feature_columns]
-    if extra_columns:
+    # 4. Khoảng đã thấy khi huấn luyện (thang đo gốc, trước log).
+    ranges = cfg.get("raw_feature_ranges") or {}
+    out_of_range: list[str] = []
+    for col in num_cols:
+        if col in ranges:
+            lo, hi = ranges[col]
+            if (df_new[col] < lo).any() or (df_new[col] > hi).any():
+                out_of_range.append(col)
+    if out_of_range:
         warnings.append(
-            "Bỏ qua các cột không xuất hiện trong dữ liệu huấn luyện: "
-            + ", ".join(map(str, extra_columns[:10]))
+            "Giá trị nằm ngoài khoảng đã thấy khi huấn luyện; kết quả kém chắc chắn hơn: "
+            + ", ".join(out_of_range) + "."
         )
 
-    for column in feature_columns:
-        if column in df_new.columns:
-            fill_value = float(medians.get(column, 0.0))
-            aligned[column] = (
-                pd.to_numeric(df_new[column], errors="coerce")
-                .replace([np.inf, -np.inf], np.nan)
-                .fillna(fill_value)
-            )
+    # 5. log1p đúng các cột đã log lúc huấn luyện.
+    for col in cfg.get("log_transform_columns", []):
+        if col in df_new.columns:
+            df_new[col] = np.log1p(np.maximum(df_new[col].to_numpy(dtype=float), 0.0))
 
+    # 6. Nhị phân.
+    for col in bin_cols:
+        if col not in df_new.columns:
+            df_new[col] = float(medians.get(col, 0.0))
+        raw = df_new[col]
+        if raw.dtype == object:
+            raw = raw.astype(str).str.strip().str.lower().map(
+                {"true": 1.0, "false": 0.0, "yes": 1.0, "no": 0.0, "1": 1.0, "0": 0.0}
+            )
+        df_new[col] = pd.to_numeric(raw, errors="coerce").fillna(0.0).clip(0, 1).astype(float)
+
+    # 7. One-Hot theo danh sách mức CỐ ĐỊNH của dữ liệu huấn luyện.
+    levels_cfg = cfg.get("category_levels", {})
+    onehot = pd.DataFrame(index=df_new.index)
+    for col in cat_cols:
+        levels = levels_cfg.get(col, [])
+        values = df_new[col].astype(str) if col in df_new.columns else pd.Series("Unknown", index=df_new.index)
+        unknown = ~values.isin(levels)
+        if unknown.any():
+            warnings.append(
+                f"'{col}' có giá trị chưa từng thấy ({', '.join(sorted(set(values[unknown])))}): "
+                "mọi cột One-Hot của biến này được đặt 0."
+            )
+        for level in levels:
+            onehot[f"{col}_{level}"] = (values == level).astype(float)
+
+    # 8. Căn chỉnh theo đúng thứ tự cột huấn luyện.
+    feature_columns = list(cfg["feature_columns"])
+    full = pd.concat([df_new, onehot], axis=1)
+    aligned = pd.DataFrame(0.0, index=df_new.index, columns=feature_columns)
+    for col in feature_columns:
+        if col in full.columns:
+            aligned[col] = pd.to_numeric(full[col], errors="coerce").fillna(float(medians.get(col, 0.0)))
     X_raw = aligned.to_numpy(dtype=float)
 
-    # 6. Áp dụng log1p ở scaler nếu scale_data đã tự động bật cho cột đó.
+    # 9. Scale bằng scaler ĐÃ FIT (không fit lại).
     scaler, log_cols_idx = _get_scaler(scale_info)
     X_for_scaler = X_raw.copy()
-    for index in log_cols_idx:
-        if 0 <= index < X_for_scaler.shape[1]:
-            X_for_scaler[:, index] = np.log1p(
-                np.maximum(X_for_scaler[:, index], 0.0)
-            )
+    for idx in log_cols_idx:
+        if 0 <= idx < X_for_scaler.shape[1]:
+            X_for_scaler[:, idx] = np.log1p(np.maximum(X_for_scaler[:, idx], 0.0))
+    X_scaled = np.nan_to_num(np.asarray(scaler.transform(X_for_scaler), dtype=float))
 
-    X_scaled = np.asarray(scaler.transform(X_for_scaler), dtype=float)
-    X_scaled = np.nan_to_num(X_scaled, nan=0.0, posinf=0.0, neginf=0.0)
+    # Cảnh báo thống kê bổ sung: |z| > 4 trên cột liên tục.
+    passthrough = set(getattr(scaler, "passthrough_idx", []))
+    extreme = [
+        feature_columns[j] for j in range(X_scaled.shape[1])
+        if j not in passthrough and np.any(np.abs(X_scaled[:, j]) > 4.0) and feature_columns[j] not in out_of_range
+    ]
+    if extreme:
+        warnings.append("Giá trị rất xa trung bình huấn luyện (|z| > 4): " + ", ".join(extreme) + ".")
 
-    out_of_range_features, range_warnings = _detect_out_of_range_features(
-        X_for_scaler, X_scaled, scaler, feature_columns
-    )
-    warnings.extend(range_warnings)
-
-    # 7. PCA chỉ được tính khi caller truyền PCA model đã fit trên X_scaled.
     X_pca = None
-    pca_model = _get_pca_model(pca_info)
-    if pca_model is not None:
-        X_pca = np.asarray(pca_model.transform(X_scaled), dtype=float)
+    pca = _get_pca_model(pca_info)
+    if pca is not None:
+        X_pca = np.asarray(pca.transform(X_scaled), dtype=float)
 
     return {
         "X_new_raw": aligned.copy(),
         "X_new_scaled": X_scaled,
         "X_new_pca": X_pca,
-        "out_of_range_features": out_of_range_features,
+        "out_of_range_features": sorted(out_of_range),
         "warnings": warnings,
-        # Alias cũ.
+        # alias cũ
         "X_new": aligned,
         "feature_columns": feature_columns,
     }
+
+
+# ---------------------------------------------------------------------------
+# 2. Gán cụm
+# ---------------------------------------------------------------------------
+def _reference_distance_threshold(X_train: np.ndarray, k: int, quantile: float = 95.0) -> float:
+    """Ngưỡng 'xa bất thường': phân vị của khoảng cách TB tới k hàng xóm của chính dữ liệu huấn luyện."""
+    n = len(X_train)
+    if n <= k + 1:
+        return float("inf")
+    rng = np.random.default_rng(0)
+    idx = rng.choice(n, size=min(_REFERENCE_SAMPLE, n), replace=False)
+    nn = NearestNeighbors(n_neighbors=k + 1).fit(X_train)
+    dist, _ = nn.kneighbors(X_train[idx])
+    return float(np.percentile(dist[:, 1:].mean(axis=1), quantile))
 
 
 def predict_customer_cluster(
@@ -273,129 +257,137 @@ def predict_customer_cluster(
     n_neighbors: int = 5,
     *,
     k: int | None = None,
+    X_new_space: np.ndarray | None = None,
 ) -> dict[str, Any]:
-    """Dự đoán cụm mới; mọi thuật toán trả về cùng một cấu trúc dict.
+    """Gán khách mới vào cụm.
 
-    K-Means/GMM dùng model.predict() ở chế độ auto. DBSCAN không có predict(),
-    nên sử dụng k-NN trên X_train_scaled và nhãn đã học.
+    method:
+      * "auto"          K-Means/GMM -> predict() của mô hình; DBSCAN -> kNN.
+      * "knn"           bỏ phiếu k hàng xóm trong X_train_scaled (dùng nhãn đã học, mọi thuật toán).
+      * "model_predict" gọi model.predict(); DBSCAN không hỗ trợ -> ValueError.
+
+    X_new_space: điểm mới trong đúng không gian mà mô hình đã huấn luyện (feature_space).
+    Không cần khi feature_space = "original". Với "pca" truyền X_new_pca; với "umap"/"tsne" không có
+    phép biến đổi cho điểm mới nên chỉ dùng được kNN trên X_train_scaled.
+
+    Luôn tính k hàng xóm trong X_train_scaled (để hiển thị và đo độ bất thường) khi có X_train_scaled.
     """
     if k is not None:
         n_neighbors = int(k)
 
     X_query = _as_2d_float(X_new_scaled, "X_new_scaled")
     algorithm = str(clustering_result.get("algorithm", "")).lower()
-    model = clustering_result.get("model")
-    method_requested = str(method).lower()
-    if method_requested not in {"auto", "knn"}:
-        raise ValueError("method chỉ nhận 'auto' hoặc 'knn'.")
-
     if not algorithm:
         raise ValueError("clustering_result thiếu key 'algorithm'.")
+    requested = str(method).lower()
+    if requested not in {"auto", "knn", "model_predict"}:
+        raise ValueError("method chỉ nhận 'auto', 'knn' hoặc 'model_predict'.")
+    if requested == "model_predict" and algorithm == "dbscan":
+        raise ValueError("DBSCAN không có predict(); hãy chọn phương pháp kNN.")
 
-    # Nhánh dự đoán trực tiếp bằng mô hình đã fit.
-    if (
-        method_requested == "auto"
-        and algorithm in {"kmeans", "gmm"}
-        and model is not None
-        and hasattr(model, "predict")
-    ):
-        predictions = np.asarray(model.predict(X_query), dtype=int)
-        probabilities = (
-            np.asarray(model.predict_proba(X_query), dtype=float)
-            if hasattr(model, "predict_proba")
-            else None
-        )
-        confidence = (
-            np.max(probabilities, axis=1).astype(float)
-            if probabilities is not None
-            else None
-        )
-        clusters = predictions
-        first_cluster = int(clusters[0])
-        return {
-            "cluster": first_cluster,
-            "clusters": clusters,
-            "is_noise": bool(first_cluster == -1),
-            "method_used": "model_predict",
-            "confidence": float(confidence[0]) if confidence is not None else None,
-            "probabilities": probabilities,
-            "neighbor_indices": None,
-            "neighbor_distances": None,
-            "mean_neighbor_distance": None,
-            "is_outlier": None,
-            "warnings": [],
-            # Alias cũ.
-            "method": algorithm,
-        }
+    model = clustering_result.get("model")
+    space = clustering_result.get("feature_space") or "original"
+    space = "original" if space == "scaled" else space
+    can_predict = algorithm in {"kmeans", "gmm"} and model is not None and hasattr(model, "predict")
 
-    if X_train_scaled is None:
-        raise ValueError(
-            "Cần truyền X_train_scaled để dự đoán bằng k-NN hoặc với DBSCAN."
-        )
-
-    X_train = _as_2d_float(X_train_scaled, "X_train_scaled")
-    train_labels = np.asarray(clustering_result.get("labels"), dtype=int)
-    if train_labels.ndim != 1 or len(train_labels) != len(X_train):
-        raise ValueError(
-            "clustering_result['labels'] phải có một nhãn cho mỗi dòng X_train_scaled."
-        )
-    if X_train.shape[1] != X_query.shape[1]:
-        raise ValueError("X_new_scaled và X_train_scaled phải có cùng số đặc trưng.")
-
-    k = min(max(1, int(n_neighbors)), len(X_train))
-    neighbors_model = NearestNeighbors(n_neighbors=k, metric="euclidean")
-    neighbors_model.fit(X_train)
-    distances, indices = neighbors_model.kneighbors(X_query)
-
-    predictions: list[int] = []
-    confidences: list[float] = []
-    for neighbor_row in indices:
-        neighbor_labels = train_labels[neighbor_row]
-        values, counts = np.unique(neighbor_labels, return_counts=True)
-        best_position = int(np.argmax(counts))
-        predictions.append(int(values[best_position]))
-        confidences.append(float(counts[best_position] / len(neighbor_row)))
-
-    clusters = np.asarray(predictions, dtype=int)
-    first_cluster = int(clusters[0])
-    is_noise = first_cluster == -1
-    mean_neighbor_distances = np.mean(distances, axis=1)
-    mean_neighbor_distance = float(mean_neighbor_distances[0])
+    if space == "original":
+        X_for_model = X_query
+    elif X_new_space is not None:
+        X_for_model = _as_2d_float(X_new_space, "X_new_space")
+    else:
+        X_for_model = None
 
     warnings: list[str] = []
-    # Hợp đồng output chỉ chấp nhận hai giá trị chuẩn:
-    # model_predict (dùng model.predict) hoặc knn (dùng láng giềng gần nhất).
-    used_method = "knn"
-    if algorithm != "dbscan":
+    use_model = can_predict and requested in {"auto", "model_predict"}
+    if use_model and X_for_model is None:
+        if requested == "model_predict":
+            raise ValueError(
+                f"Mô hình được huấn luyện trên không gian '{space}': cần truyền X_new_space "
+                "(điểm mới trong cùng không gian) để dùng predict()."
+            )
         warnings.append(
-            f"{algorithm} được dự đoán bằng k-NN theo yêu cầu method='knn', "
-            "không gọi model.predict()."
+            f"Mô hình huấn luyện trên không gian '{space}' nên không gọi predict() được cho điểm mới; "
+            "đã dùng kNN trên dữ liệu chuẩn hóa."
         )
+        use_model = False
 
+    # --- hàng xóm trong X_train_scaled -------------------------------------------------------
+    indices = distances = None
+    outlier = None
+    mean_dist = None
+    train_labels = None
+    if X_train_scaled is not None:
+        X_train = _as_2d_float(X_train_scaled, "X_train_scaled")
+        if X_train.shape[1] != X_query.shape[1]:
+            raise ValueError("X_new_scaled và X_train_scaled phải có cùng số đặc trưng.")
+        raw_labels = clustering_result.get("labels")
+        if raw_labels is not None:
+            train_labels = np.asarray(raw_labels, dtype=int)
+            if train_labels.ndim != 1 or len(train_labels) != len(X_train):
+                raise ValueError("clustering_result['labels'] phải có một nhãn cho mỗi dòng X_train_scaled.")
+        kk = min(max(1, int(n_neighbors)), len(X_train))
+        nn = NearestNeighbors(n_neighbors=kk, metric="euclidean").fit(X_train)
+        distances, indices = nn.kneighbors(X_query)
+        mean_dist = float(np.mean(distances[0]))
+        outlier = bool(mean_dist > _reference_distance_threshold(X_train, kk))
+    elif not use_model:
+        raise ValueError("Cần truyền X_train_scaled để dự đoán bằng kNN hoặc với DBSCAN.")
+
+    # --- gán cụm -------------------------------------------------------------------------------
+    probabilities = None
+    if use_model:
+        cluster = int(np.asarray(model.predict(X_for_model), dtype=int)[0])
+        used = "model_predict"
+        if hasattr(model, "predict_proba"):
+            probabilities = np.asarray(model.predict_proba(X_for_model), dtype=float)
+            confidence = float(probabilities.max())
+            confidence_kind = "xác suất GMM"
+        elif train_labels is not None and indices is not None:
+            confidence = float(np.mean(train_labels[indices[0]] == cluster))
+            confidence_kind = "tỷ lệ hàng xóm cùng cụm"
+        else:
+            confidence, confidence_kind = None, None
+    else:
+        if train_labels is None:
+            raise ValueError("clustering_result thiếu 'labels' để bỏ phiếu kNN.")
+        vals, counts = np.unique(train_labels[indices[0]], return_counts=True)
+        best = int(np.argmax(counts))
+        cluster = int(vals[best])
+        confidence = float(counts[best] / indices.shape[1])
+        confidence_kind = "tỷ lệ hàng xóm cùng cụm"
+        used = "knn"
+        if algorithm != "dbscan" and requested == "knn":
+            warnings.append(f"{algorithm} được gán bằng kNN theo yêu cầu, không gọi model.predict().")
+
+    is_noise = cluster == -1
     if is_noise:
         warnings.append(
-            "Các láng giềng gần nhất bỏ phiếu cho nhãn noise (-1); "
-            "khách hàng mới chưa thuộc cụm mật độ đã học."
+            "Phần lớn hàng xóm gần nhất là noise (-1): khách này chưa thuộc cụm mật độ nào đã học."
         )
+    if outlier:
+        warnings.append("Khách này xa các hàng xóm hơn 95% khách huấn luyện: kết quả kém chắc chắn.")
 
     return {
-        "cluster": first_cluster,
-        "clusters": clusters,
+        "cluster": cluster,
+        "clusters": np.asarray([cluster], dtype=int),
         "is_noise": bool(is_noise),
-        "method_used": used_method,
-        "confidence": float(confidences[0]),
-        "probabilities": None,
+        "method_used": used,
+        "confidence": confidence,
+        "confidence_kind": confidence_kind,
+        "probabilities": probabilities,
         "neighbor_indices": indices,
         "neighbor_distances": distances,
-        "mean_neighbor_distance": mean_neighbor_distance,
-        "is_outlier": bool(is_noise) if algorithm == "dbscan" else None,
+        "mean_neighbor_distance": mean_dist,
+        "is_outlier": outlier,
         "warnings": warnings,
-        # Alias cũ.
-        "method": "knn_fallback",
-        "mean_neighbor_distances": mean_neighbor_distances,
+        # alias cũ
+        "method": algorithm,
     }
 
 
+# ---------------------------------------------------------------------------
+# 3. Vị trí trên bản đồ t-SNE (chỉ để quan sát)
+# ---------------------------------------------------------------------------
 def transform_new_customer(
     X_new_scaled: np.ndarray,
     tsne_result: dict[str, Any],
@@ -405,11 +397,13 @@ def transform_new_customer(
     *,
     k: int | None = None,
 ) -> dict[str, Any]:
-    """Chiếu khách hàng mới lên embedding t-SNE bằng openTSNE hoặc nội suy k-NN."""
+    """Đặt khách mới lên embedding t-SNE: openTSNE.transform() hoặc nội suy k hàng xóm (trọng số 1/d).
+
+    t-SNE không có ánh xạ cố định cho điểm mới; tọa độ trả về chỉ để quan sát, không dùng để gán cụm.
+    """
     if k is not None:
         n_neighbors = int(k)
 
-    # Tương thích với cách gọi cũ có thể truyền nhầm thứ tự hai đối số đầu.
     if isinstance(tsne_result, np.ndarray) and isinstance(X_train_scaled, dict):
         X_train_scaled, tsne_result = tsne_result, X_train_scaled
 
@@ -428,54 +422,40 @@ def transform_new_customer(
             embedding_model = candidate
             break
 
-    requested_method = str(method).lower()
-    if requested_method not in {"auto", "knn", "opentsne"}:
+    requested = str(method).lower()
+    if requested not in {"auto", "knn", "opentsne"}:
         raise ValueError("method chỉ nhận 'auto', 'knn' hoặc 'opentsne'.")
 
     warnings: list[str] = []
     neighbor_indices = None
 
-    if requested_method in {"auto", "opentsne"} and embedding_model is not None:
+    if requested in {"auto", "opentsne"} and embedding_model is not None:
         coordinates = np.asarray(embedding_model.transform(X_query), dtype=float)
         used_method = "opentsne"
     else:
-        if requested_method == "opentsne":
-            warnings.append(
-                "Không tìm thấy mô hình có transform(); đã chuyển sang nội suy k-NN."
-            )
+        if requested == "opentsne":
+            warnings.append("Không có mô hình t-SNE hỗ trợ transform(); đã chuyển sang nội suy kNN.")
         if X_train_scaled is None:
-            raise ValueError(
-                "Cần truyền X_train_scaled để nội suy tọa độ t-SNE bằng k-NN."
-            )
-
+            raise ValueError("Cần truyền X_train_scaled để nội suy tọa độ t-SNE bằng kNN.")
         X_train = _as_2d_float(X_train_scaled, "X_train_scaled")
         if len(X_train) != len(train_embedding):
-            raise ValueError(
-                "X_train_scaled và embedding t-SNE phải có cùng số dòng, "
-                "cùng thứ tự khách hàng."
-            )
+            raise ValueError("X_train_scaled và embedding t-SNE phải cùng số dòng, cùng thứ tự khách hàng.")
         if X_train.shape[1] != X_query.shape[1]:
             raise ValueError("X_new_scaled và X_train_scaled phải có cùng số đặc trưng.")
 
-        k = min(max(1, int(n_neighbors)), len(X_train))
-        nn = NearestNeighbors(n_neighbors=k, metric="euclidean")
-        nn.fit(X_train)
+        kk = min(max(1, int(n_neighbors)), len(X_train))
+        nn = NearestNeighbors(n_neighbors=kk, metric="euclidean").fit(X_train)
         distances, neighbor_indices = nn.kneighbors(X_query)
 
-        # Nếu trùng chính xác một điểm huấn luyện, chỉ lấy trung bình các điểm trùng.
         coordinates = np.zeros((len(X_query), train_embedding.shape[1]), dtype=float)
-        for row_index, (distance_row, index_row) in enumerate(
-            zip(distances, neighbor_indices)
-        ):
-            exact_matches = distance_row <= 1e-12
-            if np.any(exact_matches):
-                coordinates[row_index] = train_embedding[index_row[exact_matches]].mean(axis=0)
+        for r, (drow, irow) in enumerate(zip(distances, neighbor_indices)):
+            exact = drow <= 1e-12
+            if np.any(exact):
+                coordinates[r] = train_embedding[irow[exact]].mean(axis=0)
             else:
-                weights = 1.0 / np.maximum(distance_row, 1e-12)
-                weights /= weights.sum()
-                coordinates[row_index] = np.sum(
-                    train_embedding[index_row] * weights[:, None], axis=0
-                )
+                w = 1.0 / np.maximum(drow, 1e-12)
+                w /= w.sum()
+                coordinates[r] = np.sum(train_embedding[irow] * w[:, None], axis=0)
         used_method = "knn"
 
     coordinates = _as_2d_float(coordinates, "coordinates")
@@ -486,7 +466,7 @@ def transform_new_customer(
         "method_used": used_method,
         "neighbor_indices": neighbor_indices,
         "warnings": warnings,
-        # Alias cũ.
+        # alias cũ
         "method": used_method,
         "x": float(coordinates[0, 0]),
         "y": float(coordinates[0, 1]),

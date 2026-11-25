@@ -1,0 +1,4001 @@
+﻿customer_id,nhom,so_don,recency_days
+SIM-00001,"Trung thành, chi tiêu cao",36,13
+SIM-00002,"Mua thường xuyên, đơn nhỏ",21,20
+SIM-00003,"Trung thành, chi tiêu cao",26,16
+SIM-00004,"Mua thường xuyên, đơn nhỏ",29,34
+SIM-00005,Lâu chưa quay lại,11,304
+SIM-00006,"Trung thành, chi tiêu cao",35,7
+SIM-00007,Khách mới,1,15
+SIM-00008,"Trung thành, chi tiêu cao",41,7
+SIM-00009,"Trung thành, chi tiêu cao",38,19
+SIM-00010,"Mua ít, đơn giá trị cao",3,49
+SIM-00011,"Mua thường xuyên, đơn nhỏ",31,22
+SIM-00012,"Mua thường xuyên, đơn nhỏ",39,33
+SIM-00013,"Mua ít, đơn giá trị cao",7,48
+SIM-00014,"Mua ít, đơn giá trị cao",7,87
+SIM-00015,"Mua thường xuyên, đơn nhỏ",27,27
+SIM-00016,"Mua thường xuyên, đơn nhỏ",30,38
+SIM-00017,"Mua ít, đơn giá trị cao",4,53
+SIM-00018,"Trung thành, chi tiêu cao",41,13
+SIM-00019,"Trung thành, chi tiêu cao",25,7
+SIM-00020,"Trung thành, chi tiêu cao",34,14
+SIM-00021,"Mua ít, đơn giá trị cao",4,108
+SIM-00022,Khách mới,3,14
+SIM-00023,"Mua thường xuyên, đơn nhỏ",31,29
+SIM-00024,Khách mới,1,15
+SIM-00025,Lâu chưa quay lại,19,283
+SIM-00026,"Trung thành, chi tiêu cao",36,15
+SIM-00027,"Mua thường xuyên, đơn nhỏ",30,28
+SIM-00028,"Mua thường xuyên, đơn nhỏ",31,41
+SIM-00029,Khách mới,1,8
+SIM-00030,"Mua ít, đơn giá trị cao",4,81
+SIM-00031,Khách mới,1,11
+SIM-00032,"Mua ít, đơn giá trị cao",8,88
+SIM-00033,"Mua thường xuyên, đơn nhỏ",33,41
+SIM-00034,Lâu chưa quay lại,12,276
+SIM-00035,Khách mới,2,7
+SIM-00036,"Trung thành, chi tiêu cao",16,16
+SIM-00037,"Mua ít, đơn giá trị cao",5,106
+SIM-00038,Khách mới,1,2
+SIM-00039,Lâu chưa quay lại,8,321
+SIM-00040,"Mua thường xuyên, đơn nhỏ",31,30
+SIM-00041,Khách mới,1,9
+SIM-00042,"Mua ít, đơn giá trị cao",5,127
+SIM-00043,Lâu chưa quay lại,18,265
+SIM-00044,"Trung thành, chi tiêu cao",36,9
+SIM-00045,Lâu chưa quay lại,14,280
+SIM-00046,"Mua thường xuyên, đơn nhỏ",38,25
+SIM-00047,Khách mới,2,10
+SIM-00048,"Trung thành, chi tiêu cao",36,17
+SIM-00049,"Trung thành, chi tiêu cao",29,5
+SIM-00050,Lâu chưa quay lại,26,248
+SIM-00051,"Mua ít, đơn giá trị cao",3,84
+SIM-00052,"Mua thường xuyên, đơn nhỏ",34,21
+SIM-00053,"Trung thành, chi tiêu cao",35,20
+SIM-00054,Khách mới,3,10
+SIM-00055,"Trung thành, chi tiêu cao",41,11
+SIM-00056,"Mua ít, đơn giá trị cao",4,102
+SIM-00057,Khách mới,1,8
+SIM-00058,"Mua ít, đơn giá trị cao",4,85
+SIM-00059,"Mua thường xuyên, đơn nhỏ",28,28
+SIM-00060,"Mua thường xuyên, đơn nhỏ",28,23
+SIM-00061,"Mua thường xuyên, đơn nhỏ",22,22
+SIM-00062,"Mua ít, đơn giá trị cao",5,126
+SIM-00063,Lâu chưa quay lại,17,276
+SIM-00064,"Mua thường xuyên, đơn nhỏ",28,27
+SIM-00065,Khách mới,1,9
+SIM-00066,"Mua ít, đơn giá trị cao",3,76
+SIM-00067,"Mua thường xuyên, đơn nhỏ",28,29
+SIM-00068,"Trung thành, chi tiêu cao",37,18
+SIM-00069,Khách mới,3,10
+SIM-00070,"Trung thành, chi tiêu cao",31,18
+SIM-00071,"Mua ít, đơn giá trị cao",4,120
+SIM-00072,"Mua thường xuyên, đơn nhỏ",38,41
+SIM-00073,"Mua thường xuyên, đơn nhỏ",33,15
+SIM-00074,"Trung thành, chi tiêu cao",32,15
+SIM-00075,"Mua ít, đơn giá trị cao",8,69
+SIM-00076,Lâu chưa quay lại,20,282
+SIM-00077,"Mua thường xuyên, đơn nhỏ",36,36
+SIM-00078,"Mua ít, đơn giá trị cao",6,109
+SIM-00079,"Trung thành, chi tiêu cao",38,18
+SIM-00080,"Mua ít, đơn giá trị cao",4,83
+SIM-00081,Lâu chưa quay lại,14,266
+SIM-00082,"Trung thành, chi tiêu cao",48,1
+SIM-00083,"Mua ít, đơn giá trị cao",7,79
+SIM-00084,"Mua ít, đơn giá trị cao",4,67
+SIM-00085,"Mua thường xuyên, đơn nhỏ",30,21
+SIM-00086,"Trung thành, chi tiêu cao",42,21
+SIM-00087,"Mua thường xuyên, đơn nhỏ",30,26
+SIM-00088,Khách mới,1,11
+SIM-00089,Khách mới,1,8
+SIM-00090,Lâu chưa quay lại,11,314
+SIM-00091,"Mua ít, đơn giá trị cao",3,62
+SIM-00092,Khách mới,2,19
+SIM-00093,"Mua thường xuyên, đơn nhỏ",25,52
+SIM-00094,"Trung thành, chi tiêu cao",39,14
+SIM-00095,Khách mới,2,10
+SIM-00096,"Mua ít, đơn giá trị cao",6,62
+SIM-00097,"Mua ít, đơn giá trị cao",6,114
+SIM-00098,"Mua thường xuyên, đơn nhỏ",22,38
+SIM-00099,"Mua ít, đơn giá trị cao",1,120
+SIM-00100,"Trung thành, chi tiêu cao",28,12
+SIM-00101,"Trung thành, chi tiêu cao",32,3
+SIM-00102,Lâu chưa quay lại,21,278
+SIM-00103,Khách mới,1,4
+SIM-00104,"Trung thành, chi tiêu cao",33,21
+SIM-00105,Lâu chưa quay lại,13,275
+SIM-00106,"Trung thành, chi tiêu cao",21,13
+SIM-00107,"Trung thành, chi tiêu cao",32,10
+SIM-00108,"Trung thành, chi tiêu cao",36,18
+SIM-00109,Lâu chưa quay lại,15,284
+SIM-00110,"Mua thường xuyên, đơn nhỏ",41,48
+SIM-00111,"Mua thường xuyên, đơn nhỏ",33,35
+SIM-00112,Khách mới,2,18
+SIM-00113,"Mua thường xuyên, đơn nhỏ",32,14
+SIM-00114,Khách mới,2,9
+SIM-00115,"Mua ít, đơn giá trị cao",3,57
+SIM-00116,"Mua thường xuyên, đơn nhỏ",34,30
+SIM-00117,"Trung thành, chi tiêu cao",20,22
+SIM-00118,"Mua ít, đơn giá trị cao",6,75
+SIM-00119,"Trung thành, chi tiêu cao",35,20
+SIM-00120,"Mua thường xuyên, đơn nhỏ",33,22
+SIM-00121,Khách mới,2,20
+SIM-00122,Lâu chưa quay lại,14,319
+SIM-00123,"Mua ít, đơn giá trị cao",4,85
+SIM-00124,Lâu chưa quay lại,16,297
+SIM-00125,"Mua thường xuyên, đơn nhỏ",29,34
+SIM-00126,Lâu chưa quay lại,14,270
+SIM-00127,Khách mới,2,5
+SIM-00128,"Mua thường xuyên, đơn nhỏ",23,34
+SIM-00129,"Trung thành, chi tiêu cao",32,13
+SIM-00130,"Mua ít, đơn giá trị cao",4,89
+SIM-00131,Lâu chưa quay lại,5,290
+SIM-00132,"Mua thường xuyên, đơn nhỏ",34,20
+SIM-00133,Khách mới,2,11
+SIM-00134,Lâu chưa quay lại,11,297
+SIM-00135,Khách mới,1,8
+SIM-00136,Lâu chưa quay lại,17,231
+SIM-00137,Lâu chưa quay lại,15,271
+SIM-00138,Lâu chưa quay lại,14,298
+SIM-00139,"Trung thành, chi tiêu cao",27,4
+SIM-00140,Khách mới,2,17
+SIM-00141,Khách mới,2,6
+SIM-00142,"Mua ít, đơn giá trị cao",2,53
+SIM-00143,"Mua ít, đơn giá trị cao",4,72
+SIM-00144,"Trung thành, chi tiêu cao",27,27
+SIM-00145,"Trung thành, chi tiêu cao",36,20
+SIM-00146,"Trung thành, chi tiêu cao",35,22
+SIM-00147,Lâu chưa quay lại,9,286
+SIM-00148,"Mua ít, đơn giá trị cao",7,61
+SIM-00149,Khách mới,1,1
+SIM-00150,"Mua thường xuyên, đơn nhỏ",23,17
+SIM-00151,Khách mới,2,16
+SIM-00152,Lâu chưa quay lại,14,254
+SIM-00153,"Trung thành, chi tiêu cao",33,11
+SIM-00154,Khách mới,2,10
+SIM-00155,Lâu chưa quay lại,16,275
+SIM-00156,Lâu chưa quay lại,14,260
+SIM-00157,"Mua ít, đơn giá trị cao",5,81
+SIM-00158,"Mua thường xuyên, đơn nhỏ",30,24
+SIM-00159,Lâu chưa quay lại,18,306
+SIM-00160,Khách mới,3,2
+SIM-00161,"Mua thường xuyên, đơn nhỏ",34,37
+SIM-00162,"Mua thường xuyên, đơn nhỏ",29,25
+SIM-00163,Khách mới,2,9
+SIM-00164,Khách mới,3,9
+SIM-00165,"Trung thành, chi tiêu cao",35,9
+SIM-00166,"Mua thường xuyên, đơn nhỏ",32,32
+SIM-00167,"Mua ít, đơn giá trị cao",2,68
+SIM-00168,Khách mới,2,7
+SIM-00169,"Trung thành, chi tiêu cao",39,13
+SIM-00170,"Mua ít, đơn giá trị cao",7,94
+SIM-00171,"Mua ít, đơn giá trị cao",3,88
+SIM-00172,"Trung thành, chi tiêu cao",38,21
+SIM-00173,"Mua thường xuyên, đơn nhỏ",26,30
+SIM-00174,"Trung thành, chi tiêu cao",34,10
+SIM-00175,Lâu chưa quay lại,23,262
+SIM-00176,"Mua ít, đơn giá trị cao",6,89
+SIM-00177,Lâu chưa quay lại,13,323
+SIM-00178,"Trung thành, chi tiêu cao",36,21
+SIM-00179,Lâu chưa quay lại,20,264
+SIM-00180,"Mua thường xuyên, đơn nhỏ",32,24
+SIM-00181,Lâu chưa quay lại,20,298
+SIM-00182,"Mua ít, đơn giá trị cao",3,96
+SIM-00183,"Mua thường xuyên, đơn nhỏ",24,19
+SIM-00184,"Mua ít, đơn giá trị cao",9,101
+SIM-00185,"Mua thường xuyên, đơn nhỏ",29,37
+SIM-00186,"Mua thường xuyên, đơn nhỏ",39,32
+SIM-00187,"Mua thường xuyên, đơn nhỏ",37,31
+SIM-00188,Khách mới,2,10
+SIM-00189,"Trung thành, chi tiêu cao",34,16
+SIM-00190,"Mua ít, đơn giá trị cao",6,52
+SIM-00191,Khách mới,2,11
+SIM-00192,Lâu chưa quay lại,16,258
+SIM-00193,"Mua thường xuyên, đơn nhỏ",35,10
+SIM-00194,Khách mới,2,10
+SIM-00195,"Mua ít, đơn giá trị cao",7,80
+SIM-00196,"Mua ít, đơn giá trị cao",3,76
+SIM-00197,"Mua thường xuyên, đơn nhỏ",37,17
+SIM-00198,Khách mới,2,21
+SIM-00199,"Trung thành, chi tiêu cao",39,4
+SIM-00200,"Trung thành, chi tiêu cao",34,15
+SIM-00201,Lâu chưa quay lại,9,326
+SIM-00202,"Mua thường xuyên, đơn nhỏ",31,24
+SIM-00203,"Mua ít, đơn giá trị cao",4,94
+SIM-00204,"Mua thường xuyên, đơn nhỏ",29,31
+SIM-00205,Lâu chưa quay lại,20,288
+SIM-00206,Khách mới,2,7
+SIM-00207,"Trung thành, chi tiêu cao",23,14
+SIM-00208,"Mua thường xuyên, đơn nhỏ",35,27
+SIM-00209,"Mua thường xuyên, đơn nhỏ",34,30
+SIM-00210,Khách mới,2,15
+SIM-00211,"Mua ít, đơn giá trị cao",4,121
+SIM-00212,"Mua thường xuyên, đơn nhỏ",29,34
+SIM-00213,Lâu chưa quay lại,16,298
+SIM-00214,Khách mới,3,15
+SIM-00215,"Mua ít, đơn giá trị cao",5,98
+SIM-00216,"Trung thành, chi tiêu cao",38,9
+SIM-00217,Lâu chưa quay lại,17,246
+SIM-00218,Lâu chưa quay lại,12,283
+SIM-00219,"Trung thành, chi tiêu cao",37,16
+SIM-00220,"Mua thường xuyên, đơn nhỏ",35,36
+SIM-00221,"Mua ít, đơn giá trị cao",5,83
+SIM-00222,Lâu chưa quay lại,12,275
+SIM-00223,Khách mới,3,11
+SIM-00224,"Mua ít, đơn giá trị cao",4,93
+SIM-00225,Khách mới,1,10
+SIM-00226,Lâu chưa quay lại,10,286
+SIM-00227,"Mua thường xuyên, đơn nhỏ",31,26
+SIM-00228,"Mua ít, đơn giá trị cao",5,115
+SIM-00229,Khách mới,2,9
+SIM-00230,"Mua ít, đơn giá trị cao",3,68
+SIM-00231,"Mua ít, đơn giá trị cao",5,62
+SIM-00232,"Mua thường xuyên, đơn nhỏ",27,34
+SIM-00233,Khách mới,2,14
+SIM-00234,Khách mới,2,14
+SIM-00235,"Trung thành, chi tiêu cao",45,3
+SIM-00236,"Trung thành, chi tiêu cao",26,10
+SIM-00237,"Mua ít, đơn giá trị cao",5,107
+SIM-00238,"Mua ít, đơn giá trị cao",3,76
+SIM-00239,"Trung thành, chi tiêu cao",34,13
+SIM-00240,"Mua ít, đơn giá trị cao",2,87
+SIM-00241,"Mua ít, đơn giá trị cao",5,95
+SIM-00242,Lâu chưa quay lại,22,261
+SIM-00243,Lâu chưa quay lại,10,236
+SIM-00244,"Mua thường xuyên, đơn nhỏ",32,27
+SIM-00245,"Mua thường xuyên, đơn nhỏ",33,29
+SIM-00246,"Trung thành, chi tiêu cao",30,13
+SIM-00247,Lâu chưa quay lại,13,251
+SIM-00248,"Trung thành, chi tiêu cao",32,16
+SIM-00249,Lâu chưa quay lại,21,313
+SIM-00250,"Trung thành, chi tiêu cao",32,9
+SIM-00251,"Mua ít, đơn giá trị cao",3,89
+SIM-00252,"Trung thành, chi tiêu cao",38,13
+SIM-00253,"Mua ít, đơn giá trị cao",4,77
+SIM-00254,"Mua thường xuyên, đơn nhỏ",33,33
+SIM-00255,Khách mới,1,10
+SIM-00256,"Mua thường xuyên, đơn nhỏ",41,27
+SIM-00257,Lâu chưa quay lại,11,255
+SIM-00258,Khách mới,4,9
+SIM-00259,"Mua thường xuyên, đơn nhỏ",26,32
+SIM-00260,"Mua thường xuyên, đơn nhỏ",38,43
+SIM-00261,"Trung thành, chi tiêu cao",44,29
+SIM-00262,"Trung thành, chi tiêu cao",29,10
+SIM-00263,"Mua ít, đơn giá trị cao",3,79
+SIM-00264,Khách mới,2,6
+SIM-00265,"Mua ít, đơn giá trị cao",6,124
+SIM-00266,Lâu chưa quay lại,11,247
+SIM-00267,"Mua thường xuyên, đơn nhỏ",30,16
+SIM-00268,"Mua thường xuyên, đơn nhỏ",22,22
+SIM-00269,"Mua thường xuyên, đơn nhỏ",27,21
+SIM-00270,Lâu chưa quay lại,16,248
+SIM-00271,"Trung thành, chi tiêu cao",27,10
+SIM-00272,"Mua thường xuyên, đơn nhỏ",26,26
+SIM-00273,Khách mới,1,14
+SIM-00274,Lâu chưa quay lại,14,307
+SIM-00275,Lâu chưa quay lại,7,285
+SIM-00276,"Trung thành, chi tiêu cao",37,21
+SIM-00277,"Mua ít, đơn giá trị cao",8,98
+SIM-00278,"Mua thường xuyên, đơn nhỏ",35,31
+SIM-00279,Khách mới,3,12
+SIM-00280,Khách mới,2,6
+SIM-00281,Lâu chưa quay lại,14,293
+SIM-00282,"Mua ít, đơn giá trị cao",9,117
+SIM-00283,"Trung thành, chi tiêu cao",32,19
+SIM-00284,Lâu chưa quay lại,18,286
+SIM-00285,Khách mới,1,9
+SIM-00286,"Trung thành, chi tiêu cao",34,18
+SIM-00287,Khách mới,2,8
+SIM-00288,Lâu chưa quay lại,19,267
+SIM-00289,"Trung thành, chi tiêu cao",37,11
+SIM-00290,"Mua ít, đơn giá trị cao",5,93
+SIM-00291,Lâu chưa quay lại,16,316
+SIM-00292,"Mua ít, đơn giá trị cao",5,99
+SIM-00293,"Trung thành, chi tiêu cao",33,12
+SIM-00294,Lâu chưa quay lại,14,275
+SIM-00295,"Mua ít, đơn giá trị cao",4,89
+SIM-00296,"Mua thường xuyên, đơn nhỏ",33,26
+SIM-00297,"Trung thành, chi tiêu cao",45,21
+SIM-00298,Khách mới,2,11
+SIM-00299,Khách mới,2,11
+SIM-00300,"Trung thành, chi tiêu cao",39,6
+SIM-00301,"Mua ít, đơn giá trị cao",6,84
+SIM-00302,"Trung thành, chi tiêu cao",36,14
+SIM-00303,"Trung thành, chi tiêu cao",32,20
+SIM-00304,"Trung thành, chi tiêu cao",34,18
+SIM-00305,"Mua ít, đơn giá trị cao",2,78
+SIM-00306,Khách mới,2,9
+SIM-00307,"Trung thành, chi tiêu cao",29,13
+SIM-00308,Khách mới,2,13
+SIM-00309,"Mua ít, đơn giá trị cao",5,101
+SIM-00310,"Trung thành, chi tiêu cao",37,18
+SIM-00311,Lâu chưa quay lại,16,284
+SIM-00312,Lâu chưa quay lại,20,317
+SIM-00313,"Trung thành, chi tiêu cao",33,19
+SIM-00314,"Mua thường xuyên, đơn nhỏ",33,33
+SIM-00315,"Mua thường xuyên, đơn nhỏ",32,31
+SIM-00316,Khách mới,2,9
+SIM-00317,"Mua ít, đơn giá trị cao",3,74
+SIM-00318,Lâu chưa quay lại,22,286
+SIM-00319,"Trung thành, chi tiêu cao",31,9
+SIM-00320,"Mua thường xuyên, đơn nhỏ",26,23
+SIM-00321,"Mua thường xuyên, đơn nhỏ",45,29
+SIM-00322,Lâu chưa quay lại,22,261
+SIM-00323,"Trung thành, chi tiêu cao",35,16
+SIM-00324,"Mua thường xuyên, đơn nhỏ",36,22
+SIM-00325,"Mua ít, đơn giá trị cao",4,58
+SIM-00326,"Trung thành, chi tiêu cao",24,20
+SIM-00327,Khách mới,2,7
+SIM-00328,"Mua ít, đơn giá trị cao",3,56
+SIM-00329,Lâu chưa quay lại,14,244
+SIM-00330,"Mua ít, đơn giá trị cao",7,68
+SIM-00331,"Mua ít, đơn giá trị cao",8,110
+SIM-00332,"Mua ít, đơn giá trị cao",8,44
+SIM-00333,"Trung thành, chi tiêu cao",40,18
+SIM-00334,Lâu chưa quay lại,12,265
+SIM-00335,"Mua thường xuyên, đơn nhỏ",31,34
+SIM-00336,Khách mới,2,9
+SIM-00337,"Trung thành, chi tiêu cao",46,11
+SIM-00338,"Trung thành, chi tiêu cao",34,10
+SIM-00339,"Trung thành, chi tiêu cao",35,18
+SIM-00340,Khách mới,2,12
+SIM-00341,Khách mới,3,16
+SIM-00342,"Mua ít, đơn giá trị cao",2,83
+SIM-00343,"Trung thành, chi tiêu cao",37,23
+SIM-00344,Khách mới,3,9
+SIM-00345,Khách mới,2,7
+SIM-00346,Khách mới,3,13
+SIM-00347,"Mua thường xuyên, đơn nhỏ",32,38
+SIM-00348,Khách mới,2,7
+SIM-00349,Khách mới,3,10
+SIM-00350,Lâu chưa quay lại,7,259
+SIM-00351,"Trung thành, chi tiêu cao",34,16
+SIM-00352,"Trung thành, chi tiêu cao",37,8
+SIM-00353,Khách mới,2,10
+SIM-00354,"Trung thành, chi tiêu cao",36,6
+SIM-00355,"Mua ít, đơn giá trị cao",5,49
+SIM-00356,"Mua thường xuyên, đơn nhỏ",34,39
+SIM-00357,"Trung thành, chi tiêu cao",36,20
+SIM-00358,"Mua thường xuyên, đơn nhỏ",31,24
+SIM-00359,"Trung thành, chi tiêu cao",40,12
+SIM-00360,Lâu chưa quay lại,16,310
+SIM-00361,"Mua thường xuyên, đơn nhỏ",38,32
+SIM-00362,Khách mới,2,6
+SIM-00363,"Trung thành, chi tiêu cao",29,17
+SIM-00364,"Trung thành, chi tiêu cao",36,13
+SIM-00365,Lâu chưa quay lại,9,229
+SIM-00366,"Trung thành, chi tiêu cao",35,23
+SIM-00367,"Mua ít, đơn giá trị cao",6,110
+SIM-00368,Khách mới,1,7
+SIM-00369,"Mua ít, đơn giá trị cao",8,77
+SIM-00370,"Mua thường xuyên, đơn nhỏ",24,24
+SIM-00371,"Trung thành, chi tiêu cao",29,13
+SIM-00372,Khách mới,3,10
+SIM-00373,Lâu chưa quay lại,15,275
+SIM-00374,"Mua thường xuyên, đơn nhỏ",32,27
+SIM-00375,Khách mới,2,2
+SIM-00376,Khách mới,1,5
+SIM-00377,"Mua ít, đơn giá trị cao",4,75
+SIM-00378,"Trung thành, chi tiêu cao",33,11
+SIM-00379,Khách mới,2,13
+SIM-00380,"Mua thường xuyên, đơn nhỏ",37,32
+SIM-00381,"Mua thường xuyên, đơn nhỏ",32,33
+SIM-00382,"Mua ít, đơn giá trị cao",1,104
+SIM-00383,"Mua ít, đơn giá trị cao",6,105
+SIM-00384,Lâu chưa quay lại,13,269
+SIM-00385,"Trung thành, chi tiêu cao",32,7
+SIM-00386,"Trung thành, chi tiêu cao",35,15
+SIM-00387,"Mua thường xuyên, đơn nhỏ",32,36
+SIM-00388,"Trung thành, chi tiêu cao",30,22
+SIM-00389,"Mua ít, đơn giá trị cao",8,100
+SIM-00390,"Mua thường xuyên, đơn nhỏ",41,35
+SIM-00391,"Trung thành, chi tiêu cao",28,14
+SIM-00392,"Mua ít, đơn giá trị cao",5,108
+SIM-00393,Lâu chưa quay lại,17,277
+SIM-00394,Lâu chưa quay lại,14,265
+SIM-00395,Lâu chưa quay lại,18,283
+SIM-00396,Khách mới,1,17
+SIM-00397,Lâu chưa quay lại,12,269
+SIM-00398,"Mua thường xuyên, đơn nhỏ",27,26
+SIM-00399,Khách mới,2,5
+SIM-00400,"Mua ít, đơn giá trị cao",6,87
+SIM-00401,Lâu chưa quay lại,14,302
+SIM-00402,"Mua ít, đơn giá trị cao",5,110
+SIM-00403,Khách mới,2,7
+SIM-00404,"Mua ít, đơn giá trị cao",4,102
+SIM-00405,"Mua ít, đơn giá trị cao",3,32
+SIM-00406,"Trung thành, chi tiêu cao",38,9
+SIM-00407,"Trung thành, chi tiêu cao",29,7
+SIM-00408,Khách mới,3,7
+SIM-00409,Lâu chưa quay lại,23,253
+SIM-00410,"Mua ít, đơn giá trị cao",5,83
+SIM-00411,"Mua ít, đơn giá trị cao",5,114
+SIM-00412,Khách mới,1,11
+SIM-00413,"Mua ít, đơn giá trị cao",6,79
+SIM-00414,"Mua ít, đơn giá trị cao",4,93
+SIM-00415,"Mua ít, đơn giá trị cao",4,83
+SIM-00416,"Trung thành, chi tiêu cao",38,6
+SIM-00417,"Mua ít, đơn giá trị cao",4,66
+SIM-00418,"Mua ít, đơn giá trị cao",9,69
+SIM-00419,Lâu chưa quay lại,14,265
+SIM-00420,Khách mới,2,2
+SIM-00421,Khách mới,1,12
+SIM-00422,"Mua ít, đơn giá trị cao",5,110
+SIM-00423,"Trung thành, chi tiêu cao",34,26
+SIM-00424,Lâu chưa quay lại,16,303
+SIM-00425,"Mua ít, đơn giá trị cao",8,50
+SIM-00426,"Mua ít, đơn giá trị cao",3,96
+SIM-00427,"Trung thành, chi tiêu cao",39,20
+SIM-00428,"Mua ít, đơn giá trị cao",5,99
+SIM-00429,"Mua ít, đơn giá trị cao",5,65
+SIM-00430,"Mua ít, đơn giá trị cao",4,115
+SIM-00431,"Mua ít, đơn giá trị cao",6,85
+SIM-00432,Khách mới,2,5
+SIM-00433,Lâu chưa quay lại,16,258
+SIM-00434,Khách mới,3,10
+SIM-00435,"Mua ít, đơn giá trị cao",6,103
+SIM-00436,"Trung thành, chi tiêu cao",34,14
+SIM-00437,"Mua thường xuyên, đơn nhỏ",26,26
+SIM-00438,"Trung thành, chi tiêu cao",36,16
+SIM-00439,"Mua ít, đơn giá trị cao",6,72
+SIM-00440,"Mua thường xuyên, đơn nhỏ",33,25
+SIM-00441,"Trung thành, chi tiêu cao",38,22
+SIM-00442,Khách mới,2,8
+SIM-00443,"Mua ít, đơn giá trị cao",4,94
+SIM-00444,"Mua ít, đơn giá trị cao",6,99
+SIM-00445,"Mua ít, đơn giá trị cao",3,83
+SIM-00446,"Mua ít, đơn giá trị cao",7,76
+SIM-00447,"Trung thành, chi tiêu cao",38,32
+SIM-00448,"Mua thường xuyên, đơn nhỏ",30,28
+SIM-00449,"Mua thường xuyên, đơn nhỏ",35,37
+SIM-00450,"Trung thành, chi tiêu cao",38,25
+SIM-00451,"Trung thành, chi tiêu cao",29,16
+SIM-00452,Lâu chưa quay lại,9,263
+SIM-00453,Khách mới,3,11
+SIM-00454,"Mua thường xuyên, đơn nhỏ",36,42
+SIM-00455,"Trung thành, chi tiêu cao",34,19
+SIM-00456,Lâu chưa quay lại,13,327
+SIM-00457,Khách mới,1,14
+SIM-00458,"Mua ít, đơn giá trị cao",6,81
+SIM-00459,Lâu chưa quay lại,8,289
+SIM-00460,"Trung thành, chi tiêu cao",35,10
+SIM-00461,"Mua thường xuyên, đơn nhỏ",18,30
+SIM-00462,"Mua thường xuyên, đơn nhỏ",35,26
+SIM-00463,"Mua thường xuyên, đơn nhỏ",32,43
+SIM-00464,"Mua ít, đơn giá trị cao",5,72
+SIM-00465,"Mua thường xuyên, đơn nhỏ",27,26
+SIM-00466,Lâu chưa quay lại,12,272
+SIM-00467,"Trung thành, chi tiêu cao",34,8
+SIM-00468,Khách mới,1,9
+SIM-00469,Lâu chưa quay lại,14,311
+SIM-00470,Khách mới,2,9
+SIM-00471,"Mua ít, đơn giá trị cao",4,75
+SIM-00472,Khách mới,3,18
+SIM-00473,"Trung thành, chi tiêu cao",33,17
+SIM-00474,"Mua thường xuyên, đơn nhỏ",31,30
+SIM-00475,"Mua ít, đơn giá trị cao",3,86
+SIM-00476,"Mua ít, đơn giá trị cao",8,56
+SIM-00477,"Mua ít, đơn giá trị cao",5,98
+SIM-00478,Lâu chưa quay lại,14,279
+SIM-00479,"Mua thường xuyên, đơn nhỏ",31,41
+SIM-00480,"Mua ít, đơn giá trị cao",6,85
+SIM-00481,"Mua thường xuyên, đơn nhỏ",28,31
+SIM-00482,"Trung thành, chi tiêu cao",41,17
+SIM-00483,"Mua ít, đơn giá trị cao",7,35
+SIM-00484,"Mua ít, đơn giá trị cao",6,110
+SIM-00485,"Mua thường xuyên, đơn nhỏ",43,24
+SIM-00486,"Mua ít, đơn giá trị cao",6,107
+SIM-00487,"Trung thành, chi tiêu cao",22,10
+SIM-00488,"Mua thường xuyên, đơn nhỏ",28,32
+SIM-00489,"Trung thành, chi tiêu cao",40,17
+SIM-00490,"Mua ít, đơn giá trị cao",5,85
+SIM-00491,"Mua ít, đơn giá trị cao",9,33
+SIM-00492,"Trung thành, chi tiêu cao",36,6
+SIM-00493,"Mua thường xuyên, đơn nhỏ",33,42
+SIM-00494,"Mua thường xuyên, đơn nhỏ",26,36
+SIM-00495,Khách mới,1,16
+SIM-00496,Lâu chưa quay lại,10,255
+SIM-00497,"Trung thành, chi tiêu cao",27,16
+SIM-00498,"Mua ít, đơn giá trị cao",2,89
+SIM-00499,Lâu chưa quay lại,16,318
+SIM-00500,"Mua thường xuyên, đơn nhỏ",48,29
+SIM-00501,"Mua ít, đơn giá trị cao",6,102
+SIM-00502,"Mua ít, đơn giá trị cao",5,69
+SIM-00503,"Mua ít, đơn giá trị cao",4,119
+SIM-00504,"Trung thành, chi tiêu cao",41,18
+SIM-00505,"Mua ít, đơn giá trị cao",5,55
+SIM-00506,Lâu chưa quay lại,14,276
+SIM-00507,"Mua thường xuyên, đơn nhỏ",33,22
+SIM-00508,Lâu chưa quay lại,12,311
+SIM-00509,"Mua ít, đơn giá trị cao",4,85
+SIM-00510,"Mua thường xuyên, đơn nhỏ",34,40
+SIM-00511,Lâu chưa quay lại,19,255
+SIM-00512,"Mua thường xuyên, đơn nhỏ",29,33
+SIM-00513,"Trung thành, chi tiêu cao",35,19
+SIM-00514,Lâu chưa quay lại,10,237
+SIM-00515,"Mua ít, đơn giá trị cao",5,65
+SIM-00516,Khách mới,3,12
+SIM-00517,Khách mới,3,9
+SIM-00518,"Trung thành, chi tiêu cao",24,10
+SIM-00519,"Trung thành, chi tiêu cao",34,12
+SIM-00520,"Trung thành, chi tiêu cao",32,16
+SIM-00521,Lâu chưa quay lại,19,297
+SIM-00522,"Mua thường xuyên, đơn nhỏ",35,30
+SIM-00523,"Trung thành, chi tiêu cao",28,14
+SIM-00524,"Mua thường xuyên, đơn nhỏ",39,19
+SIM-00525,Khách mới,3,10
+SIM-00526,Khách mới,2,10
+SIM-00527,Lâu chưa quay lại,14,214
+SIM-00528,Khách mới,1,14
+SIM-00529,Lâu chưa quay lại,17,294
+SIM-00530,"Trung thành, chi tiêu cao",33,20
+SIM-00531,"Mua thường xuyên, đơn nhỏ",23,22
+SIM-00532,"Mua thường xuyên, đơn nhỏ",37,26
+SIM-00533,Khách mới,2,14
+SIM-00534,Khách mới,2,9
+SIM-00535,"Trung thành, chi tiêu cao",37,17
+SIM-00536,Khách mới,2,17
+SIM-00537,"Mua thường xuyên, đơn nhỏ",39,24
+SIM-00538,"Mua ít, đơn giá trị cao",4,109
+SIM-00539,Lâu chưa quay lại,11,248
+SIM-00540,Lâu chưa quay lại,18,232
+SIM-00541,Khách mới,1,13
+SIM-00542,"Trung thành, chi tiêu cao",36,18
+SIM-00543,"Trung thành, chi tiêu cao",36,28
+SIM-00544,"Mua ít, đơn giá trị cao",5,91
+SIM-00545,"Trung thành, chi tiêu cao",37,19
+SIM-00546,"Mua ít, đơn giá trị cao",8,119
+SIM-00547,"Mua thường xuyên, đơn nhỏ",31,30
+SIM-00548,"Mua thường xuyên, đơn nhỏ",32,13
+SIM-00549,"Mua ít, đơn giá trị cao",6,58
+SIM-00550,Lâu chưa quay lại,13,272
+SIM-00551,Lâu chưa quay lại,15,320
+SIM-00552,"Trung thành, chi tiêu cao",36,15
+SIM-00553,Khách mới,2,9
+SIM-00554,"Mua ít, đơn giá trị cao",5,130
+SIM-00555,"Trung thành, chi tiêu cao",31,23
+SIM-00556,Lâu chưa quay lại,13,289
+SIM-00557,"Mua ít, đơn giá trị cao",8,84
+SIM-00558,"Trung thành, chi tiêu cao",43,13
+SIM-00559,Lâu chưa quay lại,9,293
+SIM-00560,"Mua ít, đơn giá trị cao",4,118
+SIM-00561,"Trung thành, chi tiêu cao",33,16
+SIM-00562,"Trung thành, chi tiêu cao",42,18
+SIM-00563,"Trung thành, chi tiêu cao",33,14
+SIM-00564,"Mua ít, đơn giá trị cao",1,104
+SIM-00565,"Mua thường xuyên, đơn nhỏ",31,21
+SIM-00566,"Mua thường xuyên, đơn nhỏ",26,32
+SIM-00567,"Mua thường xuyên, đơn nhỏ",33,35
+SIM-00568,Khách mới,3,8
+SIM-00569,Lâu chưa quay lại,23,258
+SIM-00570,Khách mới,2,12
+SIM-00571,Khách mới,2,12
+SIM-00572,Lâu chưa quay lại,14,294
+SIM-00573,"Mua thường xuyên, đơn nhỏ",41,33
+SIM-00574,"Trung thành, chi tiêu cao",33,8
+SIM-00575,"Trung thành, chi tiêu cao",39,14
+SIM-00576,"Mua ít, đơn giá trị cao",4,69
+SIM-00577,"Mua ít, đơn giá trị cao",7,89
+SIM-00578,"Trung thành, chi tiêu cao",21,18
+SIM-00579,"Trung thành, chi tiêu cao",26,16
+SIM-00580,"Mua thường xuyên, đơn nhỏ",32,34
+SIM-00581,Lâu chưa quay lại,17,293
+SIM-00582,Lâu chưa quay lại,16,292
+SIM-00583,"Mua thường xuyên, đơn nhỏ",29,27
+SIM-00584,"Mua thường xuyên, đơn nhỏ",39,33
+SIM-00585,"Mua ít, đơn giá trị cao",5,92
+SIM-00586,"Mua thường xuyên, đơn nhỏ",36,30
+SIM-00587,Khách mới,1,8
+SIM-00588,Lâu chưa quay lại,8,293
+SIM-00589,"Mua thường xuyên, đơn nhỏ",34,32
+SIM-00590,"Trung thành, chi tiêu cao",36,16
+SIM-00591,Khách mới,1,19
+SIM-00592,Khách mới,1,14
+SIM-00593,"Trung thành, chi tiêu cao",26,10
+SIM-00594,"Mua thường xuyên, đơn nhỏ",35,28
+SIM-00595,"Mua thường xuyên, đơn nhỏ",36,15
+SIM-00596,"Mua ít, đơn giá trị cao",6,101
+SIM-00597,"Mua ít, đơn giá trị cao",7,80
+SIM-00598,Lâu chưa quay lại,16,305
+SIM-00599,"Mua ít, đơn giá trị cao",3,87
+SIM-00600,"Trung thành, chi tiêu cao",35,18
+SIM-00601,"Trung thành, chi tiêu cao",36,13
+SIM-00602,"Trung thành, chi tiêu cao",40,16
+SIM-00603,Khách mới,2,8
+SIM-00604,"Mua ít, đơn giá trị cao",3,77
+SIM-00605,"Mua ít, đơn giá trị cao",3,75
+SIM-00606,Khách mới,3,10
+SIM-00607,Khách mới,2,9
+SIM-00608,Khách mới,2,9
+SIM-00609,"Trung thành, chi tiêu cao",41,19
+SIM-00610,Lâu chưa quay lại,17,268
+SIM-00611,Lâu chưa quay lại,13,299
+SIM-00612,Khách mới,2,17
+SIM-00613,Lâu chưa quay lại,12,267
+SIM-00614,"Mua thường xuyên, đơn nhỏ",32,18
+SIM-00615,"Mua thường xuyên, đơn nhỏ",30,14
+SIM-00616,Lâu chưa quay lại,11,288
+SIM-00617,Lâu chưa quay lại,18,303
+SIM-00618,"Trung thành, chi tiêu cao",33,17
+SIM-00619,Khách mới,2,8
+SIM-00620,Khách mới,3,10
+SIM-00621,Lâu chưa quay lại,22,270
+SIM-00622,Khách mới,2,13
+SIM-00623,"Trung thành, chi tiêu cao",32,1
+SIM-00624,"Mua ít, đơn giá trị cao",5,95
+SIM-00625,"Mua ít, đơn giá trị cao",6,58
+SIM-00626,"Mua ít, đơn giá trị cao",5,46
+SIM-00627,"Mua ít, đơn giá trị cao",7,100
+SIM-00628,"Mua ít, đơn giá trị cao",8,48
+SIM-00629,"Mua thường xuyên, đơn nhỏ",29,37
+SIM-00630,"Trung thành, chi tiêu cao",28,14
+SIM-00631,"Trung thành, chi tiêu cao",36,5
+SIM-00632,"Mua ít, đơn giá trị cao",3,68
+SIM-00633,Khách mới,2,16
+SIM-00634,Khách mới,2,10
+SIM-00635,"Trung thành, chi tiêu cao",33,13
+SIM-00636,"Mua thường xuyên, đơn nhỏ",26,35
+SIM-00637,"Trung thành, chi tiêu cao",36,15
+SIM-00638,"Trung thành, chi tiêu cao",37,12
+SIM-00639,"Mua thường xuyên, đơn nhỏ",30,31
+SIM-00640,Lâu chưa quay lại,15,298
+SIM-00641,Khách mới,2,13
+SIM-00642,Khách mới,1,10
+SIM-00643,Lâu chưa quay lại,11,302
+SIM-00644,"Mua ít, đơn giá trị cao",7,65
+SIM-00645,"Mua ít, đơn giá trị cao",6,50
+SIM-00646,"Mua ít, đơn giá trị cao",4,99
+SIM-00647,Lâu chưa quay lại,16,301
+SIM-00648,Lâu chưa quay lại,4,296
+SIM-00649,Lâu chưa quay lại,17,263
+SIM-00650,"Mua thường xuyên, đơn nhỏ",32,29
+SIM-00651,"Trung thành, chi tiêu cao",31,22
+SIM-00652,"Trung thành, chi tiêu cao",31,11
+SIM-00653,"Trung thành, chi tiêu cao",41,16
+SIM-00654,"Mua thường xuyên, đơn nhỏ",44,24
+SIM-00655,Lâu chưa quay lại,15,317
+SIM-00656,Khách mới,2,9
+SIM-00657,"Mua thường xuyên, đơn nhỏ",24,24
+SIM-00658,"Mua thường xuyên, đơn nhỏ",31,29
+SIM-00659,"Mua thường xuyên, đơn nhỏ",28,24
+SIM-00660,Lâu chưa quay lại,21,255
+SIM-00661,Khách mới,3,7
+SIM-00662,Lâu chưa quay lại,14,278
+SIM-00663,"Mua thường xuyên, đơn nhỏ",29,17
+SIM-00664,"Mua ít, đơn giá trị cao",3,74
+SIM-00665,Khách mới,1,15
+SIM-00666,"Mua ít, đơn giá trị cao",7,87
+SIM-00667,Khách mới,3,10
+SIM-00668,"Mua thường xuyên, đơn nhỏ",30,27
+SIM-00669,Khách mới,2,12
+SIM-00670,Khách mới,1,7
+SIM-00671,"Trung thành, chi tiêu cao",44,14
+SIM-00672,Lâu chưa quay lại,18,264
+SIM-00673,"Mua thường xuyên, đơn nhỏ",33,31
+SIM-00674,"Mua ít, đơn giá trị cao",7,70
+SIM-00675,"Mua thường xuyên, đơn nhỏ",35,29
+SIM-00676,"Mua thường xuyên, đơn nhỏ",30,33
+SIM-00677,Khách mới,1,4
+SIM-00678,Khách mới,1,12
+SIM-00679,"Mua ít, đơn giá trị cao",7,77
+SIM-00680,"Mua ít, đơn giá trị cao",4,96
+SIM-00681,Lâu chưa quay lại,17,302
+SIM-00682,Lâu chưa quay lại,12,259
+SIM-00683,Khách mới,2,11
+SIM-00684,Lâu chưa quay lại,15,276
+SIM-00685,"Mua ít, đơn giá trị cao",4,100
+SIM-00686,"Mua thường xuyên, đơn nhỏ",29,34
+SIM-00687,"Mua ít, đơn giá trị cao",7,82
+SIM-00688,Lâu chưa quay lại,9,302
+SIM-00689,Khách mới,2,15
+SIM-00690,"Trung thành, chi tiêu cao",29,1
+SIM-00691,"Mua ít, đơn giá trị cao",2,113
+SIM-00692,Khách mới,3,10
+SIM-00693,"Mua ít, đơn giá trị cao",6,70
+SIM-00694,"Mua ít, đơn giá trị cao",6,51
+SIM-00695,"Mua thường xuyên, đơn nhỏ",30,33
+SIM-00696,Khách mới,3,7
+SIM-00697,Khách mới,2,6
+SIM-00698,"Trung thành, chi tiêu cao",36,11
+SIM-00699,"Mua ít, đơn giá trị cao",5,101
+SIM-00700,"Mua thường xuyên, đơn nhỏ",34,23
+SIM-00701,"Mua ít, đơn giá trị cao",3,93
+SIM-00702,"Mua ít, đơn giá trị cao",4,103
+SIM-00703,"Mua thường xuyên, đơn nhỏ",31,22
+SIM-00704,"Mua thường xuyên, đơn nhỏ",24,33
+SIM-00705,Lâu chưa quay lại,10,267
+SIM-00706,Lâu chưa quay lại,18,260
+SIM-00707,"Mua ít, đơn giá trị cao",6,60
+SIM-00708,Khách mới,3,8
+SIM-00709,"Trung thành, chi tiêu cao",27,14
+SIM-00710,Khách mới,2,15
+SIM-00711,Lâu chưa quay lại,8,260
+SIM-00712,"Mua ít, đơn giá trị cao",4,57
+SIM-00713,Khách mới,2,9
+SIM-00714,"Mua ít, đơn giá trị cao",6,74
+SIM-00715,Lâu chưa quay lại,11,315
+SIM-00716,Lâu chưa quay lại,9,298
+SIM-00717,"Mua ít, đơn giá trị cao",1,75
+SIM-00718,Lâu chưa quay lại,7,285
+SIM-00719,Khách mới,1,13
+SIM-00720,Khách mới,2,13
+SIM-00721,"Trung thành, chi tiêu cao",37,8
+SIM-00722,Khách mới,3,16
+SIM-00723,Lâu chưa quay lại,15,253
+SIM-00724,"Trung thành, chi tiêu cao",33,19
+SIM-00725,"Mua ít, đơn giá trị cao",3,72
+SIM-00726,"Trung thành, chi tiêu cao",31,9
+SIM-00727,"Mua thường xuyên, đơn nhỏ",29,23
+SIM-00728,Khách mới,3,10
+SIM-00729,"Mua ít, đơn giá trị cao",9,74
+SIM-00730,Lâu chưa quay lại,12,288
+SIM-00731,"Trung thành, chi tiêu cao",33,31
+SIM-00732,"Mua ít, đơn giá trị cao",6,62
+SIM-00733,Lâu chưa quay lại,14,237
+SIM-00734,"Trung thành, chi tiêu cao",25,26
+SIM-00735,Khách mới,1,19
+SIM-00736,"Mua thường xuyên, đơn nhỏ",35,35
+SIM-00737,Khách mới,3,9
+SIM-00738,"Mua thường xuyên, đơn nhỏ",38,33
+SIM-00739,Khách mới,3,8
+SIM-00740,Khách mới,2,10
+SIM-00741,"Trung thành, chi tiêu cao",33,26
+SIM-00742,"Mua ít, đơn giá trị cao",4,82
+SIM-00743,"Trung thành, chi tiêu cao",37,22
+SIM-00744,"Trung thành, chi tiêu cao",39,17
+SIM-00745,Lâu chưa quay lại,6,295
+SIM-00746,Khách mới,2,13
+SIM-00747,Khách mới,2,8
+SIM-00748,"Mua thường xuyên, đơn nhỏ",30,36
+SIM-00749,Lâu chưa quay lại,8,257
+SIM-00750,Khách mới,3,9
+SIM-00751,"Trung thành, chi tiêu cao",27,13
+SIM-00752,Lâu chưa quay lại,13,297
+SIM-00753,Khách mới,2,3
+SIM-00754,Lâu chưa quay lại,16,281
+SIM-00755,"Trung thành, chi tiêu cao",27,14
+SIM-00756,"Mua thường xuyên, đơn nhỏ",25,36
+SIM-00757,"Mua ít, đơn giá trị cao",9,110
+SIM-00758,"Mua ít, đơn giá trị cao",2,72
+SIM-00759,"Mua ít, đơn giá trị cao",4,118
+SIM-00760,"Mua ít, đơn giá trị cao",4,82
+SIM-00761,Lâu chưa quay lại,15,278
+SIM-00762,"Trung thành, chi tiêu cao",32,12
+SIM-00763,Khách mới,2,5
+SIM-00764,Lâu chưa quay lại,9,295
+SIM-00765,"Trung thành, chi tiêu cao",36,16
+SIM-00766,Khách mới,1,14
+SIM-00767,Lâu chưa quay lại,16,293
+SIM-00768,Lâu chưa quay lại,9,307
+SIM-00769,Lâu chưa quay lại,21,293
+SIM-00770,"Trung thành, chi tiêu cao",21,18
+SIM-00771,Khách mới,2,8
+SIM-00772,Khách mới,2,16
+SIM-00773,Lâu chưa quay lại,19,267
+SIM-00774,"Mua ít, đơn giá trị cao",5,89
+SIM-00775,Lâu chưa quay lại,13,284
+SIM-00776,Khách mới,2,21
+SIM-00777,"Mua thường xuyên, đơn nhỏ",34,37
+SIM-00778,"Trung thành, chi tiêu cao",34,12
+SIM-00779,"Mua thường xuyên, đơn nhỏ",32,33
+SIM-00780,"Mua thường xuyên, đơn nhỏ",32,22
+SIM-00781,Lâu chưa quay lại,13,224
+SIM-00782,"Mua thường xuyên, đơn nhỏ",43,29
+SIM-00783,Khách mới,2,12
+SIM-00784,"Mua thường xuyên, đơn nhỏ",37,34
+SIM-00785,"Mua thường xuyên, đơn nhỏ",35,33
+SIM-00786,"Mua ít, đơn giá trị cao",7,31
+SIM-00787,Lâu chưa quay lại,14,321
+SIM-00788,"Mua thường xuyên, đơn nhỏ",27,28
+SIM-00789,Khách mới,2,11
+SIM-00790,"Mua ít, đơn giá trị cao",5,63
+SIM-00791,"Trung thành, chi tiêu cao",34,18
+SIM-00792,"Trung thành, chi tiêu cao",38,9
+SIM-00793,"Trung thành, chi tiêu cao",29,24
+SIM-00794,Khách mới,2,12
+SIM-00795,"Trung thành, chi tiêu cao",33,15
+SIM-00796,Khách mới,2,6
+SIM-00797,"Mua ít, đơn giá trị cao",5,68
+SIM-00798,"Mua thường xuyên, đơn nhỏ",42,19
+SIM-00799,Khách mới,2,7
+SIM-00800,Lâu chưa quay lại,14,302
+SIM-00801,"Mua thường xuyên, đơn nhỏ",33,36
+SIM-00802,"Trung thành, chi tiêu cao",38,6
+SIM-00803,Lâu chưa quay lại,6,274
+SIM-00804,"Mua ít, đơn giá trị cao",5,97
+SIM-00805,"Trung thành, chi tiêu cao",29,30
+SIM-00806,"Mua thường xuyên, đơn nhỏ",33,13
+SIM-00807,"Mua thường xuyên, đơn nhỏ",31,27
+SIM-00808,"Mua ít, đơn giá trị cao",4,96
+SIM-00809,Lâu chưa quay lại,10,276
+SIM-00810,"Trung thành, chi tiêu cao",34,23
+SIM-00811,"Mua ít, đơn giá trị cao",4,85
+SIM-00812,"Mua ít, đơn giá trị cao",4,67
+SIM-00813,"Trung thành, chi tiêu cao",33,19
+SIM-00814,"Trung thành, chi tiêu cao",31,9
+SIM-00815,Khách mới,2,3
+SIM-00816,"Trung thành, chi tiêu cao",33,23
+SIM-00817,"Trung thành, chi tiêu cao",42,17
+SIM-00818,Khách mới,1,9
+SIM-00819,"Trung thành, chi tiêu cao",32,14
+SIM-00820,Khách mới,2,10
+SIM-00821,"Mua ít, đơn giá trị cao",4,103
+SIM-00822,"Trung thành, chi tiêu cao",38,20
+SIM-00823,"Mua thường xuyên, đơn nhỏ",27,33
+SIM-00824,Lâu chưa quay lại,14,331
+SIM-00825,"Mua thường xuyên, đơn nhỏ",29,24
+SIM-00826,Khách mới,1,12
+SIM-00827,Khách mới,2,3
+SIM-00828,"Mua thường xuyên, đơn nhỏ",39,27
+SIM-00829,Khách mới,3,12
+SIM-00830,"Mua thường xuyên, đơn nhỏ",36,23
+SIM-00831,Lâu chưa quay lại,10,264
+SIM-00832,Lâu chưa quay lại,23,276
+SIM-00833,"Mua thường xuyên, đơn nhỏ",31,43
+SIM-00834,Lâu chưa quay lại,13,287
+SIM-00835,"Mua ít, đơn giá trị cao",5,73
+SIM-00836,"Mua ít, đơn giá trị cao",6,110
+SIM-00837,Khách mới,1,9
+SIM-00838,"Mua ít, đơn giá trị cao",5,57
+SIM-00839,"Mua ít, đơn giá trị cao",5,81
+SIM-00840,Lâu chưa quay lại,17,300
+SIM-00841,Khách mới,2,2
+SIM-00842,"Mua thường xuyên, đơn nhỏ",35,35
+SIM-00843,"Trung thành, chi tiêu cao",35,13
+SIM-00844,Khách mới,2,19
+SIM-00845,"Mua thường xuyên, đơn nhỏ",31,41
+SIM-00846,"Mua ít, đơn giá trị cao",8,71
+SIM-00847,"Trung thành, chi tiêu cao",30,17
+SIM-00848,"Mua thường xuyên, đơn nhỏ",33,35
+SIM-00849,"Mua thường xuyên, đơn nhỏ",31,34
+SIM-00850,"Mua thường xuyên, đơn nhỏ",32,26
+SIM-00851,"Mua ít, đơn giá trị cao",9,71
+SIM-00852,"Mua thường xuyên, đơn nhỏ",37,33
+SIM-00853,"Mua ít, đơn giá trị cao",1,91
+SIM-00854,"Trung thành, chi tiêu cao",37,26
+SIM-00855,"Mua ít, đơn giá trị cao",5,76
+SIM-00856,Khách mới,2,16
+SIM-00857,"Mua thường xuyên, đơn nhỏ",27,23
+SIM-00858,"Mua thường xuyên, đơn nhỏ",28,2
+SIM-00859,"Mua thường xuyên, đơn nhỏ",34,33
+SIM-00860,"Mua ít, đơn giá trị cao",4,106
+SIM-00861,"Mua thường xuyên, đơn nhỏ",30,31
+SIM-00862,"Trung thành, chi tiêu cao",32,26
+SIM-00863,Khách mới,3,15
+SIM-00864,Khách mới,1,5
+SIM-00865,"Mua ít, đơn giá trị cao",3,78
+SIM-00866,"Mua thường xuyên, đơn nhỏ",28,29
+SIM-00867,"Trung thành, chi tiêu cao",29,16
+SIM-00868,"Trung thành, chi tiêu cao",31,22
+SIM-00869,"Mua ít, đơn giá trị cao",7,91
+SIM-00870,"Mua thường xuyên, đơn nhỏ",22,20
+SIM-00871,Lâu chưa quay lại,16,295
+SIM-00872,Lâu chưa quay lại,18,297
+SIM-00873,Lâu chưa quay lại,15,261
+SIM-00874,"Mua thường xuyên, đơn nhỏ",33,52
+SIM-00875,"Trung thành, chi tiêu cao",34,14
+SIM-00876,"Mua thường xuyên, đơn nhỏ",28,32
+SIM-00877,"Trung thành, chi tiêu cao",25,22
+SIM-00878,Lâu chưa quay lại,16,287
+SIM-00879,"Trung thành, chi tiêu cao",33,23
+SIM-00880,Lâu chưa quay lại,8,259
+SIM-00881,Khách mới,2,6
+SIM-00882,"Mua thường xuyên, đơn nhỏ",32,18
+SIM-00883,Lâu chưa quay lại,16,290
+SIM-00884,"Mua ít, đơn giá trị cao",5,61
+SIM-00885,Lâu chưa quay lại,10,294
+SIM-00886,"Mua ít, đơn giá trị cao",2,68
+SIM-00887,"Mua thường xuyên, đơn nhỏ",36,23
+SIM-00888,"Trung thành, chi tiêu cao",33,20
+SIM-00889,"Mua thường xuyên, đơn nhỏ",34,38
+SIM-00890,Lâu chưa quay lại,14,287
+SIM-00891,Lâu chưa quay lại,12,284
+SIM-00892,Khách mới,2,7
+SIM-00893,"Trung thành, chi tiêu cao",26,17
+SIM-00894,"Mua ít, đơn giá trị cao",6,76
+SIM-00895,"Trung thành, chi tiêu cao",30,14
+SIM-00896,Lâu chưa quay lại,15,309
+SIM-00897,Khách mới,2,8
+SIM-00898,"Mua thường xuyên, đơn nhỏ",29,17
+SIM-00899,"Trung thành, chi tiêu cao",34,4
+SIM-00900,"Mua ít, đơn giá trị cao",8,71
+SIM-00901,"Trung thành, chi tiêu cao",24,23
+SIM-00902,"Mua thường xuyên, đơn nhỏ",35,25
+SIM-00903,Khách mới,2,10
+SIM-00904,"Mua ít, đơn giá trị cao",6,71
+SIM-00905,"Trung thành, chi tiêu cao",31,22
+SIM-00906,Lâu chưa quay lại,7,294
+SIM-00907,"Trung thành, chi tiêu cao",33,13
+SIM-00908,"Mua ít, đơn giá trị cao",1,82
+SIM-00909,"Trung thành, chi tiêu cao",34,5
+SIM-00910,"Mua ít, đơn giá trị cao",7,68
+SIM-00911,"Mua ít, đơn giá trị cao",3,97
+SIM-00912,Khách mới,3,11
+SIM-00913,Lâu chưa quay lại,16,288
+SIM-00914,"Mua ít, đơn giá trị cao",7,72
+SIM-00915,"Mua ít, đơn giá trị cao",5,96
+SIM-00916,"Trung thành, chi tiêu cao",36,4
+SIM-00917,"Mua thường xuyên, đơn nhỏ",39,26
+SIM-00918,"Trung thành, chi tiêu cao",31,8
+SIM-00919,"Mua thường xuyên, đơn nhỏ",33,32
+SIM-00920,"Trung thành, chi tiêu cao",44,17
+SIM-00921,"Trung thành, chi tiêu cao",22,12
+SIM-00922,Lâu chưa quay lại,17,291
+SIM-00923,"Mua ít, đơn giá trị cao",12,110
+SIM-00924,"Mua thường xuyên, đơn nhỏ",38,32
+SIM-00925,"Mua thường xuyên, đơn nhỏ",30,18
+SIM-00926,Khách mới,1,10
+SIM-00927,"Trung thành, chi tiêu cao",38,12
+SIM-00928,"Mua ít, đơn giá trị cao",5,41
+SIM-00929,"Trung thành, chi tiêu cao",34,20
+SIM-00930,Khách mới,1,6
+SIM-00931,"Mua ít, đơn giá trị cao",3,105
+SIM-00932,Lâu chưa quay lại,21,266
+SIM-00933,Lâu chưa quay lại,15,285
+SIM-00934,"Mua thường xuyên, đơn nhỏ",31,21
+SIM-00935,Khách mới,1,14
+SIM-00936,Lâu chưa quay lại,17,285
+SIM-00937,"Mua thường xuyên, đơn nhỏ",36,33
+SIM-00938,"Trung thành, chi tiêu cao",31,14
+SIM-00939,Khách mới,3,1
+SIM-00940,Lâu chưa quay lại,8,332
+SIM-00941,Lâu chưa quay lại,17,268
+SIM-00942,"Trung thành, chi tiêu cao",36,7
+SIM-00943,"Mua ít, đơn giá trị cao",3,83
+SIM-00944,Khách mới,2,8
+SIM-00945,Khách mới,2,7
+SIM-00946,"Mua ít, đơn giá trị cao",3,86
+SIM-00947,"Mua ít, đơn giá trị cao",3,126
+SIM-00948,"Trung thành, chi tiêu cao",26,6
+SIM-00949,Lâu chưa quay lại,13,274
+SIM-00950,"Mua ít, đơn giá trị cao",5,77
+SIM-00951,"Trung thành, chi tiêu cao",37,11
+SIM-00952,Lâu chưa quay lại,16,302
+SIM-00953,"Trung thành, chi tiêu cao",35,14
+SIM-00954,Khách mới,3,18
+SIM-00955,Khách mới,2,8
+SIM-00956,"Mua thường xuyên, đơn nhỏ",30,41
+SIM-00957,Lâu chưa quay lại,23,307
+SIM-00958,"Trung thành, chi tiêu cao",35,14
+SIM-00959,"Mua thường xuyên, đơn nhỏ",29,24
+SIM-00960,"Trung thành, chi tiêu cao",32,18
+SIM-00961,"Mua ít, đơn giá trị cao",4,89
+SIM-00962,Lâu chưa quay lại,13,253
+SIM-00963,"Mua thường xuyên, đơn nhỏ",35,31
+SIM-00964,"Mua thường xuyên, đơn nhỏ",26,25
+SIM-00965,Lâu chưa quay lại,17,314
+SIM-00966,Lâu chưa quay lại,11,271
+SIM-00967,Khách mới,2,6
+SIM-00968,"Mua ít, đơn giá trị cao",8,72
+SIM-00969,"Trung thành, chi tiêu cao",36,13
+SIM-00970,"Mua thường xuyên, đơn nhỏ",38,39
+SIM-00971,Khách mới,1,8
+SIM-00972,Khách mới,2,7
+SIM-00973,"Mua ít, đơn giá trị cao",6,107
+SIM-00974,Khách mới,2,12
+SIM-00975,Lâu chưa quay lại,15,276
+SIM-00976,Lâu chưa quay lại,16,271
+SIM-00977,Khách mới,2,13
+SIM-00978,"Trung thành, chi tiêu cao",37,12
+SIM-00979,Khách mới,2,8
+SIM-00980,"Mua thường xuyên, đơn nhỏ",27,14
+SIM-00981,"Trung thành, chi tiêu cao",42,17
+SIM-00982,"Mua thường xuyên, đơn nhỏ",31,22
+SIM-00983,"Trung thành, chi tiêu cao",40,18
+SIM-00984,Lâu chưa quay lại,13,233
+SIM-00985,"Trung thành, chi tiêu cao",28,13
+SIM-00986,Khách mới,2,12
+SIM-00987,Lâu chưa quay lại,16,321
+SIM-00988,Khách mới,2,5
+SIM-00989,Khách mới,2,6
+SIM-00990,Khách mới,2,7
+SIM-00991,Lâu chưa quay lại,13,281
+SIM-00992,Lâu chưa quay lại,17,290
+SIM-00993,"Mua thường xuyên, đơn nhỏ",35,30
+SIM-00994,"Trung thành, chi tiêu cao",32,16
+SIM-00995,"Mua thường xuyên, đơn nhỏ",40,47
+SIM-00996,Lâu chưa quay lại,9,270
+SIM-00997,"Trung thành, chi tiêu cao",27,11
+SIM-00998,"Mua ít, đơn giá trị cao",5,119
+SIM-00999,"Trung thành, chi tiêu cao",32,17
+SIM-01000,"Mua thường xuyên, đơn nhỏ",31,39
+SIM-01001,Lâu chưa quay lại,14,312
+SIM-01002,"Mua ít, đơn giá trị cao",5,78
+SIM-01003,"Trung thành, chi tiêu cao",31,7
+SIM-01004,"Trung thành, chi tiêu cao",34,16
+SIM-01005,Khách mới,2,12
+SIM-01006,"Mua ít, đơn giá trị cao",7,99
+SIM-01007,"Mua ít, đơn giá trị cao",5,99
+SIM-01008,"Trung thành, chi tiêu cao",33,18
+SIM-01009,"Mua thường xuyên, đơn nhỏ",38,10
+SIM-01010,Khách mới,3,12
+SIM-01011,Lâu chưa quay lại,21,268
+SIM-01012,Lâu chưa quay lại,18,341
+SIM-01013,"Trung thành, chi tiêu cao",34,13
+SIM-01014,Khách mới,2,6
+SIM-01015,Khách mới,1,8
+SIM-01016,"Trung thành, chi tiêu cao",43,14
+SIM-01017,Khách mới,1,11
+SIM-01018,Lâu chưa quay lại,14,257
+SIM-01019,"Mua ít, đơn giá trị cao",5,127
+SIM-01020,"Trung thành, chi tiêu cao",33,15
+SIM-01021,"Mua thường xuyên, đơn nhỏ",33,28
+SIM-01022,"Mua thường xuyên, đơn nhỏ",35,24
+SIM-01023,Khách mới,4,7
+SIM-01024,"Mua ít, đơn giá trị cao",4,104
+SIM-01025,Khách mới,1,6
+SIM-01026,Lâu chưa quay lại,14,252
+SIM-01027,Khách mới,2,14
+SIM-01028,Khách mới,2,18
+SIM-01029,"Mua ít, đơn giá trị cao",7,114
+SIM-01030,"Trung thành, chi tiêu cao",30,5
+SIM-01031,Lâu chưa quay lại,12,315
+SIM-01032,"Mua ít, đơn giá trị cao",4,84
+SIM-01033,Lâu chưa quay lại,26,287
+SIM-01034,"Trung thành, chi tiêu cao",42,13
+SIM-01035,Khách mới,3,5
+SIM-01036,Khách mới,1,7
+SIM-01037,"Mua thường xuyên, đơn nhỏ",26,27
+SIM-01038,"Trung thành, chi tiêu cao",32,9
+SIM-01039,"Trung thành, chi tiêu cao",26,6
+SIM-01040,"Trung thành, chi tiêu cao",31,17
+SIM-01041,Khách mới,3,12
+SIM-01042,Khách mới,3,11
+SIM-01043,Lâu chưa quay lại,18,257
+SIM-01044,Lâu chưa quay lại,8,328
+SIM-01045,"Mua ít, đơn giá trị cao",4,102
+SIM-01046,"Mua thường xuyên, đơn nhỏ",37,21
+SIM-01047,"Mua ít, đơn giá trị cao",5,115
+SIM-01048,Khách mới,3,9
+SIM-01049,"Mua thường xuyên, đơn nhỏ",31,25
+SIM-01050,Lâu chưa quay lại,18,251
+SIM-01051,"Mua ít, đơn giá trị cao",2,94
+SIM-01052,"Trung thành, chi tiêu cao",33,17
+SIM-01053,"Trung thành, chi tiêu cao",40,24
+SIM-01054,"Trung thành, chi tiêu cao",36,11
+SIM-01055,"Mua thường xuyên, đơn nhỏ",42,28
+SIM-01056,"Mua thường xuyên, đơn nhỏ",43,25
+SIM-01057,Khách mới,2,7
+SIM-01058,"Trung thành, chi tiêu cao",36,17
+SIM-01059,"Mua thường xuyên, đơn nhỏ",34,24
+SIM-01060,"Trung thành, chi tiêu cao",37,13
+SIM-01061,Lâu chưa quay lại,16,267
+SIM-01062,Lâu chưa quay lại,12,274
+SIM-01063,Lâu chưa quay lại,11,280
+SIM-01064,"Mua ít, đơn giá trị cao",5,65
+SIM-01065,"Mua thường xuyên, đơn nhỏ",38,29
+SIM-01066,Khách mới,3,10
+SIM-01067,"Mua ít, đơn giá trị cao",3,54
+SIM-01068,Lâu chưa quay lại,17,253
+SIM-01069,Khách mới,2,10
+SIM-01070,Khách mới,2,16
+SIM-01071,Khách mới,2,10
+SIM-01072,Lâu chưa quay lại,14,322
+SIM-01073,"Trung thành, chi tiêu cao",28,15
+SIM-01074,"Mua thường xuyên, đơn nhỏ",41,32
+SIM-01075,"Mua thường xuyên, đơn nhỏ",30,32
+SIM-01076,Lâu chưa quay lại,11,296
+SIM-01077,"Mua thường xuyên, đơn nhỏ",33,38
+SIM-01078,Khách mới,1,14
+SIM-01079,"Trung thành, chi tiêu cao",38,9
+SIM-01080,"Mua thường xuyên, đơn nhỏ",34,34
+SIM-01081,"Trung thành, chi tiêu cao",32,17
+SIM-01082,"Trung thành, chi tiêu cao",35,15
+SIM-01083,Khách mới,2,12
+SIM-01084,Lâu chưa quay lại,12,261
+SIM-01085,"Mua thường xuyên, đơn nhỏ",39,35
+SIM-01086,"Mua ít, đơn giá trị cao",4,58
+SIM-01087,"Trung thành, chi tiêu cao",36,10
+SIM-01088,"Mua ít, đơn giá trị cao",7,97
+SIM-01089,Lâu chưa quay lại,16,324
+SIM-01090,"Mua thường xuyên, đơn nhỏ",22,26
+SIM-01091,"Mua ít, đơn giá trị cao",4,75
+SIM-01092,"Trung thành, chi tiêu cao",20,8
+SIM-01093,"Mua thường xuyên, đơn nhỏ",34,38
+SIM-01094,"Mua ít, đơn giá trị cao",4,83
+SIM-01095,"Trung thành, chi tiêu cao",29,30
+SIM-01096,Lâu chưa quay lại,9,288
+SIM-01097,"Trung thành, chi tiêu cao",29,28
+SIM-01098,Khách mới,1,9
+SIM-01099,Khách mới,2,15
+SIM-01100,Khách mới,3,4
+SIM-01101,Lâu chưa quay lại,13,276
+SIM-01102,"Mua ít, đơn giá trị cao",3,87
+SIM-01103,Khách mới,3,9
+SIM-01104,"Trung thành, chi tiêu cao",30,9
+SIM-01105,Khách mới,1,22
+SIM-01106,"Mua ít, đơn giá trị cao",4,58
+SIM-01107,Khách mới,3,17
+SIM-01108,Khách mới,2,12
+SIM-01109,"Trung thành, chi tiêu cao",45,16
+SIM-01110,Khách mới,4,14
+SIM-01111,"Mua thường xuyên, đơn nhỏ",33,33
+SIM-01112,"Mua ít, đơn giá trị cao",8,77
+SIM-01113,Khách mới,3,11
+SIM-01114,"Trung thành, chi tiêu cao",35,9
+SIM-01115,"Trung thành, chi tiêu cao",19,8
+SIM-01116,"Mua thường xuyên, đơn nhỏ",30,21
+SIM-01117,Khách mới,2,16
+SIM-01118,"Mua thường xuyên, đơn nhỏ",28,31
+SIM-01119,"Mua ít, đơn giá trị cao",6,68
+SIM-01120,"Mua ít, đơn giá trị cao",8,76
+SIM-01121,"Trung thành, chi tiêu cao",30,19
+SIM-01122,"Mua ít, đơn giá trị cao",5,110
+SIM-01123,"Mua ít, đơn giá trị cao",5,63
+SIM-01124,"Mua thường xuyên, đơn nhỏ",34,24
+SIM-01125,"Trung thành, chi tiêu cao",30,9
+SIM-01126,Khách mới,2,7
+SIM-01127,Khách mới,2,11
+SIM-01128,"Mua ít, đơn giá trị cao",5,87
+SIM-01129,"Mua thường xuyên, đơn nhỏ",30,30
+SIM-01130,Khách mới,3,9
+SIM-01131,"Mua ít, đơn giá trị cao",6,90
+SIM-01132,"Mua ít, đơn giá trị cao",6,136
+SIM-01133,Khách mới,2,11
+SIM-01134,"Mua ít, đơn giá trị cao",4,80
+SIM-01135,"Mua thường xuyên, đơn nhỏ",33,44
+SIM-01136,Lâu chưa quay lại,13,299
+SIM-01137,Khách mới,2,6
+SIM-01138,Lâu chưa quay lại,25,292
+SIM-01139,Lâu chưa quay lại,18,258
+SIM-01140,"Mua ít, đơn giá trị cao",5,71
+SIM-01141,"Mua thường xuyên, đơn nhỏ",32,38
+SIM-01142,Lâu chưa quay lại,13,271
+SIM-01143,Lâu chưa quay lại,16,265
+SIM-01144,"Mua thường xuyên, đơn nhỏ",27,8
+SIM-01145,Khách mới,1,11
+SIM-01146,Lâu chưa quay lại,11,217
+SIM-01147,Khách mới,3,14
+SIM-01148,"Mua ít, đơn giá trị cao",5,105
+SIM-01149,Lâu chưa quay lại,8,272
+SIM-01150,Khách mới,3,14
+SIM-01151,Lâu chưa quay lại,15,333
+SIM-01152,Lâu chưa quay lại,13,278
+SIM-01153,"Mua ít, đơn giá trị cao",7,69
+SIM-01154,Lâu chưa quay lại,17,245
+SIM-01155,"Mua ít, đơn giá trị cao",5,107
+SIM-01156,"Mua thường xuyên, đơn nhỏ",32,42
+SIM-01157,Lâu chưa quay lại,20,291
+SIM-01158,Khách mới,2,10
+SIM-01159,"Mua ít, đơn giá trị cao",4,106
+SIM-01160,"Mua ít, đơn giá trị cao",7,33
+SIM-01161,"Mua thường xuyên, đơn nhỏ",38,26
+SIM-01162,"Mua ít, đơn giá trị cao",9,75
+SIM-01163,Lâu chưa quay lại,15,281
+SIM-01164,Khách mới,2,7
+SIM-01165,"Mua ít, đơn giá trị cao",7,136
+SIM-01166,"Mua ít, đơn giá trị cao",7,70
+SIM-01167,"Mua thường xuyên, đơn nhỏ",28,39
+SIM-01168,"Trung thành, chi tiêu cao",28,20
+SIM-01169,"Mua thường xuyên, đơn nhỏ",24,36
+SIM-01170,"Trung thành, chi tiêu cao",37,21
+SIM-01171,"Mua thường xuyên, đơn nhỏ",31,8
+SIM-01172,Lâu chưa quay lại,8,338
+SIM-01173,"Mua thường xuyên, đơn nhỏ",27,38
+SIM-01174,"Mua thường xuyên, đơn nhỏ",36,35
+SIM-01175,"Trung thành, chi tiêu cao",31,4
+SIM-01176,Khách mới,1,7
+SIM-01177,"Mua thường xuyên, đơn nhỏ",29,38
+SIM-01178,"Mua ít, đơn giá trị cao",5,103
+SIM-01179,Lâu chưa quay lại,9,301
+SIM-01180,"Mua thường xuyên, đơn nhỏ",42,24
+SIM-01181,Khách mới,2,5
+SIM-01182,Khách mới,1,12
+SIM-01183,"Trung thành, chi tiêu cao",32,13
+SIM-01184,Khách mới,2,9
+SIM-01185,"Mua thường xuyên, đơn nhỏ",35,32
+SIM-01186,"Mua thường xuyên, đơn nhỏ",24,54
+SIM-01187,"Mua ít, đơn giá trị cao",7,71
+SIM-01188,"Mua ít, đơn giá trị cao",6,82
+SIM-01189,"Trung thành, chi tiêu cao",36,8
+SIM-01190,Lâu chưa quay lại,13,253
+SIM-01191,Khách mới,1,16
+SIM-01192,Lâu chưa quay lại,15,264
+SIM-01193,Lâu chưa quay lại,17,275
+SIM-01194,"Mua thường xuyên, đơn nhỏ",36,22
+SIM-01195,Khách mới,3,9
+SIM-01196,"Mua thường xuyên, đơn nhỏ",29,30
+SIM-01197,"Trung thành, chi tiêu cao",23,30
+SIM-01198,Khách mới,3,7
+SIM-01199,"Trung thành, chi tiêu cao",43,19
+SIM-01200,"Mua thường xuyên, đơn nhỏ",39,35
+SIM-01201,"Mua thường xuyên, đơn nhỏ",23,42
+SIM-01202,Lâu chưa quay lại,14,293
+SIM-01203,"Trung thành, chi tiêu cao",28,9
+SIM-01204,"Mua thường xuyên, đơn nhỏ",30,43
+SIM-01205,Khách mới,2,15
+SIM-01206,Khách mới,2,5
+SIM-01207,"Mua thường xuyên, đơn nhỏ",28,34
+SIM-01208,Lâu chưa quay lại,14,302
+SIM-01209,"Mua ít, đơn giá trị cao",3,90
+SIM-01210,"Trung thành, chi tiêu cao",38,10
+SIM-01211,Khách mới,1,9
+SIM-01212,"Trung thành, chi tiêu cao",36,19
+SIM-01213,"Trung thành, chi tiêu cao",33,18
+SIM-01214,"Trung thành, chi tiêu cao",32,12
+SIM-01215,"Trung thành, chi tiêu cao",36,22
+SIM-01216,"Mua ít, đơn giá trị cao",5,72
+SIM-01217,"Mua ít, đơn giá trị cao",2,69
+SIM-01218,"Mua thường xuyên, đơn nhỏ",29,30
+SIM-01219,Khách mới,2,8
+SIM-01220,"Trung thành, chi tiêu cao",36,16
+SIM-01221,Lâu chưa quay lại,22,288
+SIM-01222,"Mua ít, đơn giá trị cao",7,64
+SIM-01223,Lâu chưa quay lại,11,268
+SIM-01224,Khách mới,3,13
+SIM-01225,"Mua thường xuyên, đơn nhỏ",32,41
+SIM-01226,Khách mới,3,11
+SIM-01227,"Trung thành, chi tiêu cao",32,13
+SIM-01228,Khách mới,2,4
+SIM-01229,"Mua thường xuyên, đơn nhỏ",30,40
+SIM-01230,Khách mới,2,8
+SIM-01231,"Mua thường xuyên, đơn nhỏ",37,35
+SIM-01232,"Mua ít, đơn giá trị cao",8,106
+SIM-01233,"Mua thường xuyên, đơn nhỏ",39,31
+SIM-01234,"Trung thành, chi tiêu cao",32,17
+SIM-01235,"Trung thành, chi tiêu cao",37,9
+SIM-01236,"Mua ít, đơn giá trị cao",7,62
+SIM-01237,"Mua ít, đơn giá trị cao",7,116
+SIM-01238,Lâu chưa quay lại,12,257
+SIM-01239,"Mua ít, đơn giá trị cao",4,88
+SIM-01240,"Mua thường xuyên, đơn nhỏ",34,36
+SIM-01241,"Trung thành, chi tiêu cao",28,22
+SIM-01242,Khách mới,3,15
+SIM-01243,Lâu chưa quay lại,10,302
+SIM-01244,Khách mới,3,21
+SIM-01245,"Trung thành, chi tiêu cao",28,10
+SIM-01246,"Trung thành, chi tiêu cao",34,16
+SIM-01247,"Mua thường xuyên, đơn nhỏ",33,46
+SIM-01248,"Trung thành, chi tiêu cao",39,17
+SIM-01249,"Mua ít, đơn giá trị cao",8,85
+SIM-01250,"Trung thành, chi tiêu cao",32,15
+SIM-01251,"Trung thành, chi tiêu cao",36,21
+SIM-01252,Lâu chưa quay lại,10,241
+SIM-01253,"Mua ít, đơn giá trị cao",7,79
+SIM-01254,"Mua ít, đơn giá trị cao",5,98
+SIM-01255,"Mua thường xuyên, đơn nhỏ",34,24
+SIM-01256,Khách mới,2,10
+SIM-01257,"Mua ít, đơn giá trị cao",7,81
+SIM-01258,"Trung thành, chi tiêu cao",35,18
+SIM-01259,"Mua thường xuyên, đơn nhỏ",35,17
+SIM-01260,"Mua thường xuyên, đơn nhỏ",35,37
+SIM-01261,"Mua ít, đơn giá trị cao",8,78
+SIM-01262,"Mua thường xuyên, đơn nhỏ",29,20
+SIM-01263,Lâu chưa quay lại,10,311
+SIM-01264,Lâu chưa quay lại,11,313
+SIM-01265,"Mua thường xuyên, đơn nhỏ",32,27
+SIM-01266,"Mua thường xuyên, đơn nhỏ",34,35
+SIM-01267,Lâu chưa quay lại,8,289
+SIM-01268,Khách mới,2,7
+SIM-01269,"Mua ít, đơn giá trị cao",4,50
+SIM-01270,"Mua thường xuyên, đơn nhỏ",28,30
+SIM-01271,Khách mới,2,13
+SIM-01272,"Mua ít, đơn giá trị cao",4,59
+SIM-01273,Khách mới,1,10
+SIM-01274,"Mua thường xuyên, đơn nhỏ",35,43
+SIM-01275,Khách mới,1,8
+SIM-01276,Khách mới,3,16
+SIM-01277,Khách mới,1,12
+SIM-01278,"Trung thành, chi tiêu cao",30,16
+SIM-01279,"Mua ít, đơn giá trị cao",6,79
+SIM-01280,Lâu chưa quay lại,11,246
+SIM-01281,"Trung thành, chi tiêu cao",30,12
+SIM-01282,Lâu chưa quay lại,12,248
+SIM-01283,"Trung thành, chi tiêu cao",30,19
+SIM-01284,"Trung thành, chi tiêu cao",32,14
+SIM-01285,Khách mới,2,11
+SIM-01286,"Mua ít, đơn giá trị cao",6,47
+SIM-01287,Khách mới,1,18
+SIM-01288,"Mua thường xuyên, đơn nhỏ",29,34
+SIM-01289,"Mua ít, đơn giá trị cao",6,98
+SIM-01290,Khách mới,2,5
+SIM-01291,"Trung thành, chi tiêu cao",33,14
+SIM-01292,Lâu chưa quay lại,17,286
+SIM-01293,"Trung thành, chi tiêu cao",31,10
+SIM-01294,"Trung thành, chi tiêu cao",34,23
+SIM-01295,"Mua thường xuyên, đơn nhỏ",41,27
+SIM-01296,Khách mới,2,8
+SIM-01297,"Trung thành, chi tiêu cao",35,17
+SIM-01298,Khách mới,2,9
+SIM-01299,Khách mới,2,11
+SIM-01300,Lâu chưa quay lại,11,278
+SIM-01301,Khách mới,2,6
+SIM-01302,"Trung thành, chi tiêu cao",37,14
+SIM-01303,Lâu chưa quay lại,19,282
+SIM-01304,"Mua thường xuyên, đơn nhỏ",36,11
+SIM-01305,"Mua thường xuyên, đơn nhỏ",30,23
+SIM-01306,"Mua ít, đơn giá trị cao",5,75
+SIM-01307,Khách mới,2,9
+SIM-01308,"Mua thường xuyên, đơn nhỏ",30,24
+SIM-01309,Khách mới,2,12
+SIM-01310,"Trung thành, chi tiêu cao",39,14
+SIM-01311,"Mua thường xuyên, đơn nhỏ",36,34
+SIM-01312,"Mua ít, đơn giá trị cao",4,81
+SIM-01313,"Mua ít, đơn giá trị cao",5,94
+SIM-01314,"Trung thành, chi tiêu cao",38,5
+SIM-01315,"Mua thường xuyên, đơn nhỏ",25,31
+SIM-01316,"Trung thành, chi tiêu cao",33,8
+SIM-01317,Khách mới,2,9
+SIM-01318,Khách mới,1,5
+SIM-01319,Lâu chưa quay lại,17,261
+SIM-01320,Khách mới,3,11
+SIM-01321,"Trung thành, chi tiêu cao",43,10
+SIM-01322,"Mua thường xuyên, đơn nhỏ",37,24
+SIM-01323,Lâu chưa quay lại,18,256
+SIM-01324,Lâu chưa quay lại,16,250
+SIM-01325,Lâu chưa quay lại,10,261
+SIM-01326,"Trung thành, chi tiêu cao",36,17
+SIM-01327,"Mua ít, đơn giá trị cao",4,116
+SIM-01328,Lâu chưa quay lại,13,278
+SIM-01329,"Mua thường xuyên, đơn nhỏ",34,26
+SIM-01330,Lâu chưa quay lại,9,264
+SIM-01331,"Trung thành, chi tiêu cao",28,3
+SIM-01332,"Mua ít, đơn giá trị cao",6,62
+SIM-01333,"Mua ít, đơn giá trị cao",5,134
+SIM-01334,"Trung thành, chi tiêu cao",30,11
+SIM-01335,"Mua ít, đơn giá trị cao",7,107
+SIM-01336,"Trung thành, chi tiêu cao",30,24
+SIM-01337,"Mua ít, đơn giá trị cao",5,56
+SIM-01338,"Trung thành, chi tiêu cao",41,10
+SIM-01339,Lâu chưa quay lại,7,254
+SIM-01340,"Mua thường xuyên, đơn nhỏ",34,18
+SIM-01341,"Mua thường xuyên, đơn nhỏ",33,40
+SIM-01342,"Trung thành, chi tiêu cao",30,20
+SIM-01343,"Mua ít, đơn giá trị cao",3,84
+SIM-01344,"Mua thường xuyên, đơn nhỏ",24,18
+SIM-01345,"Mua thường xuyên, đơn nhỏ",28,39
+SIM-01346,"Mua ít, đơn giá trị cao",4,79
+SIM-01347,Khách mới,2,8
+SIM-01348,"Mua thường xuyên, đơn nhỏ",39,38
+SIM-01349,"Trung thành, chi tiêu cao",40,12
+SIM-01350,"Mua ít, đơn giá trị cao",2,60
+SIM-01351,Khách mới,3,9
+SIM-01352,Khách mới,2,13
+SIM-01353,Khách mới,2,7
+SIM-01354,Khách mới,1,15
+SIM-01355,"Mua ít, đơn giá trị cao",6,25
+SIM-01356,"Mua thường xuyên, đơn nhỏ",33,27
+SIM-01357,"Trung thành, chi tiêu cao",33,19
+SIM-01358,"Mua ít, đơn giá trị cao",7,75
+SIM-01359,"Trung thành, chi tiêu cao",38,14
+SIM-01360,Khách mới,3,13
+SIM-01361,Khách mới,3,11
+SIM-01362,"Mua ít, đơn giá trị cao",6,40
+SIM-01363,Lâu chưa quay lại,14,247
+SIM-01364,Khách mới,2,7
+SIM-01365,Khách mới,2,17
+SIM-01366,Lâu chưa quay lại,14,253
+SIM-01367,"Trung thành, chi tiêu cao",35,11
+SIM-01368,"Mua ít, đơn giá trị cao",3,86
+SIM-01369,Khách mới,1,15
+SIM-01370,"Mua thường xuyên, đơn nhỏ",37,29
+SIM-01371,Lâu chưa quay lại,12,309
+SIM-01372,Khách mới,1,18
+SIM-01373,Lâu chưa quay lại,10,279
+SIM-01374,Lâu chưa quay lại,11,266
+SIM-01375,Khách mới,1,8
+SIM-01376,"Mua thường xuyên, đơn nhỏ",46,26
+SIM-01377,"Mua ít, đơn giá trị cao",7,87
+SIM-01378,"Mua thường xuyên, đơn nhỏ",31,31
+SIM-01379,"Trung thành, chi tiêu cao",41,14
+SIM-01380,"Trung thành, chi tiêu cao",31,9
+SIM-01381,Lâu chưa quay lại,10,293
+SIM-01382,"Mua thường xuyên, đơn nhỏ",26,39
+SIM-01383,Lâu chưa quay lại,5,254
+SIM-01384,Khách mới,1,8
+SIM-01385,Lâu chưa quay lại,20,253
+SIM-01386,Khách mới,3,10
+SIM-01387,"Mua thường xuyên, đơn nhỏ",25,34
+SIM-01388,"Mua thường xuyên, đơn nhỏ",32,28
+SIM-01389,Lâu chưa quay lại,11,261
+SIM-01390,Lâu chưa quay lại,13,304
+SIM-01391,Khách mới,3,12
+SIM-01392,Lâu chưa quay lại,20,275
+SIM-01393,"Mua thường xuyên, đơn nhỏ",32,35
+SIM-01394,Khách mới,2,14
+SIM-01395,"Mua thường xuyên, đơn nhỏ",37,33
+SIM-01396,Lâu chưa quay lại,20,269
+SIM-01397,Khách mới,1,11
+SIM-01398,"Mua thường xuyên, đơn nhỏ",21,43
+SIM-01399,"Mua ít, đơn giá trị cao",6,84
+SIM-01400,"Trung thành, chi tiêu cao",34,8
+SIM-01401,"Mua ít, đơn giá trị cao",7,66
+SIM-01402,"Mua thường xuyên, đơn nhỏ",31,17
+SIM-01403,"Mua thường xuyên, đơn nhỏ",28,39
+SIM-01404,Khách mới,1,10
+SIM-01405,"Mua ít, đơn giá trị cao",6,126
+SIM-01406,Lâu chưa quay lại,13,282
+SIM-01407,"Mua thường xuyên, đơn nhỏ",31,18
+SIM-01408,"Trung thành, chi tiêu cao",31,15
+SIM-01409,"Mua ít, đơn giá trị cao",6,56
+SIM-01410,"Mua thường xuyên, đơn nhỏ",29,16
+SIM-01411,"Mua ít, đơn giá trị cao",8,82
+SIM-01412,Khách mới,2,13
+SIM-01413,Lâu chưa quay lại,18,266
+SIM-01414,"Trung thành, chi tiêu cao",38,22
+SIM-01415,"Mua thường xuyên, đơn nhỏ",23,26
+SIM-01416,Lâu chưa quay lại,16,284
+SIM-01417,Lâu chưa quay lại,14,273
+SIM-01418,"Mua ít, đơn giá trị cao",7,81
+SIM-01419,"Trung thành, chi tiêu cao",32,18
+SIM-01420,"Trung thành, chi tiêu cao",33,20
+SIM-01421,Lâu chưa quay lại,8,286
+SIM-01422,"Mua ít, đơn giá trị cao",2,82
+SIM-01423,Lâu chưa quay lại,11,284
+SIM-01424,"Mua thường xuyên, đơn nhỏ",32,21
+SIM-01425,"Trung thành, chi tiêu cao",27,20
+SIM-01426,"Mua ít, đơn giá trị cao",6,112
+SIM-01427,"Trung thành, chi tiêu cao",35,12
+SIM-01428,Lâu chưa quay lại,18,296
+SIM-01429,Lâu chưa quay lại,20,314
+SIM-01430,"Trung thành, chi tiêu cao",40,10
+SIM-01431,"Trung thành, chi tiêu cao",31,23
+SIM-01432,Lâu chưa quay lại,21,241
+SIM-01433,"Mua thường xuyên, đơn nhỏ",24,35
+SIM-01434,Khách mới,2,11
+SIM-01435,"Mua ít, đơn giá trị cao",9,87
+SIM-01436,"Mua ít, đơn giá trị cao",1,80
+SIM-01437,"Mua ít, đơn giá trị cao",10,79
+SIM-01438,"Trung thành, chi tiêu cao",36,13
+SIM-01439,"Mua thường xuyên, đơn nhỏ",22,32
+SIM-01440,"Mua ít, đơn giá trị cao",3,81
+SIM-01441,"Mua thường xuyên, đơn nhỏ",30,45
+SIM-01442,Lâu chưa quay lại,15,286
+SIM-01443,"Mua thường xuyên, đơn nhỏ",30,41
+SIM-01444,"Mua ít, đơn giá trị cao",6,105
+SIM-01445,Lâu chưa quay lại,15,252
+SIM-01446,Lâu chưa quay lại,14,316
+SIM-01447,Lâu chưa quay lại,9,291
+SIM-01448,Lâu chưa quay lại,18,277
+SIM-01449,"Mua ít, đơn giá trị cao",4,114
+SIM-01450,"Mua ít, đơn giá trị cao",5,69
+SIM-01451,"Mua thường xuyên, đơn nhỏ",24,25
+SIM-01452,Lâu chưa quay lại,18,277
+SIM-01453,"Mua ít, đơn giá trị cao",7,88
+SIM-01454,"Trung thành, chi tiêu cao",38,21
+SIM-01455,"Mua thường xuyên, đơn nhỏ",28,19
+SIM-01456,Lâu chưa quay lại,16,279
+SIM-01457,Lâu chưa quay lại,10,315
+SIM-01458,"Trung thành, chi tiêu cao",38,23
+SIM-01459,"Mua thường xuyên, đơn nhỏ",26,26
+SIM-01460,Khách mới,2,12
+SIM-01461,"Mua thường xuyên, đơn nhỏ",30,25
+SIM-01462,"Mua ít, đơn giá trị cao",5,105
+SIM-01463,"Mua ít, đơn giá trị cao",4,114
+SIM-01464,"Mua thường xuyên, đơn nhỏ",35,42
+SIM-01465,"Trung thành, chi tiêu cao",30,10
+SIM-01466,Lâu chưa quay lại,18,326
+SIM-01467,"Mua thường xuyên, đơn nhỏ",30,37
+SIM-01468,"Mua thường xuyên, đơn nhỏ",29,28
+SIM-01469,Khách mới,2,16
+SIM-01470,Lâu chưa quay lại,19,249
+SIM-01471,Lâu chưa quay lại,19,249
+SIM-01472,Lâu chưa quay lại,15,296
+SIM-01473,"Mua thường xuyên, đơn nhỏ",35,29
+SIM-01474,"Mua ít, đơn giá trị cao",5,66
+SIM-01475,"Trung thành, chi tiêu cao",36,16
+SIM-01476,"Trung thành, chi tiêu cao",31,14
+SIM-01477,"Mua thường xuyên, đơn nhỏ",30,24
+SIM-01478,Lâu chưa quay lại,14,291
+SIM-01479,"Mua ít, đơn giá trị cao",4,109
+SIM-01480,"Mua ít, đơn giá trị cao",9,99
+SIM-01481,Lâu chưa quay lại,16,283
+SIM-01482,Khách mới,2,10
+SIM-01483,Khách mới,1,14
+SIM-01484,Khách mới,2,11
+SIM-01485,Khách mới,1,6
+SIM-01486,"Mua thường xuyên, đơn nhỏ",33,32
+SIM-01487,Khách mới,3,7
+SIM-01488,"Mua ít, đơn giá trị cao",3,96
+SIM-01489,Lâu chưa quay lại,13,247
+SIM-01490,Khách mới,2,12
+SIM-01491,"Mua ít, đơn giá trị cao",1,74
+SIM-01492,"Mua ít, đơn giá trị cao",1,97
+SIM-01493,Khách mới,3,10
+SIM-01494,"Trung thành, chi tiêu cao",31,14
+SIM-01495,"Mua ít, đơn giá trị cao",1,101
+SIM-01496,Khách mới,2,11
+SIM-01497,"Mua ít, đơn giá trị cao",5,97
+SIM-01498,Lâu chưa quay lại,15,256
+SIM-01499,Lâu chưa quay lại,14,244
+SIM-01500,"Trung thành, chi tiêu cao",33,10
+SIM-01501,Khách mới,2,9
+SIM-01502,Khách mới,2,10
+SIM-01503,"Trung thành, chi tiêu cao",35,25
+SIM-01504,Khách mới,1,1
+SIM-01505,"Mua thường xuyên, đơn nhỏ",29,22
+SIM-01506,Lâu chưa quay lại,10,294
+SIM-01507,"Mua ít, đơn giá trị cao",7,63
+SIM-01508,"Mua ít, đơn giá trị cao",5,56
+SIM-01509,Khách mới,2,11
+SIM-01510,Khách mới,2,4
+SIM-01511,"Mua thường xuyên, đơn nhỏ",42,32
+SIM-01512,Lâu chưa quay lại,13,315
+SIM-01513,"Mua thường xuyên, đơn nhỏ",38,30
+SIM-01514,Lâu chưa quay lại,13,286
+SIM-01515,Khách mới,3,17
+SIM-01516,Khách mới,3,11
+SIM-01517,"Mua ít, đơn giá trị cao",2,74
+SIM-01518,Lâu chưa quay lại,12,288
+SIM-01519,"Mua thường xuyên, đơn nhỏ",29,29
+SIM-01520,Khách mới,2,7
+SIM-01521,"Mua ít, đơn giá trị cao",5,114
+SIM-01522,"Mua ít, đơn giá trị cao",8,79
+SIM-01523,"Trung thành, chi tiêu cao",36,5
+SIM-01524,"Trung thành, chi tiêu cao",27,18
+SIM-01525,"Trung thành, chi tiêu cao",34,18
+SIM-01526,Khách mới,1,2
+SIM-01527,Khách mới,1,11
+SIM-01528,Khách mới,1,9
+SIM-01529,Khách mới,2,14
+SIM-01530,"Trung thành, chi tiêu cao",35,6
+SIM-01531,"Mua ít, đơn giá trị cao",5,147
+SIM-01532,"Mua ít, đơn giá trị cao",4,70
+SIM-01533,Khách mới,2,10
+SIM-01534,"Mua thường xuyên, đơn nhỏ",35,28
+SIM-01535,Lâu chưa quay lại,9,294
+SIM-01536,"Mua ít, đơn giá trị cao",5,119
+SIM-01537,"Trung thành, chi tiêu cao",41,13
+SIM-01538,"Mua thường xuyên, đơn nhỏ",22,35
+SIM-01539,"Mua thường xuyên, đơn nhỏ",32,29
+SIM-01540,Khách mới,1,9
+SIM-01541,Lâu chưa quay lại,14,272
+SIM-01542,Lâu chưa quay lại,15,298
+SIM-01543,"Mua ít, đơn giá trị cao",8,99
+SIM-01544,"Mua thường xuyên, đơn nhỏ",40,26
+SIM-01545,"Mua thường xuyên, đơn nhỏ",32,24
+SIM-01546,Lâu chưa quay lại,16,284
+SIM-01547,Lâu chưa quay lại,6,281
+SIM-01548,"Trung thành, chi tiêu cao",43,1
+SIM-01549,Khách mới,1,15
+SIM-01550,"Trung thành, chi tiêu cao",37,13
+SIM-01551,Khách mới,2,8
+SIM-01552,"Trung thành, chi tiêu cao",40,16
+SIM-01553,Khách mới,2,14
+SIM-01554,Khách mới,2,9
+SIM-01555,Lâu chưa quay lại,23,289
+SIM-01556,Khách mới,3,9
+SIM-01557,"Trung thành, chi tiêu cao",30,20
+SIM-01558,"Mua thường xuyên, đơn nhỏ",35,38
+SIM-01559,"Mua thường xuyên, đơn nhỏ",30,35
+SIM-01560,Lâu chưa quay lại,19,292
+SIM-01561,Lâu chưa quay lại,4,264
+SIM-01562,"Mua thường xuyên, đơn nhỏ",28,43
+SIM-01563,Lâu chưa quay lại,16,330
+SIM-01564,Khách mới,2,13
+SIM-01565,Khách mới,2,8
+SIM-01566,Lâu chưa quay lại,14,298
+SIM-01567,Lâu chưa quay lại,12,325
+SIM-01568,Khách mới,2,11
+SIM-01569,"Mua ít, đơn giá trị cao",6,84
+SIM-01570,"Mua thường xuyên, đơn nhỏ",31,25
+SIM-01571,Khách mới,1,8
+SIM-01572,"Mua ít, đơn giá trị cao",6,100
+SIM-01573,"Trung thành, chi tiêu cao",38,13
+SIM-01574,"Trung thành, chi tiêu cao",32,19
+SIM-01575,"Mua thường xuyên, đơn nhỏ",37,39
+SIM-01576,Lâu chưa quay lại,11,296
+SIM-01577,"Mua ít, đơn giá trị cao",7,65
+SIM-01578,Khách mới,2,10
+SIM-01579,"Mua ít, đơn giá trị cao",3,111
+SIM-01580,"Mua ít, đơn giá trị cao",2,115
+SIM-01581,"Mua thường xuyên, đơn nhỏ",31,29
+SIM-01582,"Mua thường xuyên, đơn nhỏ",30,17
+SIM-01583,"Mua ít, đơn giá trị cao",5,75
+SIM-01584,Lâu chưa quay lại,11,355
+SIM-01585,"Trung thành, chi tiêu cao",30,13
+SIM-01586,Khách mới,3,10
+SIM-01587,"Trung thành, chi tiêu cao",34,6
+SIM-01588,"Trung thành, chi tiêu cao",39,16
+SIM-01589,Khách mới,1,9
+SIM-01590,Khách mới,3,17
+SIM-01591,Khách mới,2,6
+SIM-01592,Lâu chưa quay lại,20,276
+SIM-01593,Lâu chưa quay lại,12,241
+SIM-01594,Lâu chưa quay lại,14,254
+SIM-01595,"Mua thường xuyên, đơn nhỏ",27,27
+SIM-01596,"Mua thường xuyên, đơn nhỏ",38,22
+SIM-01597,"Mua ít, đơn giá trị cao",1,119
+SIM-01598,Khách mới,2,3
+SIM-01599,Khách mới,2,11
+SIM-01600,"Trung thành, chi tiêu cao",40,12
+SIM-01601,"Mua ít, đơn giá trị cao",3,64
+SIM-01602,"Trung thành, chi tiêu cao",31,20
+SIM-01603,"Mua ít, đơn giá trị cao",6,67
+SIM-01604,"Trung thành, chi tiêu cao",40,18
+SIM-01605,"Mua thường xuyên, đơn nhỏ",31,32
+SIM-01606,"Mua thường xuyên, đơn nhỏ",35,24
+SIM-01607,Khách mới,4,10
+SIM-01608,"Mua thường xuyên, đơn nhỏ",37,18
+SIM-01609,Lâu chưa quay lại,19,302
+SIM-01610,"Mua thường xuyên, đơn nhỏ",30,42
+SIM-01611,"Trung thành, chi tiêu cao",36,24
+SIM-01612,Lâu chưa quay lại,14,335
+SIM-01613,"Mua thường xuyên, đơn nhỏ",32,24
+SIM-01614,Lâu chưa quay lại,11,282
+SIM-01615,"Mua thường xuyên, đơn nhỏ",32,42
+SIM-01616,"Mua ít, đơn giá trị cao",6,85
+SIM-01617,"Mua thường xuyên, đơn nhỏ",30,27
+SIM-01618,Lâu chưa quay lại,6,299
+SIM-01619,Khách mới,2,8
+SIM-01620,"Mua thường xuyên, đơn nhỏ",40,44
+SIM-01621,"Mua thường xuyên, đơn nhỏ",32,28
+SIM-01622,Khách mới,2,7
+SIM-01623,Khách mới,2,9
+SIM-01624,Khách mới,3,9
+SIM-01625,"Trung thành, chi tiêu cao",32,15
+SIM-01626,"Trung thành, chi tiêu cao",34,18
+SIM-01627,Khách mới,2,9
+SIM-01628,"Trung thành, chi tiêu cao",29,10
+SIM-01629,"Mua ít, đơn giá trị cao",1,75
+SIM-01630,"Mua ít, đơn giá trị cao",8,107
+SIM-01631,"Trung thành, chi tiêu cao",42,5
+SIM-01632,"Trung thành, chi tiêu cao",38,9
+SIM-01633,Lâu chưa quay lại,14,242
+SIM-01634,Khách mới,2,7
+SIM-01635,Khách mới,1,12
+SIM-01636,"Mua ít, đơn giá trị cao",5,120
+SIM-01637,"Trung thành, chi tiêu cao",33,12
+SIM-01638,"Mua thường xuyên, đơn nhỏ",29,19
+SIM-01639,"Trung thành, chi tiêu cao",26,15
+SIM-01640,"Trung thành, chi tiêu cao",36,27
+SIM-01641,Khách mới,3,9
+SIM-01642,Khách mới,3,10
+SIM-01643,Khách mới,3,7
+SIM-01644,"Mua ít, đơn giá trị cao",5,117
+SIM-01645,"Mua thường xuyên, đơn nhỏ",29,42
+SIM-01646,Khách mới,2,10
+SIM-01647,Lâu chưa quay lại,9,282
+SIM-01648,"Mua ít, đơn giá trị cao",7,71
+SIM-01649,Lâu chưa quay lại,3,294
+SIM-01650,Khách mới,2,11
+SIM-01651,"Mua thường xuyên, đơn nhỏ",29,18
+SIM-01652,"Mua ít, đơn giá trị cao",8,84
+SIM-01653,"Mua ít, đơn giá trị cao",4,107
+SIM-01654,Khách mới,3,9
+SIM-01655,"Mua thường xuyên, đơn nhỏ",26,37
+SIM-01656,"Mua thường xuyên, đơn nhỏ",26,27
+SIM-01657,"Mua thường xuyên, đơn nhỏ",30,21
+SIM-01658,Khách mới,2,15
+SIM-01659,"Mua thường xuyên, đơn nhỏ",32,20
+SIM-01660,"Trung thành, chi tiêu cao",40,14
+SIM-01661,"Trung thành, chi tiêu cao",20,12
+SIM-01662,"Mua ít, đơn giá trị cao",7,90
+SIM-01663,"Trung thành, chi tiêu cao",29,25
+SIM-01664,Khách mới,3,9
+SIM-01665,"Trung thành, chi tiêu cao",31,13
+SIM-01666,"Mua ít, đơn giá trị cao",8,63
+SIM-01667,"Mua thường xuyên, đơn nhỏ",28,44
+SIM-01668,"Mua thường xuyên, đơn nhỏ",33,21
+SIM-01669,Khách mới,2,7
+SIM-01670,"Mua thường xuyên, đơn nhỏ",40,36
+SIM-01671,Lâu chưa quay lại,17,296
+SIM-01672,"Mua ít, đơn giá trị cao",11,99
+SIM-01673,Khách mới,1,7
+SIM-01674,"Trung thành, chi tiêu cao",39,5
+SIM-01675,"Trung thành, chi tiêu cao",33,25
+SIM-01676,"Trung thành, chi tiêu cao",34,11
+SIM-01677,"Mua ít, đơn giá trị cao",3,64
+SIM-01678,Khách mới,3,6
+SIM-01679,"Trung thành, chi tiêu cao",24,16
+SIM-01680,"Mua ít, đơn giá trị cao",8,58
+SIM-01681,Khách mới,1,12
+SIM-01682,"Mua thường xuyên, đơn nhỏ",35,29
+SIM-01683,Khách mới,1,9
+SIM-01684,"Mua ít, đơn giá trị cao",3,63
+SIM-01685,Lâu chưa quay lại,17,267
+SIM-01686,Lâu chưa quay lại,13,271
+SIM-01687,Khách mới,3,4
+SIM-01688,"Mua ít, đơn giá trị cao",4,96
+SIM-01689,"Mua ít, đơn giá trị cao",8,72
+SIM-01690,"Mua ít, đơn giá trị cao",6,86
+SIM-01691,Lâu chưa quay lại,10,286
+SIM-01692,"Mua thường xuyên, đơn nhỏ",22,40
+SIM-01693,"Trung thành, chi tiêu cao",25,13
+SIM-01694,Lâu chưa quay lại,19,334
+SIM-01695,"Trung thành, chi tiêu cao",39,15
+SIM-01696,"Mua thường xuyên, đơn nhỏ",25,31
+SIM-01697,"Mua thường xuyên, đơn nhỏ",38,39
+SIM-01698,"Mua ít, đơn giá trị cao",3,57
+SIM-01699,Lâu chưa quay lại,19,255
+SIM-01700,"Mua ít, đơn giá trị cao",7,79
+SIM-01701,"Trung thành, chi tiêu cao",24,9
+SIM-01702,"Trung thành, chi tiêu cao",36,9
+SIM-01703,Khách mới,2,10
+SIM-01704,Lâu chưa quay lại,19,299
+SIM-01705,Khách mới,2,13
+SIM-01706,Khách mới,2,15
+SIM-01707,Khách mới,2,11
+SIM-01708,Khách mới,4,11
+SIM-01709,Lâu chưa quay lại,10,284
+SIM-01710,Khách mới,3,13
+SIM-01711,Lâu chưa quay lại,18,279
+SIM-01712,Lâu chưa quay lại,8,256
+SIM-01713,Lâu chưa quay lại,8,302
+SIM-01714,"Mua thường xuyên, đơn nhỏ",32,35
+SIM-01715,Lâu chưa quay lại,12,297
+SIM-01716,Khách mới,2,12
+SIM-01717,Khách mới,2,12
+SIM-01718,Khách mới,3,4
+SIM-01719,Lâu chưa quay lại,8,256
+SIM-01720,"Mua ít, đơn giá trị cao",5,56
+SIM-01721,Lâu chưa quay lại,11,309
+SIM-01722,"Mua ít, đơn giá trị cao",6,28
+SIM-01723,"Mua ít, đơn giá trị cao",5,65
+SIM-01724,"Mua thường xuyên, đơn nhỏ",38,22
+SIM-01725,"Mua ít, đơn giá trị cao",5,71
+SIM-01726,Lâu chưa quay lại,22,253
+SIM-01727,"Mua thường xuyên, đơn nhỏ",33,31
+SIM-01728,Lâu chưa quay lại,21,291
+SIM-01729,"Trung thành, chi tiêu cao",36,13
+SIM-01730,Khách mới,3,8
+SIM-01731,"Mua ít, đơn giá trị cao",4,79
+SIM-01732,"Mua thường xuyên, đơn nhỏ",30,23
+SIM-01733,"Mua ít, đơn giá trị cao",5,134
+SIM-01734,Khách mới,2,2
+SIM-01735,Lâu chưa quay lại,15,251
+SIM-01736,"Mua ít, đơn giá trị cao",8,64
+SIM-01737,Khách mới,4,8
+SIM-01738,Khách mới,1,10
+SIM-01739,Lâu chưa quay lại,18,247
+SIM-01740,"Mua ít, đơn giá trị cao",7,97
+SIM-01741,"Mua ít, đơn giá trị cao",7,89
+SIM-01742,"Mua thường xuyên, đơn nhỏ",32,42
+SIM-01743,"Trung thành, chi tiêu cao",39,24
+SIM-01744,"Mua ít, đơn giá trị cao",5,67
+SIM-01745,Khách mới,2,11
+SIM-01746,"Trung thành, chi tiêu cao",41,16
+SIM-01747,Lâu chưa quay lại,12,256
+SIM-01748,Khách mới,2,8
+SIM-01749,Khách mới,2,5
+SIM-01750,"Trung thành, chi tiêu cao",25,1
+SIM-01751,"Mua thường xuyên, đơn nhỏ",34,48
+SIM-01752,Khách mới,2,5
+SIM-01753,"Mua thường xuyên, đơn nhỏ",30,42
+SIM-01754,Lâu chưa quay lại,11,283
+SIM-01755,Khách mới,2,9
+SIM-01756,"Mua ít, đơn giá trị cao",3,105
+SIM-01757,"Mua thường xuyên, đơn nhỏ",28,33
+SIM-01758,"Mua thường xuyên, đơn nhỏ",36,21
+SIM-01759,Khách mới,2,9
+SIM-01760,Khách mới,3,9
+SIM-01761,"Mua ít, đơn giá trị cao",11,121
+SIM-01762,"Mua thường xuyên, đơn nhỏ",32,46
+SIM-01763,Khách mới,4,8
+SIM-01764,Khách mới,1,5
+SIM-01765,"Mua ít, đơn giá trị cao",6,74
+SIM-01766,"Trung thành, chi tiêu cao",22,15
+SIM-01767,"Mua thường xuyên, đơn nhỏ",37,14
+SIM-01768,"Trung thành, chi tiêu cao",35,17
+SIM-01769,"Trung thành, chi tiêu cao",29,9
+SIM-01770,"Trung thành, chi tiêu cao",33,20
+SIM-01771,Lâu chưa quay lại,16,278
+SIM-01772,"Trung thành, chi tiêu cao",26,14
+SIM-01773,Khách mới,1,10
+SIM-01774,"Mua thường xuyên, đơn nhỏ",35,24
+SIM-01775,"Mua thường xuyên, đơn nhỏ",20,40
+SIM-01776,Lâu chưa quay lại,21,275
+SIM-01777,"Mua thường xuyên, đơn nhỏ",30,31
+SIM-01778,Khách mới,2,10
+SIM-01779,"Trung thành, chi tiêu cao",39,11
+SIM-01780,"Trung thành, chi tiêu cao",30,14
+SIM-01781,Khách mới,1,7
+SIM-01782,Khách mới,2,4
+SIM-01783,Lâu chưa quay lại,7,240
+SIM-01784,Lâu chưa quay lại,9,309
+SIM-01785,Lâu chưa quay lại,15,274
+SIM-01786,"Trung thành, chi tiêu cao",31,13
+SIM-01787,"Mua thường xuyên, đơn nhỏ",30,34
+SIM-01788,"Trung thành, chi tiêu cao",24,15
+SIM-01789,Lâu chưa quay lại,16,277
+SIM-01790,"Mua thường xuyên, đơn nhỏ",30,16
+SIM-01791,"Trung thành, chi tiêu cao",37,26
+SIM-01792,Lâu chưa quay lại,10,288
+SIM-01793,"Mua ít, đơn giá trị cao",2,88
+SIM-01794,"Mua thường xuyên, đơn nhỏ",31,33
+SIM-01795,"Mua thường xuyên, đơn nhỏ",30,20
+SIM-01796,"Trung thành, chi tiêu cao",37,13
+SIM-01797,"Mua thường xuyên, đơn nhỏ",23,33
+SIM-01798,Lâu chưa quay lại,17,312
+SIM-01799,"Trung thành, chi tiêu cao",39,15
+SIM-01800,"Mua ít, đơn giá trị cao",4,83
+SIM-01801,"Mua ít, đơn giá trị cao",3,85
+SIM-01802,Lâu chưa quay lại,12,268
+SIM-01803,"Mua thường xuyên, đơn nhỏ",28,36
+SIM-01804,Lâu chưa quay lại,5,304
+SIM-01805,"Mua thường xuyên, đơn nhỏ",39,37
+SIM-01806,Lâu chưa quay lại,19,254
+SIM-01807,"Trung thành, chi tiêu cao",29,8
+SIM-01808,"Mua thường xuyên, đơn nhỏ",34,18
+SIM-01809,Khách mới,2,5
+SIM-01810,"Mua ít, đơn giá trị cao",3,89
+SIM-01811,"Mua ít, đơn giá trị cao",6,80
+SIM-01812,"Mua ít, đơn giá trị cao",6,43
+SIM-01813,Lâu chưa quay lại,16,295
+SIM-01814,Lâu chưa quay lại,18,258
+SIM-01815,Lâu chưa quay lại,18,260
+SIM-01816,"Mua ít, đơn giá trị cao",5,65
+SIM-01817,"Mua thường xuyên, đơn nhỏ",28,18
+SIM-01818,Lâu chưa quay lại,18,293
+SIM-01819,"Trung thành, chi tiêu cao",31,13
+SIM-01820,Khách mới,1,9
+SIM-01821,Lâu chưa quay lại,17,263
+SIM-01822,Khách mới,3,9
+SIM-01823,"Mua thường xuyên, đơn nhỏ",34,39
+SIM-01824,"Mua thường xuyên, đơn nhỏ",33,42
+SIM-01825,"Trung thành, chi tiêu cao",31,11
+SIM-01826,Lâu chưa quay lại,16,299
+SIM-01827,"Mua ít, đơn giá trị cao",6,92
+SIM-01828,Lâu chưa quay lại,15,279
+SIM-01829,Lâu chưa quay lại,19,297
+SIM-01830,"Mua ít, đơn giá trị cao",6,121
+SIM-01831,"Mua ít, đơn giá trị cao",3,59
+SIM-01832,"Mua thường xuyên, đơn nhỏ",21,35
+SIM-01833,Lâu chưa quay lại,18,262
+SIM-01834,Khách mới,2,13
+SIM-01835,Lâu chưa quay lại,16,285
+SIM-01836,"Mua ít, đơn giá trị cao",6,94
+SIM-01837,Khách mới,4,13
+SIM-01838,Lâu chưa quay lại,16,322
+SIM-01839,"Mua thường xuyên, đơn nhỏ",27,22
+SIM-01840,"Mua thường xuyên, đơn nhỏ",39,29
+SIM-01841,"Mua thường xuyên, đơn nhỏ",30,32
+SIM-01842,"Mua ít, đơn giá trị cao",4,91
+SIM-01843,"Mua ít, đơn giá trị cao",7,111
+SIM-01844,"Mua thường xuyên, đơn nhỏ",33,25
+SIM-01845,"Mua thường xuyên, đơn nhỏ",33,34
+SIM-01846,"Mua ít, đơn giá trị cao",4,93
+SIM-01847,"Mua ít, đơn giá trị cao",6,95
+SIM-01848,"Trung thành, chi tiêu cao",35,20
+SIM-01849,Khách mới,1,10
+SIM-01850,Khách mới,3,14
+SIM-01851,"Trung thành, chi tiêu cao",23,18
+SIM-01852,"Mua ít, đơn giá trị cao",7,83
+SIM-01853,"Mua ít, đơn giá trị cao",5,82
+SIM-01854,Lâu chưa quay lại,20,321
+SIM-01855,"Mua thường xuyên, đơn nhỏ",30,17
+SIM-01856,Lâu chưa quay lại,14,267
+SIM-01857,Lâu chưa quay lại,12,235
+SIM-01858,Lâu chưa quay lại,17,269
+SIM-01859,Khách mới,1,12
+SIM-01860,Khách mới,3,8
+SIM-01861,"Trung thành, chi tiêu cao",25,19
+SIM-01862,Lâu chưa quay lại,18,292
+SIM-01863,"Trung thành, chi tiêu cao",27,24
+SIM-01864,"Mua thường xuyên, đơn nhỏ",26,41
+SIM-01865,Khách mới,2,9
+SIM-01866,Lâu chưa quay lại,13,280
+SIM-01867,Khách mới,2,11
+SIM-01868,Lâu chưa quay lại,15,261
+SIM-01869,Khách mới,2,12
+SIM-01870,"Mua ít, đơn giá trị cao",4,64
+SIM-01871,Lâu chưa quay lại,19,251
+SIM-01872,Khách mới,1,10
+SIM-01873,"Trung thành, chi tiêu cao",28,14
+SIM-01874,"Mua thường xuyên, đơn nhỏ",40,36
+SIM-01875,"Mua thường xuyên, đơn nhỏ",32,26
+SIM-01876,Lâu chưa quay lại,11,295
+SIM-01877,Khách mới,2,10
+SIM-01878,"Mua ít, đơn giá trị cao",3,103
+SIM-01879,"Mua ít, đơn giá trị cao",2,105
+SIM-01880,Khách mới,1,12
+SIM-01881,"Mua ít, đơn giá trị cao",4,149
+SIM-01882,Lâu chưa quay lại,17,273
+SIM-01883,"Trung thành, chi tiêu cao",34,25
+SIM-01884,Lâu chưa quay lại,8,256
+SIM-01885,"Mua ít, đơn giá trị cao",4,85
+SIM-01886,Lâu chưa quay lại,9,286
+SIM-01887,"Trung thành, chi tiêu cao",33,4
+SIM-01888,Lâu chưa quay lại,19,301
+SIM-01889,Khách mới,2,13
+SIM-01890,Lâu chưa quay lại,15,290
+SIM-01891,Khách mới,1,11
+SIM-01892,"Trung thành, chi tiêu cao",31,6
+SIM-01893,"Mua ít, đơn giá trị cao",6,102
+SIM-01894,Lâu chưa quay lại,14,288
+SIM-01895,"Mua ít, đơn giá trị cao",4,84
+SIM-01896,"Mua ít, đơn giá trị cao",2,115
+SIM-01897,Lâu chưa quay lại,15,255
+SIM-01898,"Mua ít, đơn giá trị cao",7,78
+SIM-01899,Khách mới,2,8
+SIM-01900,"Mua ít, đơn giá trị cao",6,80
+SIM-01901,"Trung thành, chi tiêu cao",35,18
+SIM-01902,"Mua ít, đơn giá trị cao",7,101
+SIM-01903,"Mua thường xuyên, đơn nhỏ",30,25
+SIM-01904,"Mua ít, đơn giá trị cao",5,79
+SIM-01905,"Mua ít, đơn giá trị cao",8,89
+SIM-01906,"Trung thành, chi tiêu cao",27,12
+SIM-01907,Lâu chưa quay lại,16,259
+SIM-01908,"Mua ít, đơn giá trị cao",6,75
+SIM-01909,"Trung thành, chi tiêu cao",33,11
+SIM-01910,"Mua ít, đơn giá trị cao",5,82
+SIM-01911,Lâu chưa quay lại,13,298
+SIM-01912,Khách mới,2,14
+SIM-01913,"Mua ít, đơn giá trị cao",9,128
+SIM-01914,"Mua thường xuyên, đơn nhỏ",26,27
+SIM-01915,"Mua ít, đơn giá trị cao",4,72
+SIM-01916,"Trung thành, chi tiêu cao",30,23
+SIM-01917,Lâu chưa quay lại,20,232
+SIM-01918,"Mua thường xuyên, đơn nhỏ",39,33
+SIM-01919,"Trung thành, chi tiêu cao",37,7
+SIM-01920,"Trung thành, chi tiêu cao",25,14
+SIM-01921,Khách mới,2,12
+SIM-01922,"Mua ít, đơn giá trị cao",4,98
+SIM-01923,"Mua ít, đơn giá trị cao",5,103
+SIM-01924,"Mua thường xuyên, đơn nhỏ",34,37
+SIM-01925,"Mua thường xuyên, đơn nhỏ",29,44
+SIM-01926,"Trung thành, chi tiêu cao",38,20
+SIM-01927,"Trung thành, chi tiêu cao",35,13
+SIM-01928,"Mua ít, đơn giá trị cao",5,101
+SIM-01929,"Mua thường xuyên, đơn nhỏ",36,33
+SIM-01930,Lâu chưa quay lại,17,291
+SIM-01931,"Mua ít, đơn giá trị cao",6,100
+SIM-01932,Khách mới,1,17
+SIM-01933,Lâu chưa quay lại,5,277
+SIM-01934,"Mua thường xuyên, đơn nhỏ",40,34
+SIM-01935,"Mua thường xuyên, đơn nhỏ",32,26
+SIM-01936,Lâu chưa quay lại,13,263
+SIM-01937,Khách mới,2,3
+SIM-01938,"Mua ít, đơn giá trị cao",3,74
+SIM-01939,Lâu chưa quay lại,9,257
+SIM-01940,Khách mới,2,9
+SIM-01941,"Trung thành, chi tiêu cao",35,17
+SIM-01942,"Trung thành, chi tiêu cao",38,19
+SIM-01943,Lâu chưa quay lại,12,284
+SIM-01944,"Mua ít, đơn giá trị cao",6,91
+SIM-01945,"Trung thành, chi tiêu cao",31,17
+SIM-01946,"Mua thường xuyên, đơn nhỏ",45,43
+SIM-01947,Lâu chưa quay lại,24,321
+SIM-01948,Lâu chưa quay lại,14,279
+SIM-01949,Lâu chưa quay lại,18,263
+SIM-01950,Khách mới,2,13
+SIM-01951,"Mua thường xuyên, đơn nhỏ",31,41
+SIM-01952,Lâu chưa quay lại,10,287
+SIM-01953,"Mua ít, đơn giá trị cao",2,70
+SIM-01954,"Trung thành, chi tiêu cao",41,25
+SIM-01955,"Mua ít, đơn giá trị cao",4,61
+SIM-01956,Lâu chưa quay lại,14,286
+SIM-01957,"Trung thành, chi tiêu cao",33,5
+SIM-01958,Khách mới,2,7
+SIM-01959,"Mua ít, đơn giá trị cao",6,60
+SIM-01960,Lâu chưa quay lại,12,297
+SIM-01961,"Mua ít, đơn giá trị cao",4,62
+SIM-01962,Khách mới,2,11
+SIM-01963,"Mua thường xuyên, đơn nhỏ",24,32
+SIM-01964,Khách mới,2,7
+SIM-01965,Lâu chưa quay lại,16,298
+SIM-01966,"Mua thường xuyên, đơn nhỏ",29,34
+SIM-01967,Khách mới,1,10
+SIM-01968,"Trung thành, chi tiêu cao",34,24
+SIM-01969,Khách mới,3,11
+SIM-01970,Khách mới,2,14
+SIM-01971,"Mua thường xuyên, đơn nhỏ",29,28
+SIM-01972,"Trung thành, chi tiêu cao",41,26
+SIM-01973,Khách mới,2,8
+SIM-01974,"Mua thường xuyên, đơn nhỏ",36,29
+SIM-01975,Khách mới,1,4
+SIM-01976,Lâu chưa quay lại,5,264
+SIM-01977,"Trung thành, chi tiêu cao",29,15
+SIM-01978,Lâu chưa quay lại,17,320
+SIM-01979,"Mua thường xuyên, đơn nhỏ",38,38
+SIM-01980,Lâu chưa quay lại,13,308
+SIM-01981,Khách mới,2,10
+SIM-01982,"Mua thường xuyên, đơn nhỏ",31,16
+SIM-01983,Lâu chưa quay lại,15,278
+SIM-01984,"Mua ít, đơn giá trị cao",8,88
+SIM-01985,Lâu chưa quay lại,12,252
+SIM-01986,"Trung thành, chi tiêu cao",36,6
+SIM-01987,Lâu chưa quay lại,10,299
+SIM-01988,"Mua thường xuyên, đơn nhỏ",32,31
+SIM-01989,"Mua thường xuyên, đơn nhỏ",31,30
+SIM-01990,Khách mới,2,9
+SIM-01991,"Mua thường xuyên, đơn nhỏ",31,46
+SIM-01992,"Mua ít, đơn giá trị cao",7,76
+SIM-01993,"Trung thành, chi tiêu cao",40,19
+SIM-01994,Lâu chưa quay lại,12,292
+SIM-01995,Lâu chưa quay lại,18,210
+SIM-01996,"Mua ít, đơn giá trị cao",6,52
+SIM-01997,"Mua ít, đơn giá trị cao",6,90
+SIM-01998,Khách mới,3,10
+SIM-01999,Khách mới,3,6
+SIM-02000,Khách mới,2,11
+SIM-02001,Lâu chưa quay lại,12,233
+SIM-02002,"Trung thành, chi tiêu cao",34,15
+SIM-02003,"Trung thành, chi tiêu cao",38,1
+SIM-02004,Khách mới,2,9
+SIM-02005,"Mua ít, đơn giá trị cao",4,46
+SIM-02006,Khách mới,2,12
+SIM-02007,"Trung thành, chi tiêu cao",27,17
+SIM-02008,"Mua ít, đơn giá trị cao",4,68
+SIM-02009,Lâu chưa quay lại,16,296
+SIM-02010,"Trung thành, chi tiêu cao",40,25
+SIM-02011,Lâu chưa quay lại,19,230
+SIM-02012,Lâu chưa quay lại,15,294
+SIM-02013,"Mua thường xuyên, đơn nhỏ",28,23
+SIM-02014,"Mua ít, đơn giá trị cao",6,80
+SIM-02015,"Mua ít, đơn giá trị cao",5,63
+SIM-02016,Lâu chưa quay lại,11,289
+SIM-02017,Lâu chưa quay lại,20,285
+SIM-02018,"Mua ít, đơn giá trị cao",10,48
+SIM-02019,"Trung thành, chi tiêu cao",38,20
+SIM-02020,Lâu chưa quay lại,8,256
+SIM-02021,Khách mới,2,11
+SIM-02022,"Mua ít, đơn giá trị cao",5,100
+SIM-02023,Lâu chưa quay lại,24,268
+SIM-02024,"Mua thường xuyên, đơn nhỏ",29,25
+SIM-02025,Khách mới,3,8
+SIM-02026,Lâu chưa quay lại,9,271
+SIM-02027,Khách mới,2,15
+SIM-02028,Khách mới,2,7
+SIM-02029,"Trung thành, chi tiêu cao",40,6
+SIM-02030,"Trung thành, chi tiêu cao",38,6
+SIM-02031,Khách mới,1,13
+SIM-02032,Lâu chưa quay lại,17,267
+SIM-02033,"Trung thành, chi tiêu cao",27,16
+SIM-02034,Lâu chưa quay lại,16,271
+SIM-02035,"Mua ít, đơn giá trị cao",7,125
+SIM-02036,Lâu chưa quay lại,9,261
+SIM-02037,Khách mới,3,12
+SIM-02038,"Mua ít, đơn giá trị cao",6,81
+SIM-02039,Khách mới,2,9
+SIM-02040,"Mua ít, đơn giá trị cao",3,96
+SIM-02041,Khách mới,1,10
+SIM-02042,"Trung thành, chi tiêu cao",34,18
+SIM-02043,Lâu chưa quay lại,20,254
+SIM-02044,Lâu chưa quay lại,19,275
+SIM-02045,Lâu chưa quay lại,12,273
+SIM-02046,"Mua ít, đơn giá trị cao",5,121
+SIM-02047,"Mua ít, đơn giá trị cao",6,99
+SIM-02048,"Mua thường xuyên, đơn nhỏ",33,27
+SIM-02049,"Mua thường xuyên, đơn nhỏ",23,26
+SIM-02050,Lâu chưa quay lại,12,246
+SIM-02051,"Trung thành, chi tiêu cao",38,24
+SIM-02052,Lâu chưa quay lại,11,240
+SIM-02053,"Trung thành, chi tiêu cao",32,14
+SIM-02054,"Mua ít, đơn giá trị cao",5,123
+SIM-02055,"Trung thành, chi tiêu cao",37,24
+SIM-02056,Lâu chưa quay lại,20,289
+SIM-02057,Lâu chưa quay lại,17,295
+SIM-02058,Khách mới,3,11
+SIM-02059,Khách mới,1,11
+SIM-02060,"Mua ít, đơn giá trị cao",3,93
+SIM-02061,"Mua ít, đơn giá trị cao",4,80
+SIM-02062,"Mua ít, đơn giá trị cao",6,32
+SIM-02063,"Trung thành, chi tiêu cao",37,18
+SIM-02064,Khách mới,2,10
+SIM-02065,"Mua thường xuyên, đơn nhỏ",32,15
+SIM-02066,Lâu chưa quay lại,22,295
+SIM-02067,"Mua thường xuyên, đơn nhỏ",25,25
+SIM-02068,"Mua thường xuyên, đơn nhỏ",29,15
+SIM-02069,"Mua thường xuyên, đơn nhỏ",23,47
+SIM-02070,Khách mới,3,17
+SIM-02071,"Trung thành, chi tiêu cao",34,12
+SIM-02072,Khách mới,2,1
+SIM-02073,Khách mới,2,12
+SIM-02074,"Mua ít, đơn giá trị cao",9,77
+SIM-02075,"Trung thành, chi tiêu cao",35,12
+SIM-02076,"Mua ít, đơn giá trị cao",5,84
+SIM-02077,"Mua thường xuyên, đơn nhỏ",27,35
+SIM-02078,"Trung thành, chi tiêu cao",39,13
+SIM-02079,"Mua thường xuyên, đơn nhỏ",34,28
+SIM-02080,"Trung thành, chi tiêu cao",27,26
+SIM-02081,Khách mới,1,11
+SIM-02082,"Mua thường xuyên, đơn nhỏ",36,29
+SIM-02083,"Trung thành, chi tiêu cao",33,18
+SIM-02084,"Trung thành, chi tiêu cao",39,19
+SIM-02085,Lâu chưa quay lại,6,264
+SIM-02086,Lâu chưa quay lại,20,310
+SIM-02087,"Trung thành, chi tiêu cao",27,13
+SIM-02088,"Trung thành, chi tiêu cao",32,10
+SIM-02089,Khách mới,3,6
+SIM-02090,Lâu chưa quay lại,10,285
+SIM-02091,"Trung thành, chi tiêu cao",36,10
+SIM-02092,"Mua ít, đơn giá trị cao",2,65
+SIM-02093,Khách mới,2,6
+SIM-02094,Lâu chưa quay lại,10,248
+SIM-02095,"Mua ít, đơn giá trị cao",2,76
+SIM-02096,"Trung thành, chi tiêu cao",31,22
+SIM-02097,"Mua ít, đơn giá trị cao",10,82
+SIM-02098,"Mua ít, đơn giá trị cao",3,101
+SIM-02099,"Trung thành, chi tiêu cao",37,20
+SIM-02100,Lâu chưa quay lại,14,262
+SIM-02101,"Trung thành, chi tiêu cao",35,7
+SIM-02102,Khách mới,1,13
+SIM-02103,"Mua thường xuyên, đơn nhỏ",34,34
+SIM-02104,"Trung thành, chi tiêu cao",32,8
+SIM-02105,Khách mới,3,9
+SIM-02106,"Trung thành, chi tiêu cao",43,17
+SIM-02107,"Mua thường xuyên, đơn nhỏ",29,38
+SIM-02108,Lâu chưa quay lại,15,298
+SIM-02109,Lâu chưa quay lại,15,260
+SIM-02110,Lâu chưa quay lại,18,290
+SIM-02111,Lâu chưa quay lại,26,326
+SIM-02112,Khách mới,2,5
+SIM-02113,Khách mới,1,6
+SIM-02114,Lâu chưa quay lại,14,231
+SIM-02115,Khách mới,1,12
+SIM-02116,"Trung thành, chi tiêu cao",28,17
+SIM-02117,"Mua thường xuyên, đơn nhỏ",28,33
+SIM-02118,"Mua thường xuyên, đơn nhỏ",34,25
+SIM-02119,Khách mới,2,14
+SIM-02120,"Trung thành, chi tiêu cao",35,13
+SIM-02121,"Mua thường xuyên, đơn nhỏ",36,48
+SIM-02122,"Trung thành, chi tiêu cao",40,15
+SIM-02123,"Mua thường xuyên, đơn nhỏ",43,29
+SIM-02124,"Mua thường xuyên, đơn nhỏ",44,38
+SIM-02125,"Mua ít, đơn giá trị cao",4,43
+SIM-02126,"Trung thành, chi tiêu cao",31,25
+SIM-02127,"Mua thường xuyên, đơn nhỏ",35,21
+SIM-02128,"Trung thành, chi tiêu cao",44,14
+SIM-02129,"Trung thành, chi tiêu cao",36,2
+SIM-02130,Khách mới,1,19
+SIM-02131,"Mua thường xuyên, đơn nhỏ",33,22
+SIM-02132,Khách mới,2,10
+SIM-02133,Khách mới,2,10
+SIM-02134,"Mua thường xuyên, đơn nhỏ",34,34
+SIM-02135,"Mua thường xuyên, đơn nhỏ",33,39
+SIM-02136,Lâu chưa quay lại,8,272
+SIM-02137,"Mua thường xuyên, đơn nhỏ",35,31
+SIM-02138,Khách mới,2,11
+SIM-02139,Lâu chưa quay lại,16,223
+SIM-02140,Lâu chưa quay lại,12,290
+SIM-02141,Khách mới,2,13
+SIM-02142,"Mua ít, đơn giá trị cao",8,63
+SIM-02143,Khách mới,3,11
+SIM-02144,"Trung thành, chi tiêu cao",41,16
+SIM-02145,"Mua thường xuyên, đơn nhỏ",45,43
+SIM-02146,"Mua ít, đơn giá trị cao",8,39
+SIM-02147,Lâu chưa quay lại,17,297
+SIM-02148,"Trung thành, chi tiêu cao",26,12
+SIM-02149,"Trung thành, chi tiêu cao",23,15
+SIM-02150,Lâu chưa quay lại,16,265
+SIM-02151,Lâu chưa quay lại,13,269
+SIM-02152,Khách mới,3,4
+SIM-02153,"Mua thường xuyên, đơn nhỏ",33,34
+SIM-02154,Khách mới,2,9
+SIM-02155,Lâu chưa quay lại,18,280
+SIM-02156,"Mua ít, đơn giá trị cao",7,76
+SIM-02157,Lâu chưa quay lại,4,295
+SIM-02158,"Mua thường xuyên, đơn nhỏ",26,53
+SIM-02159,Khách mới,1,9
+SIM-02160,"Mua thường xuyên, đơn nhỏ",35,30
+SIM-02161,"Mua ít, đơn giá trị cao",5,63
+SIM-02162,Khách mới,1,15
+SIM-02163,"Trung thành, chi tiêu cao",26,28
+SIM-02164,"Trung thành, chi tiêu cao",29,8
+SIM-02165,"Mua ít, đơn giá trị cao",6,82
+SIM-02166,"Trung thành, chi tiêu cao",44,19
+SIM-02167,"Trung thành, chi tiêu cao",33,9
+SIM-02168,"Mua thường xuyên, đơn nhỏ",26,28
+SIM-02169,Lâu chưa quay lại,15,297
+SIM-02170,"Mua thường xuyên, đơn nhỏ",28,22
+SIM-02171,"Mua thường xuyên, đơn nhỏ",31,23
+SIM-02172,Lâu chưa quay lại,14,275
+SIM-02173,Khách mới,3,17
+SIM-02174,Khách mới,1,19
+SIM-02175,Lâu chưa quay lại,9,280
+SIM-02176,"Mua ít, đơn giá trị cao",4,62
+SIM-02177,"Trung thành, chi tiêu cao",35,24
+SIM-02178,"Trung thành, chi tiêu cao",35,3
+SIM-02179,"Mua ít, đơn giá trị cao",4,101
+SIM-02180,Lâu chưa quay lại,14,263
+SIM-02181,Khách mới,3,10
+SIM-02182,"Mua thường xuyên, đơn nhỏ",36,30
+SIM-02183,"Trung thành, chi tiêu cao",39,6
+SIM-02184,Lâu chưa quay lại,8,255
+SIM-02185,Khách mới,2,9
+SIM-02186,"Mua ít, đơn giá trị cao",6,88
+SIM-02187,"Trung thành, chi tiêu cao",31,8
+SIM-02188,"Trung thành, chi tiêu cao",40,25
+SIM-02189,"Mua thường xuyên, đơn nhỏ",33,39
+SIM-02190,Lâu chưa quay lại,13,274
+SIM-02191,"Mua ít, đơn giá trị cao",5,83
+SIM-02192,Khách mới,3,9
+SIM-02193,"Mua thường xuyên, đơn nhỏ",35,35
+SIM-02194,Khách mới,1,7
+SIM-02195,"Mua thường xuyên, đơn nhỏ",31,52
+SIM-02196,"Trung thành, chi tiêu cao",33,18
+SIM-02197,"Mua thường xuyên, đơn nhỏ",32,29
+SIM-02198,Khách mới,1,7
+SIM-02199,Lâu chưa quay lại,13,273
+SIM-02200,Khách mới,2,11
+SIM-02201,"Mua ít, đơn giá trị cao",4,120
+SIM-02202,"Mua ít, đơn giá trị cao",6,82
+SIM-02203,Lâu chưa quay lại,11,264
+SIM-02204,Lâu chưa quay lại,17,319
+SIM-02205,"Trung thành, chi tiêu cao",28,13
+SIM-02206,Lâu chưa quay lại,8,313
+SIM-02207,"Trung thành, chi tiêu cao",32,14
+SIM-02208,Khách mới,3,7
+SIM-02209,"Mua ít, đơn giá trị cao",3,77
+SIM-02210,"Mua ít, đơn giá trị cao",5,104
+SIM-02211,Khách mới,2,11
+SIM-02212,Lâu chưa quay lại,19,239
+SIM-02213,"Mua ít, đơn giá trị cao",6,75
+SIM-02214,Lâu chưa quay lại,17,279
+SIM-02215,"Mua ít, đơn giá trị cao",5,72
+SIM-02216,Lâu chưa quay lại,19,233
+SIM-02217,Lâu chưa quay lại,15,267
+SIM-02218,"Mua thường xuyên, đơn nhỏ",36,27
+SIM-02219,"Trung thành, chi tiêu cao",26,20
+SIM-02220,"Mua ít, đơn giá trị cao",2,98
+SIM-02221,Lâu chưa quay lại,18,260
+SIM-02222,"Mua thường xuyên, đơn nhỏ",37,32
+SIM-02223,Khách mới,3,13
+SIM-02224,"Mua ít, đơn giá trị cao",5,98
+SIM-02225,Khách mới,3,16
+SIM-02226,Lâu chưa quay lại,16,310
+SIM-02227,"Mua ít, đơn giá trị cao",5,105
+SIM-02228,Lâu chưa quay lại,19,288
+SIM-02229,Lâu chưa quay lại,15,261
+SIM-02230,"Trung thành, chi tiêu cao",35,8
+SIM-02231,Lâu chưa quay lại,11,278
+SIM-02232,"Trung thành, chi tiêu cao",38,20
+SIM-02233,"Mua thường xuyên, đơn nhỏ",45,36
+SIM-02234,Lâu chưa quay lại,15,249
+SIM-02235,"Mua thường xuyên, đơn nhỏ",36,31
+SIM-02236,"Mua ít, đơn giá trị cao",6,79
+SIM-02237,"Mua ít, đơn giá trị cao",4,98
+SIM-02238,Lâu chưa quay lại,13,303
+SIM-02239,"Mua thường xuyên, đơn nhỏ",27,21
+SIM-02240,"Mua ít, đơn giá trị cao",3,53
+SIM-02241,"Trung thành, chi tiêu cao",38,18
+SIM-02242,Lâu chưa quay lại,14,276
+SIM-02243,"Mua thường xuyên, đơn nhỏ",36,34
+SIM-02244,"Trung thành, chi tiêu cao",48,8
+SIM-02245,"Mua ít, đơn giá trị cao",4,43
+SIM-02246,Khách mới,1,3
+SIM-02247,"Mua ít, đơn giá trị cao",4,123
+SIM-02248,"Trung thành, chi tiêu cao",38,15
+SIM-02249,"Mua ít, đơn giá trị cao",7,82
+SIM-02250,"Mua ít, đơn giá trị cao",4,124
+SIM-02251,"Mua thường xuyên, đơn nhỏ",37,32
+SIM-02252,Khách mới,3,4
+SIM-02253,"Trung thành, chi tiêu cao",34,27
+SIM-02254,"Mua ít, đơn giá trị cao",5,94
+SIM-02255,"Mua ít, đơn giá trị cao",4,52
+SIM-02256,"Trung thành, chi tiêu cao",33,20
+SIM-02257,"Trung thành, chi tiêu cao",25,13
+SIM-02258,"Mua thường xuyên, đơn nhỏ",45,38
+SIM-02259,Lâu chưa quay lại,17,224
+SIM-02260,Khách mới,3,4
+SIM-02261,Lâu chưa quay lại,6,244
+SIM-02262,Lâu chưa quay lại,18,287
+SIM-02263,Khách mới,2,9
+SIM-02264,"Mua thường xuyên, đơn nhỏ",37,26
+SIM-02265,"Mua ít, đơn giá trị cao",4,108
+SIM-02266,Khách mới,3,13
+SIM-02267,"Trung thành, chi tiêu cao",31,14
+SIM-02268,"Mua ít, đơn giá trị cao",4,79
+SIM-02269,Khách mới,1,6
+SIM-02270,"Trung thành, chi tiêu cao",36,16
+SIM-02271,Khách mới,1,7
+SIM-02272,Lâu chưa quay lại,8,286
+SIM-02273,"Trung thành, chi tiêu cao",37,13
+SIM-02274,"Mua ít, đơn giá trị cao",5,81
+SIM-02275,"Mua thường xuyên, đơn nhỏ",39,29
+SIM-02276,"Trung thành, chi tiêu cao",32,10
+SIM-02277,"Mua thường xuyên, đơn nhỏ",36,34
+SIM-02278,Lâu chưa quay lại,14,271
+SIM-02279,"Mua thường xuyên, đơn nhỏ",35,33
+SIM-02280,"Mua thường xuyên, đơn nhỏ",28,28
+SIM-02281,Lâu chưa quay lại,16,265
+SIM-02282,"Mua ít, đơn giá trị cao",3,97
+SIM-02283,Khách mới,3,13
+SIM-02284,Lâu chưa quay lại,14,312
+SIM-02285,"Mua thường xuyên, đơn nhỏ",37,31
+SIM-02286,"Mua thường xuyên, đơn nhỏ",30,37
+SIM-02287,Lâu chưa quay lại,21,295
+SIM-02288,"Mua ít, đơn giá trị cao",6,92
+SIM-02289,"Mua thường xuyên, đơn nhỏ",37,29
+SIM-02290,Lâu chưa quay lại,21,284
+SIM-02291,Lâu chưa quay lại,17,292
+SIM-02292,Khách mới,2,9
+SIM-02293,Khách mới,3,9
+SIM-02294,"Mua ít, đơn giá trị cao",3,58
+SIM-02295,"Mua thường xuyên, đơn nhỏ",25,32
+SIM-02296,Khách mới,2,13
+SIM-02297,Lâu chưa quay lại,20,248
+SIM-02298,Khách mới,3,9
+SIM-02299,"Mua thường xuyên, đơn nhỏ",33,43
+SIM-02300,"Mua ít, đơn giá trị cao",4,110
+SIM-02301,"Mua thường xuyên, đơn nhỏ",38,30
+SIM-02302,"Mua thường xuyên, đơn nhỏ",26,33
+SIM-02303,"Mua thường xuyên, đơn nhỏ",42,31
+SIM-02304,Khách mới,2,3
+SIM-02305,"Mua thường xuyên, đơn nhỏ",28,20
+SIM-02306,"Trung thành, chi tiêu cao",36,27
+SIM-02307,"Mua ít, đơn giá trị cao",8,88
+SIM-02308,Lâu chưa quay lại,17,324
+SIM-02309,"Mua ít, đơn giá trị cao",7,98
+SIM-02310,"Mua ít, đơn giá trị cao",5,89
+SIM-02311,"Trung thành, chi tiêu cao",41,10
+SIM-02312,"Mua ít, đơn giá trị cao",7,80
+SIM-02313,"Mua ít, đơn giá trị cao",5,103
+SIM-02314,Lâu chưa quay lại,13,286
+SIM-02315,"Mua ít, đơn giá trị cao",6,65
+SIM-02316,"Mua ít, đơn giá trị cao",3,115
+SIM-02317,"Trung thành, chi tiêu cao",32,19
+SIM-02318,"Mua ít, đơn giá trị cao",1,81
+SIM-02319,Lâu chưa quay lại,11,319
+SIM-02320,"Trung thành, chi tiêu cao",34,15
+SIM-02321,"Mua ít, đơn giá trị cao",5,88
+SIM-02322,Khách mới,2,5
+SIM-02323,"Mua thường xuyên, đơn nhỏ",25,36
+SIM-02324,Lâu chưa quay lại,8,279
+SIM-02325,Lâu chưa quay lại,19,258
+SIM-02326,Khách mới,2,16
+SIM-02327,"Mua ít, đơn giá trị cao",4,113
+SIM-02328,"Mua ít, đơn giá trị cao",7,38
+SIM-02329,Khách mới,4,12
+SIM-02330,"Trung thành, chi tiêu cao",41,17
+SIM-02331,Khách mới,1,11
+SIM-02332,"Mua ít, đơn giá trị cao",3,84
+SIM-02333,"Trung thành, chi tiêu cao",40,15
+SIM-02334,"Trung thành, chi tiêu cao",36,8
+SIM-02335,"Trung thành, chi tiêu cao",36,20
+SIM-02336,"Mua thường xuyên, đơn nhỏ",32,57
+SIM-02337,"Mua thường xuyên, đơn nhỏ",27,34
+SIM-02338,"Mua ít, đơn giá trị cao",2,89
+SIM-02339,Lâu chưa quay lại,19,234
+SIM-02340,"Mua ít, đơn giá trị cao",8,92
+SIM-02341,Khách mới,1,8
+SIM-02342,Khách mới,2,6
+SIM-02343,"Mua ít, đơn giá trị cao",4,58
+SIM-02344,"Mua ít, đơn giá trị cao",1,97
+SIM-02345,"Mua thường xuyên, đơn nhỏ",31,34
+SIM-02346,"Trung thành, chi tiêu cao",34,13
+SIM-02347,"Mua thường xuyên, đơn nhỏ",36,23
+SIM-02348,Khách mới,1,10
+SIM-02349,Lâu chưa quay lại,9,259
+SIM-02350,Lâu chưa quay lại,17,290
+SIM-02351,"Mua thường xuyên, đơn nhỏ",36,28
+SIM-02352,"Mua ít, đơn giá trị cao",4,84
+SIM-02353,"Mua thường xuyên, đơn nhỏ",32,36
+SIM-02354,"Mua ít, đơn giá trị cao",4,80
+SIM-02355,"Mua thường xuyên, đơn nhỏ",33,26
+SIM-02356,Lâu chưa quay lại,9,301
+SIM-02357,Khách mới,4,9
+SIM-02358,"Mua ít, đơn giá trị cao",4,115
+SIM-02359,"Trung thành, chi tiêu cao",33,23
+SIM-02360,Khách mới,4,14
+SIM-02361,Khách mới,1,6
+SIM-02362,"Mua ít, đơn giá trị cao",4,82
+SIM-02363,Lâu chưa quay lại,1,317
+SIM-02364,"Mua ít, đơn giá trị cao",3,50
+SIM-02365,"Mua ít, đơn giá trị cao",4,84
+SIM-02366,"Mua ít, đơn giá trị cao",6,88
+SIM-02367,Lâu chưa quay lại,13,251
+SIM-02368,Lâu chưa quay lại,7,274
+SIM-02369,Khách mới,3,5
+SIM-02370,Lâu chưa quay lại,11,306
+SIM-02371,"Mua thường xuyên, đơn nhỏ",28,41
+SIM-02372,Khách mới,2,12
+SIM-02373,"Mua ít, đơn giá trị cao",6,88
+SIM-02374,"Trung thành, chi tiêu cao",41,18
+SIM-02375,"Mua thường xuyên, đơn nhỏ",29,42
+SIM-02376,"Trung thành, chi tiêu cao",33,21
+SIM-02377,"Trung thành, chi tiêu cao",28,18
+SIM-02378,"Trung thành, chi tiêu cao",38,24
+SIM-02379,"Mua thường xuyên, đơn nhỏ",36,31
+SIM-02380,"Trung thành, chi tiêu cao",32,13
+SIM-02381,Lâu chưa quay lại,15,281
+SIM-02382,Khách mới,2,15
+SIM-02383,"Mua thường xuyên, đơn nhỏ",36,30
+SIM-02384,"Mua ít, đơn giá trị cao",2,120
+SIM-02385,Khách mới,3,11
+SIM-02386,"Mua thường xuyên, đơn nhỏ",27,42
+SIM-02387,"Trung thành, chi tiêu cao",34,19
+SIM-02388,Lâu chưa quay lại,16,312
+SIM-02389,"Trung thành, chi tiêu cao",34,21
+SIM-02390,Lâu chưa quay lại,14,261
+SIM-02391,Khách mới,3,11
+SIM-02392,"Trung thành, chi tiêu cao",28,17
+SIM-02393,"Trung thành, chi tiêu cao",36,1
+SIM-02394,"Mua thường xuyên, đơn nhỏ",34,31
+SIM-02395,"Trung thành, chi tiêu cao",30,28
+SIM-02396,"Mua thường xuyên, đơn nhỏ",30,39
+SIM-02397,"Trung thành, chi tiêu cao",31,21
+SIM-02398,Khách mới,2,8
+SIM-02399,"Mua thường xuyên, đơn nhỏ",33,29
+SIM-02400,Lâu chưa quay lại,16,294
+SIM-02401,"Mua ít, đơn giá trị cao",4,117
+SIM-02402,Khách mới,1,10
+SIM-02403,"Mua thường xuyên, đơn nhỏ",40,39
+SIM-02404,"Mua thường xuyên, đơn nhỏ",42,14
+SIM-02405,Khách mới,1,15
+SIM-02406,Lâu chưa quay lại,13,255
+SIM-02407,"Trung thành, chi tiêu cao",28,13
+SIM-02408,"Trung thành, chi tiêu cao",46,14
+SIM-02409,"Trung thành, chi tiêu cao",29,5
+SIM-02410,"Trung thành, chi tiêu cao",41,22
+SIM-02411,"Mua ít, đơn giá trị cao",7,96
+SIM-02412,"Mua ít, đơn giá trị cao",3,65
+SIM-02413,"Mua thường xuyên, đơn nhỏ",31,19
+SIM-02414,"Trung thành, chi tiêu cao",36,10
+SIM-02415,"Mua thường xuyên, đơn nhỏ",28,26
+SIM-02416,Lâu chưa quay lại,14,288
+SIM-02417,"Mua thường xuyên, đơn nhỏ",32,26
+SIM-02418,"Trung thành, chi tiêu cao",26,9
+SIM-02419,"Trung thành, chi tiêu cao",35,13
+SIM-02420,"Mua ít, đơn giá trị cao",7,69
+SIM-02421,Lâu chưa quay lại,19,274
+SIM-02422,"Mua ít, đơn giá trị cao",5,92
+SIM-02423,"Mua thường xuyên, đơn nhỏ",43,38
+SIM-02424,"Mua ít, đơn giá trị cao",5,88
+SIM-02425,"Mua thường xuyên, đơn nhỏ",34,31
+SIM-02426,"Trung thành, chi tiêu cao",41,10
+SIM-02427,"Mua ít, đơn giá trị cao",2,97
+SIM-02428,"Trung thành, chi tiêu cao",32,16
+SIM-02429,"Mua ít, đơn giá trị cao",4,63
+SIM-02430,Lâu chưa quay lại,11,289
+SIM-02431,Lâu chưa quay lại,16,294
+SIM-02432,Lâu chưa quay lại,11,299
+SIM-02433,"Trung thành, chi tiêu cao",40,17
+SIM-02434,"Mua ít, đơn giá trị cao",7,85
+SIM-02435,"Mua ít, đơn giá trị cao",5,82
+SIM-02436,"Trung thành, chi tiêu cao",28,17
+SIM-02437,"Trung thành, chi tiêu cao",37,9
+SIM-02438,"Trung thành, chi tiêu cao",33,15
+SIM-02439,"Trung thành, chi tiêu cao",42,1
+SIM-02440,"Mua thường xuyên, đơn nhỏ",35,33
+SIM-02441,Khách mới,3,12
+SIM-02442,"Mua thường xuyên, đơn nhỏ",32,26
+SIM-02443,"Trung thành, chi tiêu cao",34,15
+SIM-02444,"Mua ít, đơn giá trị cao",4,119
+SIM-02445,Lâu chưa quay lại,23,290
+SIM-02446,"Mua thường xuyên, đơn nhỏ",20,22
+SIM-02447,"Mua ít, đơn giá trị cao",7,109
+SIM-02448,"Mua thường xuyên, đơn nhỏ",32,23
+SIM-02449,"Mua thường xuyên, đơn nhỏ",34,38
+SIM-02450,"Mua ít, đơn giá trị cao",4,95
+SIM-02451,"Mua ít, đơn giá trị cao",4,76
+SIM-02452,Lâu chưa quay lại,15,283
+SIM-02453,Lâu chưa quay lại,15,317
+SIM-02454,"Mua ít, đơn giá trị cao",4,81
+SIM-02455,Khách mới,3,14
+SIM-02456,"Mua thường xuyên, đơn nhỏ",26,36
+SIM-02457,"Trung thành, chi tiêu cao",34,22
+SIM-02458,"Trung thành, chi tiêu cao",29,21
+SIM-02459,"Mua ít, đơn giá trị cao",9,105
+SIM-02460,"Mua thường xuyên, đơn nhỏ",34,38
+SIM-02461,"Mua thường xuyên, đơn nhỏ",34,37
+SIM-02462,Lâu chưa quay lại,15,299
+SIM-02463,"Mua thường xuyên, đơn nhỏ",29,17
+SIM-02464,Lâu chưa quay lại,11,298
+SIM-02465,Khách mới,3,13
+SIM-02466,"Trung thành, chi tiêu cao",35,23
+SIM-02467,Lâu chưa quay lại,23,272
+SIM-02468,"Trung thành, chi tiêu cao",33,18
+SIM-02469,"Trung thành, chi tiêu cao",28,13
+SIM-02470,Lâu chưa quay lại,9,286
+SIM-02471,"Mua thường xuyên, đơn nhỏ",26,32
+SIM-02472,Lâu chưa quay lại,14,255
+SIM-02473,Lâu chưa quay lại,12,283
+SIM-02474,Lâu chưa quay lại,14,305
+SIM-02475,Lâu chưa quay lại,20,271
+SIM-02476,Lâu chưa quay lại,16,324
+SIM-02477,Lâu chưa quay lại,21,313
+SIM-02478,Lâu chưa quay lại,12,297
+SIM-02479,"Mua thường xuyên, đơn nhỏ",37,15
+SIM-02480,"Mua ít, đơn giá trị cao",3,80
+SIM-02481,"Mua thường xuyên, đơn nhỏ",26,24
+SIM-02482,Khách mới,1,6
+SIM-02483,"Mua ít, đơn giá trị cao",4,52
+SIM-02484,"Mua thường xuyên, đơn nhỏ",22,30
+SIM-02485,Khách mới,1,13
+SIM-02486,"Trung thành, chi tiêu cao",23,24
+SIM-02487,Lâu chưa quay lại,19,302
+SIM-02488,"Mua thường xuyên, đơn nhỏ",26,41
+SIM-02489,Khách mới,2,8
+SIM-02490,"Mua thường xuyên, đơn nhỏ",27,41
+SIM-02491,"Mua thường xuyên, đơn nhỏ",36,33
+SIM-02492,Lâu chưa quay lại,17,317
+SIM-02493,Lâu chưa quay lại,9,305
+SIM-02494,"Trung thành, chi tiêu cao",31,13
+SIM-02495,"Trung thành, chi tiêu cao",38,20
+SIM-02496,Lâu chưa quay lại,19,278
+SIM-02497,"Trung thành, chi tiêu cao",30,9
+SIM-02498,"Mua ít, đơn giá trị cao",7,78
+SIM-02499,Lâu chưa quay lại,11,292
+SIM-02500,"Mua thường xuyên, đơn nhỏ",32,28
+SIM-02501,"Mua thường xuyên, đơn nhỏ",35,32
+SIM-02502,Khách mới,2,11
+SIM-02503,Lâu chưa quay lại,16,266
+SIM-02504,"Trung thành, chi tiêu cao",36,21
+SIM-02505,"Trung thành, chi tiêu cao",40,17
+SIM-02506,Lâu chưa quay lại,13,240
+SIM-02507,"Mua thường xuyên, đơn nhỏ",27,37
+SIM-02508,"Trung thành, chi tiêu cao",31,21
+SIM-02509,"Mua ít, đơn giá trị cao",8,113
+SIM-02510,Khách mới,2,7
+SIM-02511,"Mua thường xuyên, đơn nhỏ",35,9
+SIM-02512,"Mua ít, đơn giá trị cao",7,85
+SIM-02513,"Trung thành, chi tiêu cao",31,14
+SIM-02514,Khách mới,2,5
+SIM-02515,"Trung thành, chi tiêu cao",30,15
+SIM-02516,Khách mới,1,11
+SIM-02517,"Mua thường xuyên, đơn nhỏ",36,25
+SIM-02518,Khách mới,1,7
+SIM-02519,"Trung thành, chi tiêu cao",37,18
+SIM-02520,"Trung thành, chi tiêu cao",30,17
+SIM-02521,"Trung thành, chi tiêu cao",37,18
+SIM-02522,Lâu chưa quay lại,13,313
+SIM-02523,"Mua thường xuyên, đơn nhỏ",25,15
+SIM-02524,Lâu chưa quay lại,20,300
+SIM-02525,Khách mới,2,8
+SIM-02526,"Trung thành, chi tiêu cao",29,10
+SIM-02527,"Mua ít, đơn giá trị cao",8,85
+SIM-02528,Khách mới,2,4
+SIM-02529,Lâu chưa quay lại,14,308
+SIM-02530,Lâu chưa quay lại,14,315
+SIM-02531,"Mua ít, đơn giá trị cao",3,110
+SIM-02532,Khách mới,1,6
+SIM-02533,Khách mới,1,6
+SIM-02534,Lâu chưa quay lại,3,307
+SIM-02535,"Mua thường xuyên, đơn nhỏ",33,31
+SIM-02536,"Mua thường xuyên, đơn nhỏ",41,39
+SIM-02537,"Trung thành, chi tiêu cao",29,17
+SIM-02538,Khách mới,2,12
+SIM-02539,"Mua ít, đơn giá trị cao",3,101
+SIM-02540,"Mua thường xuyên, đơn nhỏ",36,36
+SIM-02541,"Mua ít, đơn giá trị cao",5,92
+SIM-02542,"Trung thành, chi tiêu cao",39,2
+SIM-02543,"Trung thành, chi tiêu cao",30,9
+SIM-02544,"Trung thành, chi tiêu cao",29,16
+SIM-02545,"Mua thường xuyên, đơn nhỏ",37,25
+SIM-02546,Khách mới,3,6
+SIM-02547,"Trung thành, chi tiêu cao",31,26
+SIM-02548,"Mua ít, đơn giá trị cao",3,79
+SIM-02549,"Mua ít, đơn giá trị cao",8,62
+SIM-02550,Lâu chưa quay lại,17,275
+SIM-02551,"Mua thường xuyên, đơn nhỏ",29,27
+SIM-02552,"Mua thường xuyên, đơn nhỏ",32,27
+SIM-02553,"Mua ít, đơn giá trị cao",2,125
+SIM-02554,"Mua thường xuyên, đơn nhỏ",32,35
+SIM-02555,"Mua ít, đơn giá trị cao",3,110
+SIM-02556,Lâu chưa quay lại,11,257
+SIM-02557,"Mua thường xuyên, đơn nhỏ",34,21
+SIM-02558,Khách mới,2,14
+SIM-02559,Lâu chưa quay lại,15,315
+SIM-02560,"Mua thường xuyên, đơn nhỏ",25,22
+SIM-02561,Lâu chưa quay lại,16,299
+SIM-02562,"Trung thành, chi tiêu cao",23,10
+SIM-02563,"Mua thường xuyên, đơn nhỏ",36,28
+SIM-02564,"Trung thành, chi tiêu cao",33,21
+SIM-02565,Khách mới,1,15
+SIM-02566,Lâu chưa quay lại,15,297
+SIM-02567,"Trung thành, chi tiêu cao",36,14
+SIM-02568,"Trung thành, chi tiêu cao",39,11
+SIM-02569,"Mua ít, đơn giá trị cao",4,90
+SIM-02570,"Mua thường xuyên, đơn nhỏ",34,24
+SIM-02571,"Mua ít, đơn giá trị cao",5,95
+SIM-02572,"Mua thường xuyên, đơn nhỏ",34,28
+SIM-02573,"Mua thường xuyên, đơn nhỏ",25,37
+SIM-02574,"Trung thành, chi tiêu cao",27,15
+SIM-02575,"Trung thành, chi tiêu cao",24,12
+SIM-02576,Khách mới,2,11
+SIM-02577,Khách mới,1,11
+SIM-02578,"Mua ít, đơn giá trị cao",2,78
+SIM-02579,"Mua ít, đơn giá trị cao",9,89
+SIM-02580,"Mua ít, đơn giá trị cao",9,80
+SIM-02581,Lâu chưa quay lại,23,284
+SIM-02582,"Trung thành, chi tiêu cao",26,16
+SIM-02583,"Trung thành, chi tiêu cao",34,20
+SIM-02584,"Mua ít, đơn giá trị cao",4,61
+SIM-02585,"Trung thành, chi tiêu cao",42,17
+SIM-02586,Lâu chưa quay lại,15,284
+SIM-02587,"Mua ít, đơn giá trị cao",5,111
+SIM-02588,"Mua ít, đơn giá trị cao",7,74
+SIM-02589,"Mua thường xuyên, đơn nhỏ",33,23
+SIM-02590,"Mua ít, đơn giá trị cao",8,103
+SIM-02591,"Trung thành, chi tiêu cao",34,15
+SIM-02592,Khách mới,2,7
+SIM-02593,Lâu chưa quay lại,9,263
+SIM-02594,"Mua thường xuyên, đơn nhỏ",32,34
+SIM-02595,Khách mới,1,7
+SIM-02596,Khách mới,2,6
+SIM-02597,"Trung thành, chi tiêu cao",28,25
+SIM-02598,"Mua ít, đơn giá trị cao",5,115
+SIM-02599,"Mua ít, đơn giá trị cao",4,93
+SIM-02600,Lâu chưa quay lại,16,280
+SIM-02601,Lâu chưa quay lại,15,310
+SIM-02602,Khách mới,2,4
+SIM-02603,Khách mới,1,13
+SIM-02604,"Mua thường xuyên, đơn nhỏ",25,27
+SIM-02605,"Mua ít, đơn giá trị cao",4,92
+SIM-02606,"Trung thành, chi tiêu cao",39,17
+SIM-02607,"Trung thành, chi tiêu cao",29,15
+SIM-02608,"Trung thành, chi tiêu cao",35,12
+SIM-02609,Khách mới,1,9
+SIM-02610,"Mua thường xuyên, đơn nhỏ",32,43
+SIM-02611,Lâu chưa quay lại,20,291
+SIM-02612,Khách mới,3,14
+SIM-02613,Khách mới,2,5
+SIM-02614,"Mua thường xuyên, đơn nhỏ",32,27
+SIM-02615,"Mua ít, đơn giá trị cao",4,64
+SIM-02616,Lâu chưa quay lại,9,271
+SIM-02617,"Mua thường xuyên, đơn nhỏ",34,42
+SIM-02618,"Mua ít, đơn giá trị cao",5,106
+SIM-02619,"Trung thành, chi tiêu cao",38,7
+SIM-02620,"Mua thường xuyên, đơn nhỏ",32,24
+SIM-02621,"Trung thành, chi tiêu cao",32,12
+SIM-02622,"Mua thường xuyên, đơn nhỏ",33,19
+SIM-02623,"Trung thành, chi tiêu cao",37,7
+SIM-02624,Khách mới,2,2
+SIM-02625,Khách mới,2,12
+SIM-02626,"Trung thành, chi tiêu cao",33,1
+SIM-02627,"Mua ít, đơn giá trị cao",3,79
+SIM-02628,Lâu chưa quay lại,17,251
+SIM-02629,Khách mới,3,11
+SIM-02630,"Mua ít, đơn giá trị cao",5,82
+SIM-02631,"Mua thường xuyên, đơn nhỏ",35,31
+SIM-02632,Lâu chưa quay lại,14,277
+SIM-02633,"Trung thành, chi tiêu cao",43,6
+SIM-02634,Lâu chưa quay lại,11,299
+SIM-02635,"Mua ít, đơn giá trị cao",4,108
+SIM-02636,Khách mới,1,14
+SIM-02637,"Mua ít, đơn giá trị cao",3,80
+SIM-02638,Lâu chưa quay lại,13,271
+SIM-02639,"Trung thành, chi tiêu cao",22,17
+SIM-02640,"Trung thành, chi tiêu cao",19,14
+SIM-02641,Lâu chưa quay lại,15,260
+SIM-02642,"Mua ít, đơn giá trị cao",10,62
+SIM-02643,"Mua ít, đơn giá trị cao",6,117
+SIM-02644,"Mua ít, đơn giá trị cao",3,114
+SIM-02645,"Mua thường xuyên, đơn nhỏ",35,32
+SIM-02646,Khách mới,3,11
+SIM-02647,"Trung thành, chi tiêu cao",30,15
+SIM-02648,"Mua ít, đơn giá trị cao",9,69
+SIM-02649,"Mua thường xuyên, đơn nhỏ",36,35
+SIM-02650,"Mua thường xuyên, đơn nhỏ",32,29
+SIM-02651,Lâu chưa quay lại,20,246
+SIM-02652,"Mua thường xuyên, đơn nhỏ",36,32
+SIM-02653,Khách mới,1,12
+SIM-02654,"Mua thường xuyên, đơn nhỏ",35,34
+SIM-02655,"Mua ít, đơn giá trị cao",7,126
+SIM-02656,Khách mới,2,7
+SIM-02657,"Trung thành, chi tiêu cao",25,12
+SIM-02658,"Mua thường xuyên, đơn nhỏ",23,31
+SIM-02659,Lâu chưa quay lại,17,253
+SIM-02660,Lâu chưa quay lại,14,280
+SIM-02661,Lâu chưa quay lại,10,279
+SIM-02662,"Mua ít, đơn giá trị cao",6,58
+SIM-02663,"Mua thường xuyên, đơn nhỏ",32,28
+SIM-02664,"Mua ít, đơn giá trị cao",3,99
+SIM-02665,Khách mới,2,14
+SIM-02666,"Mua thường xuyên, đơn nhỏ",38,36
+SIM-02667,"Mua thường xuyên, đơn nhỏ",34,22
+SIM-02668,"Trung thành, chi tiêu cao",27,10
+SIM-02669,Lâu chưa quay lại,13,284
+SIM-02670,"Mua thường xuyên, đơn nhỏ",31,30
+SIM-02671,Lâu chưa quay lại,19,298
+SIM-02672,Khách mới,2,7
+SIM-02673,"Mua thường xuyên, đơn nhỏ",35,29
+SIM-02674,"Mua ít, đơn giá trị cao",5,58
+SIM-02675,"Mua thường xuyên, đơn nhỏ",31,27
+SIM-02676,Khách mới,2,8
+SIM-02677,"Mua thường xuyên, đơn nhỏ",26,29
+SIM-02678,"Mua ít, đơn giá trị cao",4,72
+SIM-02679,Khách mới,3,8
+SIM-02680,"Mua ít, đơn giá trị cao",5,64
+SIM-02681,Lâu chưa quay lại,11,292
+SIM-02682,"Trung thành, chi tiêu cao",28,14
+SIM-02683,Khách mới,2,5
+SIM-02684,"Mua thường xuyên, đơn nhỏ",30,31
+SIM-02685,Lâu chưa quay lại,11,260
+SIM-02686,Khách mới,2,12
+SIM-02687,"Mua thường xuyên, đơn nhỏ",32,21
+SIM-02688,Khách mới,2,14
+SIM-02689,"Mua ít, đơn giá trị cao",4,95
+SIM-02690,Lâu chưa quay lại,21,267
+SIM-02691,"Mua ít, đơn giá trị cao",5,86
+SIM-02692,Khách mới,2,8
+SIM-02693,Lâu chưa quay lại,20,262
+SIM-02694,"Trung thành, chi tiêu cao",33,24
+SIM-02695,Lâu chưa quay lại,17,257
+SIM-02696,"Mua ít, đơn giá trị cao",5,84
+SIM-02697,"Trung thành, chi tiêu cao",35,16
+SIM-02698,"Mua ít, đơn giá trị cao",3,77
+SIM-02699,Khách mới,1,10
+SIM-02700,"Mua ít, đơn giá trị cao",5,56
+SIM-02701,Khách mới,3,8
+SIM-02702,"Mua thường xuyên, đơn nhỏ",41,36
+SIM-02703,Lâu chưa quay lại,16,259
+SIM-02704,"Trung thành, chi tiêu cao",33,21
+SIM-02705,Khách mới,2,9
+SIM-02706,"Trung thành, chi tiêu cao",37,3
+SIM-02707,Lâu chưa quay lại,11,270
+SIM-02708,"Mua thường xuyên, đơn nhỏ",28,9
+SIM-02709,"Trung thành, chi tiêu cao",37,19
+SIM-02710,Lâu chưa quay lại,20,290
+SIM-02711,"Mua thường xuyên, đơn nhỏ",33,37
+SIM-02712,"Trung thành, chi tiêu cao",33,20
+SIM-02713,"Mua thường xuyên, đơn nhỏ",34,35
+SIM-02714,Khách mới,3,10
+SIM-02715,Khách mới,2,12
+SIM-02716,"Trung thành, chi tiêu cao",30,17
+SIM-02717,"Mua thường xuyên, đơn nhỏ",26,49
+SIM-02718,Lâu chưa quay lại,19,253
+SIM-02719,"Trung thành, chi tiêu cao",32,5
+SIM-02720,"Trung thành, chi tiêu cao",34,9
+SIM-02721,Khách mới,1,3
+SIM-02722,Lâu chưa quay lại,10,249
+SIM-02723,"Mua thường xuyên, đơn nhỏ",25,30
+SIM-02724,Khách mới,1,9
+SIM-02725,Khách mới,2,9
+SIM-02726,Lâu chưa quay lại,14,300
+SIM-02727,Lâu chưa quay lại,18,254
+SIM-02728,Khách mới,2,10
+SIM-02729,"Mua thường xuyên, đơn nhỏ",35,22
+SIM-02730,Khách mới,1,3
+SIM-02731,Khách mới,2,7
+SIM-02732,"Trung thành, chi tiêu cao",33,19
+SIM-02733,Khách mới,1,8
+SIM-02734,Lâu chưa quay lại,14,279
+SIM-02735,Khách mới,1,8
+SIM-02736,"Mua ít, đơn giá trị cao",2,104
+SIM-02737,"Mua thường xuyên, đơn nhỏ",34,46
+SIM-02738,"Mua ít, đơn giá trị cao",2,84
+SIM-02739,"Mua ít, đơn giá trị cao",6,81
+SIM-02740,Lâu chưa quay lại,9,282
+SIM-02741,Khách mới,2,17
+SIM-02742,"Trung thành, chi tiêu cao",41,23
+SIM-02743,"Mua ít, đơn giá trị cao",7,58
+SIM-02744,Lâu chưa quay lại,10,269
+SIM-02745,"Trung thành, chi tiêu cao",42,8
+SIM-02746,Khách mới,3,4
+SIM-02747,Lâu chưa quay lại,12,237
+SIM-02748,Khách mới,1,6
+SIM-02749,"Mua thường xuyên, đơn nhỏ",29,40
+SIM-02750,"Mua ít, đơn giá trị cao",5,82
+SIM-02751,Lâu chưa quay lại,14,283
+SIM-02752,"Mua ít, đơn giá trị cao",6,69
+SIM-02753,Lâu chưa quay lại,9,291
+SIM-02754,Lâu chưa quay lại,21,238
+SIM-02755,Khách mới,3,7
+SIM-02756,"Mua thường xuyên, đơn nhỏ",29,42
+SIM-02757,Khách mới,1,8
+SIM-02758,Khách mới,1,13
+SIM-02759,"Mua ít, đơn giá trị cao",2,116
+SIM-02760,Khách mới,2,16
+SIM-02761,"Mua thường xuyên, đơn nhỏ",33,30
+SIM-02762,"Mua ít, đơn giá trị cao",5,60
+SIM-02763,"Mua thường xuyên, đơn nhỏ",40,30
+SIM-02764,Lâu chưa quay lại,20,272
+SIM-02765,"Mua thường xuyên, đơn nhỏ",27,42
+SIM-02766,Khách mới,2,8
+SIM-02767,"Mua thường xuyên, đơn nhỏ",33,30
+SIM-02768,"Mua ít, đơn giá trị cao",7,82
+SIM-02769,Khách mới,2,19
+SIM-02770,Lâu chưa quay lại,15,289
+SIM-02771,"Trung thành, chi tiêu cao",30,7
+SIM-02772,"Mua ít, đơn giá trị cao",6,88
+SIM-02773,"Mua thường xuyên, đơn nhỏ",24,34
+SIM-02774,"Mua thường xuyên, đơn nhỏ",31,34
+SIM-02775,"Mua thường xuyên, đơn nhỏ",37,29
+SIM-02776,Khách mới,1,17
+SIM-02777,"Mua thường xuyên, đơn nhỏ",34,39
+SIM-02778,Khách mới,3,6
+SIM-02779,"Mua thường xuyên, đơn nhỏ",36,34
+SIM-02780,"Trung thành, chi tiêu cao",36,7
+SIM-02781,Lâu chưa quay lại,16,298
+SIM-02782,"Trung thành, chi tiêu cao",33,16
+SIM-02783,Khách mới,2,12
+SIM-02784,"Trung thành, chi tiêu cao",32,9
+SIM-02785,"Mua ít, đơn giá trị cao",4,100
+SIM-02786,Khách mới,2,7
+SIM-02787,"Mua thường xuyên, đơn nhỏ",25,33
+SIM-02788,Lâu chưa quay lại,16,295
+SIM-02789,"Mua thường xuyên, đơn nhỏ",29,39
+SIM-02790,"Mua ít, đơn giá trị cao",3,100
+SIM-02791,Khách mới,2,11
+SIM-02792,"Mua ít, đơn giá trị cao",9,137
+SIM-02793,Lâu chưa quay lại,8,277
+SIM-02794,"Mua thường xuyên, đơn nhỏ",33,36
+SIM-02795,"Mua thường xuyên, đơn nhỏ",41,28
+SIM-02796,"Mua thường xuyên, đơn nhỏ",30,31
+SIM-02797,"Trung thành, chi tiêu cao",26,29
+SIM-02798,Khách mới,1,7
+SIM-02799,"Trung thành, chi tiêu cao",41,9
+SIM-02800,Lâu chưa quay lại,16,276
+SIM-02801,"Mua thường xuyên, đơn nhỏ",30,23
+SIM-02802,Khách mới,2,20
+SIM-02803,Khách mới,1,4
+SIM-02804,"Mua ít, đơn giá trị cao",1,108
+SIM-02805,"Mua thường xuyên, đơn nhỏ",32,26
+SIM-02806,Khách mới,3,7
+SIM-02807,Lâu chưa quay lại,20,274
+SIM-02808,Khách mới,2,12
+SIM-02809,"Mua thường xuyên, đơn nhỏ",26,32
+SIM-02810,"Mua ít, đơn giá trị cao",3,77
+SIM-02811,"Trung thành, chi tiêu cao",36,20
+SIM-02812,Khách mới,3,20
+SIM-02813,"Mua thường xuyên, đơn nhỏ",29,29
+SIM-02814,Khách mới,2,5
+SIM-02815,Khách mới,1,10
+SIM-02816,Khách mới,3,3
+SIM-02817,Khách mới,2,7
+SIM-02818,"Trung thành, chi tiêu cao",33,14
+SIM-02819,Lâu chưa quay lại,21,263
+SIM-02820,Khách mới,3,14
+SIM-02821,"Trung thành, chi tiêu cao",35,12
+SIM-02822,"Mua ít, đơn giá trị cao",7,70
+SIM-02823,Khách mới,1,7
+SIM-02824,Khách mới,2,11
+SIM-02825,"Trung thành, chi tiêu cao",39,27
+SIM-02826,Khách mới,4,8
+SIM-02827,Khách mới,1,9
+SIM-02828,"Mua ít, đơn giá trị cao",6,73
+SIM-02829,"Trung thành, chi tiêu cao",29,8
+SIM-02830,"Trung thành, chi tiêu cao",32,8
+SIM-02831,Khách mới,2,13
+SIM-02832,Lâu chưa quay lại,21,332
+SIM-02833,"Trung thành, chi tiêu cao",32,8
+SIM-02834,Khách mới,3,11
+SIM-02835,"Trung thành, chi tiêu cao",37,11
+SIM-02836,"Trung thành, chi tiêu cao",29,9
+SIM-02837,"Trung thành, chi tiêu cao",23,16
+SIM-02838,"Trung thành, chi tiêu cao",33,6
+SIM-02839,"Mua thường xuyên, đơn nhỏ",34,32
+SIM-02840,"Mua thường xuyên, đơn nhỏ",44,18
+SIM-02841,"Mua ít, đơn giá trị cao",5,88
+SIM-02842,Khách mới,2,9
+SIM-02843,Lâu chưa quay lại,13,314
+SIM-02844,"Mua thường xuyên, đơn nhỏ",31,22
+SIM-02845,"Mua ít, đơn giá trị cao",4,84
+SIM-02846,"Mua thường xuyên, đơn nhỏ",41,26
+SIM-02847,Lâu chưa quay lại,13,280
+SIM-02848,"Mua ít, đơn giá trị cao",9,56
+SIM-02849,"Trung thành, chi tiêu cao",41,24
+SIM-02850,"Mua ít, đơn giá trị cao",7,86
+SIM-02851,Lâu chưa quay lại,13,268
+SIM-02852,"Mua ít, đơn giá trị cao",3,105
+SIM-02853,Khách mới,2,18
+SIM-02854,Lâu chưa quay lại,14,261
+SIM-02855,Khách mới,1,3
+SIM-02856,"Trung thành, chi tiêu cao",37,15
+SIM-02857,"Trung thành, chi tiêu cao",35,14
+SIM-02858,Khách mới,2,8
+SIM-02859,"Trung thành, chi tiêu cao",36,21
+SIM-02860,"Trung thành, chi tiêu cao",25,16
+SIM-02861,Khách mới,1,5
+SIM-02862,"Trung thành, chi tiêu cao",37,27
+SIM-02863,"Trung thành, chi tiêu cao",39,7
+SIM-02864,"Mua ít, đơn giá trị cao",8,80
+SIM-02865,"Mua ít, đơn giá trị cao",2,62
+SIM-02866,Lâu chưa quay lại,10,315
+SIM-02867,"Trung thành, chi tiêu cao",34,10
+SIM-02868,"Mua ít, đơn giá trị cao",4,105
+SIM-02869,Lâu chưa quay lại,16,259
+SIM-02870,"Trung thành, chi tiêu cao",37,4
+SIM-02871,"Mua thường xuyên, đơn nhỏ",28,22
+SIM-02872,"Mua ít, đơn giá trị cao",6,56
+SIM-02873,Lâu chưa quay lại,11,250
+SIM-02874,"Mua thường xuyên, đơn nhỏ",42,23
+SIM-02875,"Mua thường xuyên, đơn nhỏ",40,25
+SIM-02876,Lâu chưa quay lại,22,300
+SIM-02877,Lâu chưa quay lại,10,302
+SIM-02878,"Mua ít, đơn giá trị cao",6,72
+SIM-02879,Khách mới,2,10
+SIM-02880,"Mua thường xuyên, đơn nhỏ",32,41
+SIM-02881,"Mua thường xuyên, đơn nhỏ",25,32
+SIM-02882,Lâu chưa quay lại,15,248
+SIM-02883,"Mua thường xuyên, đơn nhỏ",30,29
+SIM-02884,"Mua thường xuyên, đơn nhỏ",26,32
+SIM-02885,Khách mới,2,3
+SIM-02886,"Mua thường xuyên, đơn nhỏ",34,31
+SIM-02887,Khách mới,2,9
+SIM-02888,Khách mới,2,11
+SIM-02889,Khách mới,2,8
+SIM-02890,"Mua ít, đơn giá trị cao",5,85
+SIM-02891,Lâu chưa quay lại,5,260
+SIM-02892,"Mua ít, đơn giá trị cao",2,80
+SIM-02893,"Mua thường xuyên, đơn nhỏ",35,30
+SIM-02894,Lâu chưa quay lại,18,292
+SIM-02895,Lâu chưa quay lại,18,279
+SIM-02896,Lâu chưa quay lại,17,274
+SIM-02897,"Trung thành, chi tiêu cao",36,17
+SIM-02898,Lâu chưa quay lại,20,265
+SIM-02899,"Mua ít, đơn giá trị cao",6,74
+SIM-02900,"Trung thành, chi tiêu cao",30,18
+SIM-02901,Khách mới,1,15
+SIM-02902,Lâu chưa quay lại,14,290
+SIM-02903,"Mua ít, đơn giá trị cao",4,67
+SIM-02904,"Mua thường xuyên, đơn nhỏ",31,32
+SIM-02905,"Trung thành, chi tiêu cao",31,17
+SIM-02906,"Trung thành, chi tiêu cao",27,13
+SIM-02907,"Mua thường xuyên, đơn nhỏ",30,35
+SIM-02908,Khách mới,2,13
+SIM-02909,Khách mới,3,3
+SIM-02910,"Trung thành, chi tiêu cao",36,12
+SIM-02911,Lâu chưa quay lại,10,265
+SIM-02912,"Trung thành, chi tiêu cao",43,17
+SIM-02913,Khách mới,1,16
+SIM-02914,"Mua ít, đơn giá trị cao",5,57
+SIM-02915,"Mua thường xuyên, đơn nhỏ",30,38
+SIM-02916,Khách mới,2,10
+SIM-02917,"Mua thường xuyên, đơn nhỏ",37,23
+SIM-02918,Lâu chưa quay lại,15,317
+SIM-02919,Khách mới,2,7
+SIM-02920,"Trung thành, chi tiêu cao",34,15
+SIM-02921,Khách mới,2,8
+SIM-02922,"Mua thường xuyên, đơn nhỏ",26,37
+SIM-02923,"Mua thường xuyên, đơn nhỏ",29,33
+SIM-02924,"Mua thường xuyên, đơn nhỏ",33,43
+SIM-02925,Lâu chưa quay lại,18,300
+SIM-02926,"Mua thường xuyên, đơn nhỏ",34,26
+SIM-02927,Khách mới,2,9
+SIM-02928,Lâu chưa quay lại,10,253
+SIM-02929,"Mua thường xuyên, đơn nhỏ",30,39
+SIM-02930,"Mua ít, đơn giá trị cao",5,99
+SIM-02931,Khách mới,2,12
+SIM-02932,"Mua ít, đơn giá trị cao",1,90
+SIM-02933,"Mua ít, đơn giá trị cao",2,63
+SIM-02934,"Mua ít, đơn giá trị cao",5,117
+SIM-02935,"Mua ít, đơn giá trị cao",2,98
+SIM-02936,Lâu chưa quay lại,11,265
+SIM-02937,Lâu chưa quay lại,11,235
+SIM-02938,Lâu chưa quay lại,11,246
+SIM-02939,"Trung thành, chi tiêu cao",29,14
+SIM-02940,Khách mới,2,9
+SIM-02941,"Trung thành, chi tiêu cao",33,17
+SIM-02942,"Trung thành, chi tiêu cao",36,16
+SIM-02943,"Trung thành, chi tiêu cao",39,12
+SIM-02944,"Trung thành, chi tiêu cao",39,24
+SIM-02945,"Trung thành, chi tiêu cao",34,11
+SIM-02946,"Trung thành, chi tiêu cao",28,18
+SIM-02947,"Trung thành, chi tiêu cao",37,20
+SIM-02948,Lâu chưa quay lại,15,300
+SIM-02949,"Mua thường xuyên, đơn nhỏ",35,24
+SIM-02950,"Mua ít, đơn giá trị cao",5,115
+SIM-02951,"Mua thường xuyên, đơn nhỏ",21,38
+SIM-02952,"Trung thành, chi tiêu cao",35,18
+SIM-02953,Khách mới,2,11
+SIM-02954,"Mua ít, đơn giá trị cao",7,80
+SIM-02955,Lâu chưa quay lại,13,277
+SIM-02956,"Mua ít, đơn giá trị cao",5,70
+SIM-02957,"Trung thành, chi tiêu cao",34,11
+SIM-02958,"Trung thành, chi tiêu cao",38,16
+SIM-02959,Lâu chưa quay lại,20,283
+SIM-02960,"Trung thành, chi tiêu cao",33,9
+SIM-02961,Khách mới,2,11
+SIM-02962,"Mua ít, đơn giá trị cao",4,72
+SIM-02963,Khách mới,2,16
+SIM-02964,Khách mới,2,10
+SIM-02965,"Mua ít, đơn giá trị cao",4,74
+SIM-02966,Lâu chưa quay lại,16,303
+SIM-02967,Khách mới,2,12
+SIM-02968,Lâu chưa quay lại,23,286
+SIM-02969,Khách mới,2,6
+SIM-02970,Khách mới,2,9
+SIM-02971,"Mua ít, đơn giá trị cao",6,80
+SIM-02972,Khách mới,2,6
+SIM-02973,Lâu chưa quay lại,12,293
+SIM-02974,"Mua thường xuyên, đơn nhỏ",34,29
+SIM-02975,"Trung thành, chi tiêu cao",26,14
+SIM-02976,Khách mới,2,8
+SIM-02977,Lâu chưa quay lại,7,286
+SIM-02978,Lâu chưa quay lại,16,259
+SIM-02979,"Mua ít, đơn giá trị cao",1,50
+SIM-02980,Lâu chưa quay lại,19,296
+SIM-02981,"Mua thường xuyên, đơn nhỏ",32,16
+SIM-02982,"Trung thành, chi tiêu cao",32,11
+SIM-02983,"Mua ít, đơn giá trị cao",4,100
+SIM-02984,Lâu chưa quay lại,9,287
+SIM-02985,"Mua thường xuyên, đơn nhỏ",22,17
+SIM-02986,"Trung thành, chi tiêu cao",29,5
+SIM-02987,"Mua thường xuyên, đơn nhỏ",29,19
+SIM-02988,"Trung thành, chi tiêu cao",40,17
+SIM-02989,"Trung thành, chi tiêu cao",32,12
+SIM-02990,"Trung thành, chi tiêu cao",28,5
+SIM-02991,Khách mới,3,13
+SIM-02992,"Trung thành, chi tiêu cao",35,18
+SIM-02993,Khách mới,3,13
+SIM-02994,Lâu chưa quay lại,17,279
+SIM-02995,"Trung thành, chi tiêu cao",27,14
+SIM-02996,"Mua ít, đơn giá trị cao",1,102
+SIM-02997,Khách mới,3,15
+SIM-02998,Khách mới,2,11
+SIM-02999,"Mua thường xuyên, đơn nhỏ",41,37
+SIM-03000,Lâu chưa quay lại,8,277
+SIM-03001,"Trung thành, chi tiêu cao",32,22
+SIM-03002,Khách mới,2,12
+SIM-03003,"Mua thường xuyên, đơn nhỏ",38,39
+SIM-03004,"Trung thành, chi tiêu cao",43,11
+SIM-03005,Khách mới,3,8
+SIM-03006,"Trung thành, chi tiêu cao",34,3
+SIM-03007,"Mua ít, đơn giá trị cao",6,113
+SIM-03008,Khách mới,3,10
+SIM-03009,Lâu chưa quay lại,12,293
+SIM-03010,"Trung thành, chi tiêu cao",31,20
+SIM-03011,Khách mới,2,4
+SIM-03012,Lâu chưa quay lại,11,237
+SIM-03013,"Mua thường xuyên, đơn nhỏ",38,28
+SIM-03014,Khách mới,1,11
+SIM-03015,"Trung thành, chi tiêu cao",34,20
+SIM-03016,Lâu chưa quay lại,18,317
+SIM-03017,"Trung thành, chi tiêu cao",36,21
+SIM-03018,Khách mới,2,14
+SIM-03019,Khách mới,2,12
+SIM-03020,"Trung thành, chi tiêu cao",38,19
+SIM-03021,"Trung thành, chi tiêu cao",36,10
+SIM-03022,"Mua ít, đơn giá trị cao",10,84
+SIM-03023,Lâu chưa quay lại,20,287
+SIM-03024,"Trung thành, chi tiêu cao",27,10
+SIM-03025,"Trung thành, chi tiêu cao",29,32
+SIM-03026,"Mua ít, đơn giá trị cao",3,81
+SIM-03027,Khách mới,2,13
+SIM-03028,"Trung thành, chi tiêu cao",32,21
+SIM-03029,Lâu chưa quay lại,12,305
+SIM-03030,Lâu chưa quay lại,15,326
+SIM-03031,"Mua ít, đơn giá trị cao",1,87
+SIM-03032,Lâu chưa quay lại,18,284
+SIM-03033,Khách mới,1,7
+SIM-03034,"Mua ít, đơn giá trị cao",4,74
+SIM-03035,"Mua thường xuyên, đơn nhỏ",42,41
+SIM-03036,Lâu chưa quay lại,10,269
+SIM-03037,"Mua thường xuyên, đơn nhỏ",26,33
+SIM-03038,Khách mới,3,5
+SIM-03039,"Trung thành, chi tiêu cao",36,21
+SIM-03040,Khách mới,1,15
+SIM-03041,"Trung thành, chi tiêu cao",35,22
+SIM-03042,Lâu chưa quay lại,23,225
+SIM-03043,Lâu chưa quay lại,14,289
+SIM-03044,Lâu chưa quay lại,14,300
+SIM-03045,"Mua thường xuyên, đơn nhỏ",33,34
+SIM-03046,"Mua thường xuyên, đơn nhỏ",41,24
+SIM-03047,Lâu chưa quay lại,16,224
+SIM-03048,Khách mới,1,3
+SIM-03049,"Trung thành, chi tiêu cao",30,19
+SIM-03050,Lâu chưa quay lại,11,264
+SIM-03051,"Trung thành, chi tiêu cao",37,17
+SIM-03052,"Trung thành, chi tiêu cao",34,11
+SIM-03053,"Mua thường xuyên, đơn nhỏ",37,40
+SIM-03054,Khách mới,2,7
+SIM-03055,"Trung thành, chi tiêu cao",36,17
+SIM-03056,"Trung thành, chi tiêu cao",34,25
+SIM-03057,Khách mới,2,15
+SIM-03058,"Trung thành, chi tiêu cao",37,9
+SIM-03059,"Trung thành, chi tiêu cao",23,7
+SIM-03060,"Trung thành, chi tiêu cao",36,8
+SIM-03061,Khách mới,2,4
+SIM-03062,"Mua ít, đơn giá trị cao",6,57
+SIM-03063,Khách mới,2,11
+SIM-03064,Khách mới,2,12
+SIM-03065,"Mua thường xuyên, đơn nhỏ",36,25
+SIM-03066,"Mua thường xuyên, đơn nhỏ",37,23
+SIM-03067,"Mua thường xuyên, đơn nhỏ",35,20
+SIM-03068,"Trung thành, chi tiêu cao",33,22
+SIM-03069,"Mua ít, đơn giá trị cao",4,107
+SIM-03070,"Trung thành, chi tiêu cao",30,6
+SIM-03071,Lâu chưa quay lại,11,237
+SIM-03072,"Mua thường xuyên, đơn nhỏ",32,36
+SIM-03073,Khách mới,3,8
+SIM-03074,Khách mới,2,9
+SIM-03075,"Mua thường xuyên, đơn nhỏ",36,53
+SIM-03076,"Mua ít, đơn giá trị cao",3,74
+SIM-03077,"Trung thành, chi tiêu cao",28,13
+SIM-03078,"Mua thường xuyên, đơn nhỏ",33,37
+SIM-03079,Lâu chưa quay lại,11,301
+SIM-03080,Lâu chưa quay lại,16,285
+SIM-03081,"Mua ít, đơn giá trị cao",5,72
+SIM-03082,Lâu chưa quay lại,16,256
+SIM-03083,Khách mới,2,4
+SIM-03084,Khách mới,2,10
+SIM-03085,Lâu chưa quay lại,8,301
+SIM-03086,Khách mới,2,5
+SIM-03087,"Trung thành, chi tiêu cao",34,13
+SIM-03088,"Trung thành, chi tiêu cao",36,11
+SIM-03089,"Mua thường xuyên, đơn nhỏ",29,30
+SIM-03090,"Trung thành, chi tiêu cao",31,18
+SIM-03091,"Trung thành, chi tiêu cao",34,5
+SIM-03092,"Mua thường xuyên, đơn nhỏ",33,30
+SIM-03093,Khách mới,3,10
+SIM-03094,Khách mới,2,16
+SIM-03095,"Mua thường xuyên, đơn nhỏ",30,31
+SIM-03096,"Trung thành, chi tiêu cao",36,12
+SIM-03097,"Mua thường xuyên, đơn nhỏ",27,30
+SIM-03098,Lâu chưa quay lại,18,323
+SIM-03099,"Mua ít, đơn giá trị cao",4,93
+SIM-03100,"Trung thành, chi tiêu cao",34,16
+SIM-03101,"Mua ít, đơn giá trị cao",7,84
+SIM-03102,"Mua thường xuyên, đơn nhỏ",32,28
+SIM-03103,"Mua thường xuyên, đơn nhỏ",35,31
+SIM-03104,"Mua ít, đơn giá trị cao",3,86
+SIM-03105,"Trung thành, chi tiêu cao",37,8
+SIM-03106,Khách mới,2,10
+SIM-03107,"Trung thành, chi tiêu cao",29,20
+SIM-03108,Khách mới,1,9
+SIM-03109,"Mua thường xuyên, đơn nhỏ",39,39
+SIM-03110,"Mua thường xuyên, đơn nhỏ",28,23
+SIM-03111,"Mua thường xuyên, đơn nhỏ",23,27
+SIM-03112,"Mua thường xuyên, đơn nhỏ",33,21
+SIM-03113,Lâu chưa quay lại,1,279
+SIM-03114,"Trung thành, chi tiêu cao",35,10
+SIM-03115,Lâu chưa quay lại,16,339
+SIM-03116,Khách mới,1,13
+SIM-03117,Khách mới,2,4
+SIM-03118,"Trung thành, chi tiêu cao",44,14
+SIM-03119,"Trung thành, chi tiêu cao",41,20
+SIM-03120,Lâu chưa quay lại,14,302
+SIM-03121,Khách mới,2,11
+SIM-03122,"Trung thành, chi tiêu cao",33,7
+SIM-03123,"Mua ít, đơn giá trị cao",4,103
+SIM-03124,Lâu chưa quay lại,10,240
+SIM-03125,"Mua ít, đơn giá trị cao",5,91
+SIM-03126,"Mua thường xuyên, đơn nhỏ",28,23
+SIM-03127,Lâu chưa quay lại,13,309
+SIM-03128,Lâu chưa quay lại,10,265
+SIM-03129,Khách mới,2,13
+SIM-03130,Lâu chưa quay lại,13,228
+SIM-03131,"Mua ít, đơn giá trị cao",4,88
+SIM-03132,Lâu chưa quay lại,16,309
+SIM-03133,Lâu chưa quay lại,12,252
+SIM-03134,Khách mới,1,13
+SIM-03135,"Trung thành, chi tiêu cao",42,2
+SIM-03136,"Trung thành, chi tiêu cao",44,19
+SIM-03137,"Mua ít, đơn giá trị cao",5,55
+SIM-03138,Lâu chưa quay lại,15,252
+SIM-03139,"Trung thành, chi tiêu cao",33,10
+SIM-03140,Lâu chưa quay lại,15,271
+SIM-03141,"Mua thường xuyên, đơn nhỏ",34,24
+SIM-03142,Lâu chưa quay lại,9,257
+SIM-03143,"Mua ít, đơn giá trị cao",1,106
+SIM-03144,"Mua ít, đơn giá trị cao",6,62
+SIM-03145,"Mua ít, đơn giá trị cao",8,86
+SIM-03146,"Trung thành, chi tiêu cao",33,20
+SIM-03147,"Trung thành, chi tiêu cao",27,18
+SIM-03148,Lâu chưa quay lại,22,225
+SIM-03149,"Trung thành, chi tiêu cao",41,17
+SIM-03150,"Mua ít, đơn giá trị cao",5,59
+SIM-03151,Lâu chưa quay lại,14,313
+SIM-03152,Lâu chưa quay lại,15,272
+SIM-03153,"Mua ít, đơn giá trị cao",4,141
+SIM-03154,"Mua ít, đơn giá trị cao",3,105
+SIM-03155,Lâu chưa quay lại,16,238
+SIM-03156,"Trung thành, chi tiêu cao",42,17
+SIM-03157,"Mua thường xuyên, đơn nhỏ",26,23
+SIM-03158,"Mua ít, đơn giá trị cao",1,84
+SIM-03159,"Mua thường xuyên, đơn nhỏ",31,34
+SIM-03160,"Mua ít, đơn giá trị cao",4,78
+SIM-03161,"Mua ít, đơn giá trị cao",3,102
+SIM-03162,Khách mới,1,15
+SIM-03163,"Mua ít, đơn giá trị cao",5,65
+SIM-03164,"Mua thường xuyên, đơn nhỏ",31,27
+SIM-03165,"Mua ít, đơn giá trị cao",7,99
+SIM-03166,Khách mới,1,7
+SIM-03167,"Mua ít, đơn giá trị cao",6,66
+SIM-03168,"Mua thường xuyên, đơn nhỏ",25,30
+SIM-03169,"Mua thường xuyên, đơn nhỏ",33,28
+SIM-03170,Lâu chưa quay lại,11,323
+SIM-03171,"Trung thành, chi tiêu cao",34,13
+SIM-03172,"Mua ít, đơn giá trị cao",5,80
+SIM-03173,"Mua ít, đơn giá trị cao",8,84
+SIM-03174,Khách mới,2,5
+SIM-03175,Khách mới,2,9
+SIM-03176,Lâu chưa quay lại,11,288
+SIM-03177,"Mua thường xuyên, đơn nhỏ",33,31
+SIM-03178,Khách mới,2,7
+SIM-03179,"Trung thành, chi tiêu cao",42,14
+SIM-03180,"Mua ít, đơn giá trị cao",5,68
+SIM-03181,"Mua ít, đơn giá trị cao",7,92
+SIM-03182,"Mua ít, đơn giá trị cao",4,67
+SIM-03183,"Mua ít, đơn giá trị cao",5,81
+SIM-03184,"Mua ít, đơn giá trị cao",7,97
+SIM-03185,"Mua ít, đơn giá trị cao",6,86
+SIM-03186,"Trung thành, chi tiêu cao",33,1
+SIM-03187,"Mua thường xuyên, đơn nhỏ",30,31
+SIM-03188,Khách mới,3,13
+SIM-03189,Khách mới,2,8
+SIM-03190,Lâu chưa quay lại,13,251
+SIM-03191,Lâu chưa quay lại,19,292
+SIM-03192,Khách mới,1,7
+SIM-03193,"Mua ít, đơn giá trị cao",9,116
+SIM-03194,"Mua ít, đơn giá trị cao",5,58
+SIM-03195,"Mua ít, đơn giá trị cao",5,74
+SIM-03196,"Mua thường xuyên, đơn nhỏ",34,28
+SIM-03197,Lâu chưa quay lại,12,267
+SIM-03198,Khách mới,2,9
+SIM-03199,"Mua thường xuyên, đơn nhỏ",26,23
+SIM-03200,"Mua thường xuyên, đơn nhỏ",36,44
+SIM-03201,"Mua thường xuyên, đơn nhỏ",34,28
+SIM-03202,"Trung thành, chi tiêu cao",33,25
+SIM-03203,"Trung thành, chi tiêu cao",35,12
+SIM-03204,Lâu chưa quay lại,17,263
+SIM-03205,"Trung thành, chi tiêu cao",43,10
+SIM-03206,"Mua thường xuyên, đơn nhỏ",34,31
+SIM-03207,"Trung thành, chi tiêu cao",24,15
+SIM-03208,"Trung thành, chi tiêu cao",30,19
+SIM-03209,"Mua thường xuyên, đơn nhỏ",32,33
+SIM-03210,"Mua ít, đơn giá trị cao",9,116
+SIM-03211,Lâu chưa quay lại,14,274
+SIM-03212,"Mua thường xuyên, đơn nhỏ",22,32
+SIM-03213,"Mua thường xuyên, đơn nhỏ",39,52
+SIM-03214,Lâu chưa quay lại,13,314
+SIM-03215,Khách mới,1,8
+SIM-03216,"Mua ít, đơn giá trị cao",5,105
+SIM-03217,"Mua ít, đơn giá trị cao",6,65
+SIM-03218,"Trung thành, chi tiêu cao",34,18
+SIM-03219,"Trung thành, chi tiêu cao",28,6
+SIM-03220,Khách mới,3,11
+SIM-03221,"Trung thành, chi tiêu cao",29,6
+SIM-03222,"Mua thường xuyên, đơn nhỏ",34,18
+SIM-03223,Khách mới,2,8
+SIM-03224,"Mua ít, đơn giá trị cao",3,62
+SIM-03225,"Mua ít, đơn giá trị cao",5,83
+SIM-03226,Khách mới,2,6
+SIM-03227,"Mua thường xuyên, đơn nhỏ",21,40
+SIM-03228,Khách mới,2,11
+SIM-03229,"Mua ít, đơn giá trị cao",5,121
+SIM-03230,"Mua ít, đơn giá trị cao",6,119
+SIM-03231,Lâu chưa quay lại,18,300
+SIM-03232,"Mua thường xuyên, đơn nhỏ",34,32
+SIM-03233,Lâu chưa quay lại,15,257
+SIM-03234,"Mua ít, đơn giá trị cao",5,97
+SIM-03235,Khách mới,3,13
+SIM-03236,"Mua thường xuyên, đơn nhỏ",25,41
+SIM-03237,Khách mới,4,5
+SIM-03238,"Mua ít, đơn giá trị cao",8,92
+SIM-03239,"Mua ít, đơn giá trị cao",5,94
+SIM-03240,Lâu chưa quay lại,12,299
+SIM-03241,Lâu chưa quay lại,16,237
+SIM-03242,"Mua ít, đơn giá trị cao",4,74
+SIM-03243,Lâu chưa quay lại,11,299
+SIM-03244,Lâu chưa quay lại,16,300
+SIM-03245,Lâu chưa quay lại,16,298
+SIM-03246,"Trung thành, chi tiêu cao",26,15
+SIM-03247,Lâu chưa quay lại,12,286
+SIM-03248,"Trung thành, chi tiêu cao",31,11
+SIM-03249,"Trung thành, chi tiêu cao",39,18
+SIM-03250,"Mua thường xuyên, đơn nhỏ",37,37
+SIM-03251,"Mua thường xuyên, đơn nhỏ",28,33
+SIM-03252,"Mua ít, đơn giá trị cao",5,127
+SIM-03253,"Mua thường xuyên, đơn nhỏ",44,28
+SIM-03254,Lâu chưa quay lại,16,282
+SIM-03255,Lâu chưa quay lại,15,260
+SIM-03256,"Mua ít, đơn giá trị cao",5,108
+SIM-03257,"Mua ít, đơn giá trị cao",5,100
+SIM-03258,Khách mới,2,11
+SIM-03259,"Mua ít, đơn giá trị cao",4,109
+SIM-03260,Lâu chưa quay lại,15,304
+SIM-03261,"Mua ít, đơn giá trị cao",5,84
+SIM-03262,"Mua thường xuyên, đơn nhỏ",31,23
+SIM-03263,"Mua ít, đơn giá trị cao",4,80
+SIM-03264,Lâu chưa quay lại,16,298
+SIM-03265,Lâu chưa quay lại,12,259
+SIM-03266,Lâu chưa quay lại,20,243
+SIM-03267,"Mua thường xuyên, đơn nhỏ",39,20
+SIM-03268,"Mua thường xuyên, đơn nhỏ",28,40
+SIM-03269,Lâu chưa quay lại,22,299
+SIM-03270,"Mua ít, đơn giá trị cao",3,93
+SIM-03271,"Trung thành, chi tiêu cao",40,17
+SIM-03272,"Mua thường xuyên, đơn nhỏ",36,33
+SIM-03273,"Mua ít, đơn giá trị cao",8,57
+SIM-03274,Lâu chưa quay lại,19,284
+SIM-03275,"Trung thành, chi tiêu cao",41,19
+SIM-03276,"Mua thường xuyên, đơn nhỏ",35,39
+SIM-03277,Lâu chưa quay lại,11,284
+SIM-03278,"Trung thành, chi tiêu cao",31,18
+SIM-03279,"Trung thành, chi tiêu cao",24,19
+SIM-03280,Lâu chưa quay lại,15,276
+SIM-03281,"Trung thành, chi tiêu cao",44,16
+SIM-03282,"Mua thường xuyên, đơn nhỏ",32,30
+SIM-03283,Khách mới,2,16
+SIM-03284,Lâu chưa quay lại,18,265
+SIM-03285,"Mua thường xuyên, đơn nhỏ",25,31
+SIM-03286,"Trung thành, chi tiêu cao",28,20
+SIM-03287,"Mua ít, đơn giá trị cao",4,46
+SIM-03288,"Mua thường xuyên, đơn nhỏ",28,31
+SIM-03289,Khách mới,1,6
+SIM-03290,"Trung thành, chi tiêu cao",43,12
+SIM-03291,Khách mới,3,3
+SIM-03292,"Mua ít, đơn giá trị cao",6,119
+SIM-03293,Khách mới,1,11
+SIM-03294,"Mua ít, đơn giá trị cao",3,51
+SIM-03295,"Mua thường xuyên, đơn nhỏ",41,32
+SIM-03296,"Mua thường xuyên, đơn nhỏ",38,28
+SIM-03297,Khách mới,2,6
+SIM-03298,"Mua ít, đơn giá trị cao",5,76
+SIM-03299,"Trung thành, chi tiêu cao",32,14
+SIM-03300,"Mua thường xuyên, đơn nhỏ",34,31
+SIM-03301,Lâu chưa quay lại,13,274
+SIM-03302,"Mua thường xuyên, đơn nhỏ",42,38
+SIM-03303,Khách mới,3,5
+SIM-03304,"Mua thường xuyên, đơn nhỏ",33,37
+SIM-03305,"Mua ít, đơn giá trị cao",2,101
+SIM-03306,"Mua ít, đơn giá trị cao",1,115
+SIM-03307,"Mua ít, đơn giá trị cao",7,44
+SIM-03308,Lâu chưa quay lại,17,261
+SIM-03309,Khách mới,2,9
+SIM-03310,Lâu chưa quay lại,18,261
+SIM-03311,Lâu chưa quay lại,10,268
+SIM-03312,Khách mới,2,10
+SIM-03313,"Trung thành, chi tiêu cao",33,17
+SIM-03314,Lâu chưa quay lại,18,294
+SIM-03315,Lâu chưa quay lại,6,255
+SIM-03316,"Trung thành, chi tiêu cao",23,8
+SIM-03317,"Trung thành, chi tiêu cao",33,11
+SIM-03318,Lâu chưa quay lại,13,284
+SIM-03319,"Mua ít, đơn giá trị cao",6,80
+SIM-03320,Khách mới,2,4
+SIM-03321,"Mua ít, đơn giá trị cao",3,111
+SIM-03322,"Mua thường xuyên, đơn nhỏ",33,45
+SIM-03323,"Trung thành, chi tiêu cao",45,19
+SIM-03324,"Trung thành, chi tiêu cao",39,15
+SIM-03325,"Trung thành, chi tiêu cao",23,23
+SIM-03326,Lâu chưa quay lại,18,278
+SIM-03327,Khách mới,1,7
+SIM-03328,Lâu chưa quay lại,16,303
+SIM-03329,Lâu chưa quay lại,13,279
+SIM-03330,"Mua thường xuyên, đơn nhỏ",33,34
+SIM-03331,"Trung thành, chi tiêu cao",25,18
+SIM-03332,Lâu chưa quay lại,14,291
+SIM-03333,"Mua thường xuyên, đơn nhỏ",36,18
+SIM-03334,Khách mới,2,17
+SIM-03335,"Trung thành, chi tiêu cao",32,27
+SIM-03336,Lâu chưa quay lại,19,287
+SIM-03337,"Mua thường xuyên, đơn nhỏ",31,20
+SIM-03338,Khách mới,3,8
+SIM-03339,"Trung thành, chi tiêu cao",31,20
+SIM-03340,Lâu chưa quay lại,11,303
+SIM-03341,"Trung thành, chi tiêu cao",35,8
+SIM-03342,"Mua ít, đơn giá trị cao",4,79
+SIM-03343,"Mua ít, đơn giá trị cao",2,80
+SIM-03344,"Mua ít, đơn giá trị cao",5,86
+SIM-03345,"Mua thường xuyên, đơn nhỏ",32,44
+SIM-03346,"Mua thường xuyên, đơn nhỏ",34,37
+SIM-03347,Lâu chưa quay lại,20,261
+SIM-03348,"Mua thường xuyên, đơn nhỏ",26,38
+SIM-03349,"Mua ít, đơn giá trị cao",5,90
+SIM-03350,Lâu chưa quay lại,18,311
+SIM-03351,Lâu chưa quay lại,18,298
+SIM-03352,"Mua thường xuyên, đơn nhỏ",34,26
+SIM-03353,Khách mới,2,8
+SIM-03354,"Mua ít, đơn giá trị cao",4,90
+SIM-03355,Khách mới,2,4
+SIM-03356,"Mua ít, đơn giá trị cao",4,101
+SIM-03357,"Trung thành, chi tiêu cao",26,4
+SIM-03358,Khách mới,2,7
+SIM-03359,Khách mới,3,5
+SIM-03360,"Trung thành, chi tiêu cao",40,8
+SIM-03361,Lâu chưa quay lại,18,273
+SIM-03362,Lâu chưa quay lại,17,270
+SIM-03363,"Trung thành, chi tiêu cao",43,17
+SIM-03364,"Mua ít, đơn giá trị cao",5,102
+SIM-03365,"Mua ít, đơn giá trị cao",8,117
+SIM-03366,Lâu chưa quay lại,19,283
+SIM-03367,"Mua thường xuyên, đơn nhỏ",38,29
+SIM-03368,"Mua thường xuyên, đơn nhỏ",31,21
+SIM-03369,Lâu chưa quay lại,9,262
+SIM-03370,"Mua thường xuyên, đơn nhỏ",34,41
+SIM-03371,"Mua thường xuyên, đơn nhỏ",29,35
+SIM-03372,"Mua thường xuyên, đơn nhỏ",31,22
+SIM-03373,"Mua thường xuyên, đơn nhỏ",30,31
+SIM-03374,Khách mới,2,8
+SIM-03375,Lâu chưa quay lại,15,317
+SIM-03376,Khách mới,2,10
+SIM-03377,Khách mới,2,14
+SIM-03378,"Trung thành, chi tiêu cao",34,16
+SIM-03379,"Mua thường xuyên, đơn nhỏ",30,30
+SIM-03380,"Mua thường xuyên, đơn nhỏ",38,13
+SIM-03381,"Mua ít, đơn giá trị cao",7,104
+SIM-03382,Khách mới,3,12
+SIM-03383,"Trung thành, chi tiêu cao",33,17
+SIM-03384,Khách mới,2,8
+SIM-03385,Lâu chưa quay lại,17,242
+SIM-03386,Lâu chưa quay lại,5,246
+SIM-03387,Khách mới,3,12
+SIM-03388,Lâu chưa quay lại,13,295
+SIM-03389,"Mua ít, đơn giá trị cao",6,50
+SIM-03390,"Mua thường xuyên, đơn nhỏ",26,27
+SIM-03391,Lâu chưa quay lại,15,269
+SIM-03392,"Mua ít, đơn giá trị cao",3,80
+SIM-03393,Khách mới,2,16
+SIM-03394,Khách mới,2,11
+SIM-03395,"Mua ít, đơn giá trị cao",6,78
+SIM-03396,Lâu chưa quay lại,24,308
+SIM-03397,"Mua ít, đơn giá trị cao",7,84
+SIM-03398,"Mua thường xuyên, đơn nhỏ",24,29
+SIM-03399,"Mua thường xuyên, đơn nhỏ",23,21
+SIM-03400,Lâu chưa quay lại,13,242
+SIM-03401,"Mua thường xuyên, đơn nhỏ",30,33
+SIM-03402,"Mua ít, đơn giá trị cao",7,76
+SIM-03403,Khách mới,1,9
+SIM-03404,"Trung thành, chi tiêu cao",28,12
+SIM-03405,Lâu chưa quay lại,15,285
+SIM-03406,"Mua thường xuyên, đơn nhỏ",23,43
+SIM-03407,Lâu chưa quay lại,20,328
+SIM-03408,Lâu chưa quay lại,8,272
+SIM-03409,"Trung thành, chi tiêu cao",40,1
+SIM-03410,"Mua ít, đơn giá trị cao",2,73
+SIM-03411,"Trung thành, chi tiêu cao",36,15
+SIM-03412,"Mua ít, đơn giá trị cao",5,122
+SIM-03413,"Mua thường xuyên, đơn nhỏ",34,36
+SIM-03414,"Mua ít, đơn giá trị cao",6,84
+SIM-03415,"Mua thường xuyên, đơn nhỏ",31,21
+SIM-03416,"Trung thành, chi tiêu cao",34,18
+SIM-03417,"Trung thành, chi tiêu cao",33,10
+SIM-03418,"Mua ít, đơn giá trị cao",3,74
+SIM-03419,"Mua ít, đơn giá trị cao",5,83
+SIM-03420,Lâu chưa quay lại,14,267
+SIM-03421,"Trung thành, chi tiêu cao",31,16
+SIM-03422,"Trung thành, chi tiêu cao",26,3
+SIM-03423,"Mua thường xuyên, đơn nhỏ",36,33
+SIM-03424,Khách mới,3,11
+SIM-03425,"Mua ít, đơn giá trị cao",8,72
+SIM-03426,Khách mới,1,11
+SIM-03427,"Mua ít, đơn giá trị cao",6,74
+SIM-03428,Lâu chưa quay lại,6,240
+SIM-03429,"Mua thường xuyên, đơn nhỏ",41,30
+SIM-03430,"Trung thành, chi tiêu cao",41,16
+SIM-03431,"Trung thành, chi tiêu cao",33,21
+SIM-03432,"Mua thường xuyên, đơn nhỏ",35,31
+SIM-03433,Khách mới,4,9
+SIM-03434,"Mua ít, đơn giá trị cao",5,85
+SIM-03435,Khách mới,2,3
+SIM-03436,"Mua ít, đơn giá trị cao",8,57
+SIM-03437,"Trung thành, chi tiêu cao",25,14
+SIM-03438,"Trung thành, chi tiêu cao",45,10
+SIM-03439,"Mua thường xuyên, đơn nhỏ",23,30
+SIM-03440,"Mua thường xuyên, đơn nhỏ",35,37
+SIM-03441,"Mua thường xuyên, đơn nhỏ",30,17
+SIM-03442,"Trung thành, chi tiêu cao",34,13
+SIM-03443,"Trung thành, chi tiêu cao",32,20
+SIM-03444,"Trung thành, chi tiêu cao",41,15
+SIM-03445,Lâu chưa quay lại,19,242
+SIM-03446,Lâu chưa quay lại,8,279
+SIM-03447,Lâu chưa quay lại,16,313
+SIM-03448,Lâu chưa quay lại,1,280
+SIM-03449,"Trung thành, chi tiêu cao",50,20
+SIM-03450,"Mua thường xuyên, đơn nhỏ",33,16
+SIM-03451,"Mua thường xuyên, đơn nhỏ",31,33
+SIM-03452,"Mua ít, đơn giá trị cao",3,118
+SIM-03453,"Mua ít, đơn giá trị cao",7,95
+SIM-03454,"Trung thành, chi tiêu cao",34,23
+SIM-03455,"Mua ít, đơn giá trị cao",2,66
+SIM-03456,"Mua ít, đơn giá trị cao",1,83
+SIM-03457,"Trung thành, chi tiêu cao",40,3
+SIM-03458,Lâu chưa quay lại,7,303
+SIM-03459,"Mua ít, đơn giá trị cao",2,96
+SIM-03460,Lâu chưa quay lại,14,258
+SIM-03461,Khách mới,2,7
+SIM-03462,Lâu chưa quay lại,14,258
+SIM-03463,"Mua thường xuyên, đơn nhỏ",27,46
+SIM-03464,Lâu chưa quay lại,12,327
+SIM-03465,Lâu chưa quay lại,14,284
+SIM-03466,"Mua ít, đơn giá trị cao",8,84
+SIM-03467,"Mua ít, đơn giá trị cao",1,82
+SIM-03468,"Trung thành, chi tiêu cao",37,19
+SIM-03469,Khách mới,2,10
+SIM-03470,Khách mới,2,6
+SIM-03471,"Mua thường xuyên, đơn nhỏ",32,27
+SIM-03472,Lâu chưa quay lại,16,298
+SIM-03473,Khách mới,2,6
+SIM-03474,Khách mới,3,12
+SIM-03475,"Mua ít, đơn giá trị cao",5,87
+SIM-03476,"Mua thường xuyên, đơn nhỏ",24,24
+SIM-03477,"Trung thành, chi tiêu cao",34,16
+SIM-03478,"Trung thành, chi tiêu cao",32,17
+SIM-03479,"Mua ít, đơn giá trị cao",5,102
+SIM-03480,Khách mới,1,9
+SIM-03481,Lâu chưa quay lại,16,281
+SIM-03482,Khách mới,2,10
+SIM-03483,"Mua ít, đơn giá trị cao",3,81
+SIM-03484,"Mua thường xuyên, đơn nhỏ",32,29
+SIM-03485,"Mua ít, đơn giá trị cao",8,86
+SIM-03486,"Mua ít, đơn giá trị cao",5,124
+SIM-03487,Lâu chưa quay lại,12,288
+SIM-03488,Khách mới,1,6
+SIM-03489,"Mua ít, đơn giá trị cao",8,125
+SIM-03490,Lâu chưa quay lại,14,260
+SIM-03491,"Trung thành, chi tiêu cao",29,11
+SIM-03492,Lâu chưa quay lại,11,284
+SIM-03493,Khách mới,3,8
+SIM-03494,"Trung thành, chi tiêu cao",28,15
+SIM-03495,"Trung thành, chi tiêu cao",38,12
+SIM-03496,"Trung thành, chi tiêu cao",30,22
+SIM-03497,Lâu chưa quay lại,14,274
+SIM-03498,"Mua thường xuyên, đơn nhỏ",40,32
+SIM-03499,Lâu chưa quay lại,18,258
+SIM-03500,"Trung thành, chi tiêu cao",35,23
+SIM-03501,Lâu chưa quay lại,14,279
+SIM-03502,"Mua ít, đơn giá trị cao",7,66
+SIM-03503,Khách mới,2,1
+SIM-03504,Khách mới,2,12
+SIM-03505,"Trung thành, chi tiêu cao",37,22
+SIM-03506,Lâu chưa quay lại,11,302
+SIM-03507,Khách mới,3,11
+SIM-03508,"Mua thường xuyên, đơn nhỏ",30,32
+SIM-03509,Lâu chưa quay lại,22,309
+SIM-03510,"Mua thường xuyên, đơn nhỏ",27,28
+SIM-03511,"Trung thành, chi tiêu cao",30,7
+SIM-03512,"Mua thường xuyên, đơn nhỏ",28,40
+SIM-03513,Lâu chưa quay lại,13,317
+SIM-03514,"Trung thành, chi tiêu cao",33,15
+SIM-03515,"Mua ít, đơn giá trị cao",2,76
+SIM-03516,Lâu chưa quay lại,10,289
+SIM-03517,"Trung thành, chi tiêu cao",30,15
+SIM-03518,Lâu chưa quay lại,22,237
+SIM-03519,Khách mới,2,13
+SIM-03520,Lâu chưa quay lại,13,261
+SIM-03521,"Mua thường xuyên, đơn nhỏ",30,38
+SIM-03522,"Trung thành, chi tiêu cao",29,12
+SIM-03523,Lâu chưa quay lại,17,271
+SIM-03524,"Mua thường xuyên, đơn nhỏ",27,30
+SIM-03525,"Mua ít, đơn giá trị cao",6,46
+SIM-03526,"Trung thành, chi tiêu cao",39,16
+SIM-03527,"Mua thường xuyên, đơn nhỏ",24,29
+SIM-03528,Khách mới,3,6
+SIM-03529,Khách mới,1,12
+SIM-03530,Khách mới,2,6
+SIM-03531,"Trung thành, chi tiêu cao",36,8
+SIM-03532,"Mua thường xuyên, đơn nhỏ",32,26
+SIM-03533,"Mua thường xuyên, đơn nhỏ",33,29
+SIM-03534,"Mua thường xuyên, đơn nhỏ",26,28
+SIM-03535,Khách mới,3,15
+SIM-03536,Lâu chưa quay lại,9,215
+SIM-03537,"Mua ít, đơn giá trị cao",5,81
+SIM-03538,"Mua thường xuyên, đơn nhỏ",36,28
+SIM-03539,"Trung thành, chi tiêu cao",38,25
+SIM-03540,"Mua ít, đơn giá trị cao",7,86
+SIM-03541,"Mua ít, đơn giá trị cao",1,92
+SIM-03542,"Trung thành, chi tiêu cao",28,14
+SIM-03543,"Mua thường xuyên, đơn nhỏ",27,45
+SIM-03544,"Trung thành, chi tiêu cao",35,20
+SIM-03545,"Trung thành, chi tiêu cao",36,23
+SIM-03546,"Trung thành, chi tiêu cao",37,6
+SIM-03547,Lâu chưa quay lại,12,266
+SIM-03548,"Mua thường xuyên, đơn nhỏ",39,30
+SIM-03549,"Mua thường xuyên, đơn nhỏ",37,40
+SIM-03550,"Mua ít, đơn giá trị cao",5,73
+SIM-03551,"Mua thường xuyên, đơn nhỏ",45,23
+SIM-03552,"Mua thường xuyên, đơn nhỏ",25,46
+SIM-03553,Lâu chưa quay lại,15,208
+SIM-03554,"Mua thường xuyên, đơn nhỏ",34,16
+SIM-03555,"Mua ít, đơn giá trị cao",3,103
+SIM-03556,Lâu chưa quay lại,6,315
+SIM-03557,Khách mới,2,12
+SIM-03558,"Mua ít, đơn giá trị cao",7,93
+SIM-03559,"Mua thường xuyên, đơn nhỏ",28,35
+SIM-03560,"Trung thành, chi tiêu cao",32,17
+SIM-03561,Lâu chưa quay lại,19,268
+SIM-03562,"Mua thường xuyên, đơn nhỏ",39,20
+SIM-03563,"Trung thành, chi tiêu cao",36,16
+SIM-03564,"Trung thành, chi tiêu cao",43,22
+SIM-03565,"Mua thường xuyên, đơn nhỏ",31,28
+SIM-03566,Lâu chưa quay lại,13,298
+SIM-03567,"Mua thường xuyên, đơn nhỏ",26,30
+SIM-03568,"Mua ít, đơn giá trị cao",2,63
+SIM-03569,"Mua ít, đơn giá trị cao",5,111
+SIM-03570,Lâu chưa quay lại,13,263
+SIM-03571,Khách mới,2,9
+SIM-03572,"Trung thành, chi tiêu cao",35,21
+SIM-03573,"Mua thường xuyên, đơn nhỏ",31,30
+SIM-03574,"Trung thành, chi tiêu cao",32,16
+SIM-03575,Khách mới,1,9
+SIM-03576,"Mua thường xuyên, đơn nhỏ",22,13
+SIM-03577,Khách mới,2,12
+SIM-03578,Lâu chưa quay lại,16,322
+SIM-03579,"Mua thường xuyên, đơn nhỏ",43,24
+SIM-03580,"Mua thường xuyên, đơn nhỏ",34,16
+SIM-03581,Khách mới,1,16
+SIM-03582,Khách mới,3,13
+SIM-03583,Khách mới,4,4
+SIM-03584,Lâu chưa quay lại,16,294
+SIM-03585,"Mua ít, đơn giá trị cao",6,76
+SIM-03586,"Mua thường xuyên, đơn nhỏ",38,22
+SIM-03587,"Trung thành, chi tiêu cao",37,9
+SIM-03588,"Mua ít, đơn giá trị cao",6,120
+SIM-03589,"Mua thường xuyên, đơn nhỏ",31,35
+SIM-03590,Lâu chưa quay lại,6,271
+SIM-03591,"Mua thường xuyên, đơn nhỏ",33,36
+SIM-03592,"Trung thành, chi tiêu cao",40,18
+SIM-03593,"Mua thường xuyên, đơn nhỏ",26,28
+SIM-03594,"Mua ít, đơn giá trị cao",5,65
+SIM-03595,"Mua ít, đơn giá trị cao",6,78
+SIM-03596,"Mua ít, đơn giá trị cao",5,110
+SIM-03597,"Mua thường xuyên, đơn nhỏ",36,36
+SIM-03598,"Mua ít, đơn giá trị cao",3,82
+SIM-03599,"Mua thường xuyên, đơn nhỏ",33,14
+SIM-03600,"Mua ít, đơn giá trị cao",4,114
+SIM-03601,"Mua thường xuyên, đơn nhỏ",28,46
+SIM-03602,Lâu chưa quay lại,17,302
+SIM-03603,Khách mới,2,9
+SIM-03604,"Trung thành, chi tiêu cao",42,9
+SIM-03605,Khách mới,2,10
+SIM-03606,"Mua ít, đơn giá trị cao",7,88
+SIM-03607,"Mua thường xuyên, đơn nhỏ",29,31
+SIM-03608,Lâu chưa quay lại,18,294
+SIM-03609,"Mua thường xuyên, đơn nhỏ",30,32
+SIM-03610,"Mua ít, đơn giá trị cao",1,87
+SIM-03611,Khách mới,1,2
+SIM-03612,Lâu chưa quay lại,20,251
+SIM-03613,Khách mới,2,15
+SIM-03614,Khách mới,3,8
+SIM-03615,"Trung thành, chi tiêu cao",36,17
+SIM-03616,"Mua thường xuyên, đơn nhỏ",29,33
+SIM-03617,Lâu chưa quay lại,21,284
+SIM-03618,Lâu chưa quay lại,15,267
+SIM-03619,"Mua thường xuyên, đơn nhỏ",39,22
+SIM-03620,"Trung thành, chi tiêu cao",46,9
+SIM-03621,"Trung thành, chi tiêu cao",42,19
+SIM-03622,"Mua ít, đơn giá trị cao",2,73
+SIM-03623,"Mua ít, đơn giá trị cao",4,101
+SIM-03624,Khách mới,1,12
+SIM-03625,"Trung thành, chi tiêu cao",40,8
+SIM-03626,"Trung thành, chi tiêu cao",39,23
+SIM-03627,Khách mới,2,5
+SIM-03628,Lâu chưa quay lại,9,276
+SIM-03629,Khách mới,3,11
+SIM-03630,Khách mới,2,7
+SIM-03631,"Trung thành, chi tiêu cao",33,13
+SIM-03632,"Mua ít, đơn giá trị cao",7,63
+SIM-03633,Khách mới,1,13
+SIM-03634,Lâu chưa quay lại,23,301
+SIM-03635,Khách mới,2,6
+SIM-03636,Lâu chưa quay lại,8,303
+SIM-03637,"Mua thường xuyên, đơn nhỏ",31,39
+SIM-03638,Khách mới,2,1
+SIM-03639,Lâu chưa quay lại,15,247
+SIM-03640,"Mua thường xuyên, đơn nhỏ",35,28
+SIM-03641,Lâu chưa quay lại,12,246
+SIM-03642,"Trung thành, chi tiêu cao",30,27
+SIM-03643,Khách mới,2,5
+SIM-03644,"Mua ít, đơn giá trị cao",9,84
+SIM-03645,Lâu chưa quay lại,13,332
+SIM-03646,Khách mới,2,11
+SIM-03647,"Mua ít, đơn giá trị cao",2,41
+SIM-03648,"Mua thường xuyên, đơn nhỏ",26,25
+SIM-03649,"Mua thường xuyên, đơn nhỏ",39,23
+SIM-03650,"Trung thành, chi tiêu cao",41,11
+SIM-03651,Khách mới,2,9
+SIM-03652,"Mua thường xuyên, đơn nhỏ",38,23
+SIM-03653,Khách mới,2,8
+SIM-03654,"Trung thành, chi tiêu cao",32,16
+SIM-03655,Khách mới,1,13
+SIM-03656,"Mua thường xuyên, đơn nhỏ",27,33
+SIM-03657,"Mua ít, đơn giá trị cao",5,91
+SIM-03658,Khách mới,1,10
+SIM-03659,Khách mới,3,11
+SIM-03660,Lâu chưa quay lại,19,305
+SIM-03661,Khách mới,2,16
+SIM-03662,"Trung thành, chi tiêu cao",31,6
+SIM-03663,"Mua thường xuyên, đơn nhỏ",28,25
+SIM-03664,Khách mới,2,10
+SIM-03665,Lâu chưa quay lại,10,309
+SIM-03666,"Mua thường xuyên, đơn nhỏ",33,22
+SIM-03667,Khách mới,2,11
+SIM-03668,Lâu chưa quay lại,12,290
+SIM-03669,"Trung thành, chi tiêu cao",44,10
+SIM-03670,Khách mới,2,8
+SIM-03671,Khách mới,1,8
+SIM-03672,Lâu chưa quay lại,11,271
+SIM-03673,"Mua thường xuyên, đơn nhỏ",32,31
+SIM-03674,"Trung thành, chi tiêu cao",36,11
+SIM-03675,"Mua ít, đơn giá trị cao",1,77
+SIM-03676,Khách mới,3,15
+SIM-03677,"Mua ít, đơn giá trị cao",3,93
+SIM-03678,Lâu chưa quay lại,12,324
+SIM-03679,"Mua thường xuyên, đơn nhỏ",39,29
+SIM-03680,Lâu chưa quay lại,11,290
+SIM-03681,Lâu chưa quay lại,16,249
+SIM-03682,"Trung thành, chi tiêu cao",36,13
+SIM-03683,Khách mới,2,10
+SIM-03684,"Mua thường xuyên, đơn nhỏ",29,34
+SIM-03685,Lâu chưa quay lại,16,308
+SIM-03686,"Mua thường xuyên, đơn nhỏ",29,43
+SIM-03687,"Trung thành, chi tiêu cao",27,16
+SIM-03688,"Mua ít, đơn giá trị cao",2,60
+SIM-03689,"Mua thường xuyên, đơn nhỏ",35,35
+SIM-03690,"Trung thành, chi tiêu cao",34,5
+SIM-03691,Khách mới,1,9
+SIM-03692,Lâu chưa quay lại,12,263
+SIM-03693,"Mua thường xuyên, đơn nhỏ",38,12
+SIM-03694,Khách mới,1,13
+SIM-03695,Lâu chưa quay lại,18,303
+SIM-03696,"Trung thành, chi tiêu cao",35,13
+SIM-03697,"Mua thường xuyên, đơn nhỏ",33,37
+SIM-03698,Lâu chưa quay lại,22,289
+SIM-03699,Khách mới,3,18
+SIM-03700,"Trung thành, chi tiêu cao",35,1
+SIM-03701,"Trung thành, chi tiêu cao",28,16
+SIM-03702,"Trung thành, chi tiêu cao",27,14
+SIM-03703,"Trung thành, chi tiêu cao",35,16
+SIM-03704,"Mua thường xuyên, đơn nhỏ",35,28
+SIM-03705,"Trung thành, chi tiêu cao",32,16
+SIM-03706,"Mua thường xuyên, đơn nhỏ",30,15
+SIM-03707,"Mua ít, đơn giá trị cao",4,35
+SIM-03708,Khách mới,1,17
+SIM-03709,"Mua ít, đơn giá trị cao",2,72
+SIM-03710,Khách mới,2,11
+SIM-03711,Khách mới,3,10
+SIM-03712,"Mua thường xuyên, đơn nhỏ",22,38
+SIM-03713,Khách mới,2,1
+SIM-03714,"Mua thường xuyên, đơn nhỏ",29,23
+SIM-03715,"Mua ít, đơn giá trị cao",6,80
+SIM-03716,Khách mới,4,13
+SIM-03717,"Mua thường xuyên, đơn nhỏ",37,18
+SIM-03718,Lâu chưa quay lại,13,314
+SIM-03719,"Mua thường xuyên, đơn nhỏ",23,26
+SIM-03720,Khách mới,2,14
+SIM-03721,"Mua ít, đơn giá trị cao",6,97
+SIM-03722,"Mua ít, đơn giá trị cao",2,73
+SIM-03723,Khách mới,2,5
+SIM-03724,"Trung thành, chi tiêu cao",36,19
+SIM-03725,"Trung thành, chi tiêu cao",29,9
+SIM-03726,Khách mới,1,7
+SIM-03727,"Trung thành, chi tiêu cao",38,10
+SIM-03728,"Mua thường xuyên, đơn nhỏ",30,50
+SIM-03729,Lâu chưa quay lại,15,305
+SIM-03730,"Mua thường xuyên, đơn nhỏ",40,16
+SIM-03731,Khách mới,3,18
+SIM-03732,Lâu chưa quay lại,19,308
+SIM-03733,"Mua thường xuyên, đơn nhỏ",32,23
+SIM-03734,"Mua thường xuyên, đơn nhỏ",34,37
+SIM-03735,"Mua thường xuyên, đơn nhỏ",31,29
+SIM-03736,"Mua ít, đơn giá trị cao",7,97
+SIM-03737,"Mua thường xuyên, đơn nhỏ",20,29
+SIM-03738,Lâu chưa quay lại,21,238
+SIM-03739,"Mua ít, đơn giá trị cao",7,67
+SIM-03740,Khách mới,2,13
+SIM-03741,"Mua ít, đơn giá trị cao",5,59
+SIM-03742,"Mua thường xuyên, đơn nhỏ",29,28
+SIM-03743,"Mua thường xuyên, đơn nhỏ",30,39
+SIM-03744,Khách mới,1,13
+SIM-03745,"Mua thường xuyên, đơn nhỏ",39,48
+SIM-03746,"Mua thường xuyên, đơn nhỏ",34,30
+SIM-03747,Khách mới,2,11
+SIM-03748,"Trung thành, chi tiêu cao",36,13
+SIM-03749,"Trung thành, chi tiêu cao",36,12
+SIM-03750,"Mua ít, đơn giá trị cao",8,76
+SIM-03751,"Mua thường xuyên, đơn nhỏ",35,37
+SIM-03752,"Mua thường xuyên, đơn nhỏ",37,40
+SIM-03753,"Trung thành, chi tiêu cao",32,11
+SIM-03754,"Trung thành, chi tiêu cao",32,16
+SIM-03755,"Mua ít, đơn giá trị cao",4,93
+SIM-03756,"Mua ít, đơn giá trị cao",5,74
+SIM-03757,"Trung thành, chi tiêu cao",35,19
+SIM-03758,"Mua thường xuyên, đơn nhỏ",35,28
+SIM-03759,"Mua ít, đơn giá trị cao",7,89
+SIM-03760,Khách mới,1,13
+SIM-03761,"Mua ít, đơn giá trị cao",2,105
+SIM-03762,Lâu chưa quay lại,16,282
+SIM-03763,Lâu chưa quay lại,12,251
+SIM-03764,"Mua ít, đơn giá trị cao",4,72
+SIM-03765,"Mua ít, đơn giá trị cao",6,66
+SIM-03766,"Mua ít, đơn giá trị cao",4,80
+SIM-03767,"Mua thường xuyên, đơn nhỏ",36,33
+SIM-03768,Khách mới,1,1
+SIM-03769,"Mua thường xuyên, đơn nhỏ",30,25
+SIM-03770,"Mua ít, đơn giá trị cao",7,85
+SIM-03771,"Mua thường xuyên, đơn nhỏ",36,27
+SIM-03772,Khách mới,1,2
+SIM-03773,"Mua ít, đơn giá trị cao",1,96
+SIM-03774,Khách mới,1,11
+SIM-03775,"Mua ít, đơn giá trị cao",5,100
+SIM-03776,"Mua thường xuyên, đơn nhỏ",30,40
+SIM-03777,"Mua thường xuyên, đơn nhỏ",36,32
+SIM-03778,"Mua thường xuyên, đơn nhỏ",42,30
+SIM-03779,Khách mới,1,12
+SIM-03780,"Mua ít, đơn giá trị cao",2,115
+SIM-03781,"Trung thành, chi tiêu cao",36,14
+SIM-03782,Lâu chưa quay lại,11,300
+SIM-03783,Lâu chưa quay lại,13,295
+SIM-03784,"Mua ít, đơn giá trị cao",6,79
+SIM-03785,Lâu chưa quay lại,9,273
+SIM-03786,Lâu chưa quay lại,14,294
+SIM-03787,Lâu chưa quay lại,18,317
+SIM-03788,Khách mới,2,10
+SIM-03789,Lâu chưa quay lại,16,313
+SIM-03790,"Mua thường xuyên, đơn nhỏ",27,17
+SIM-03791,Khách mới,3,5
+SIM-03792,"Mua ít, đơn giá trị cao",5,80
+SIM-03793,Lâu chưa quay lại,15,245
+SIM-03794,"Mua ít, đơn giá trị cao",4,106
+SIM-03795,"Trung thành, chi tiêu cao",30,5
+SIM-03796,"Mua thường xuyên, đơn nhỏ",30,32
+SIM-03797,Khách mới,1,8
+SIM-03798,Lâu chưa quay lại,15,326
+SIM-03799,"Mua thường xuyên, đơn nhỏ",36,38
+SIM-03800,"Mua thường xuyên, đơn nhỏ",34,34
+SIM-03801,Lâu chưa quay lại,11,254
+SIM-03802,Khách mới,1,10
+SIM-03803,Khách mới,1,7
+SIM-03804,"Trung thành, chi tiêu cao",39,6
+SIM-03805,"Mua ít, đơn giá trị cao",7,127
+SIM-03806,"Trung thành, chi tiêu cao",38,10
+SIM-03807,"Mua thường xuyên, đơn nhỏ",39,24
+SIM-03808,Lâu chưa quay lại,15,312
+SIM-03809,"Mua ít, đơn giá trị cao",5,100
+SIM-03810,"Mua thường xuyên, đơn nhỏ",35,33
+SIM-03811,"Mua thường xuyên, đơn nhỏ",36,30
+SIM-03812,"Mua ít, đơn giá trị cao",7,58
+SIM-03813,Lâu chưa quay lại,14,231
+SIM-03814,"Mua thường xuyên, đơn nhỏ",30,24
+SIM-03815,Khách mới,2,6
+SIM-03816,"Mua ít, đơn giá trị cao",6,86
+SIM-03817,"Trung thành, chi tiêu cao",37,10
+SIM-03818,"Trung thành, chi tiêu cao",33,12
+SIM-03819,Lâu chưa quay lại,22,277
+SIM-03820,"Mua ít, đơn giá trị cao",4,82
+SIM-03821,"Trung thành, chi tiêu cao",29,16
+SIM-03822,Lâu chưa quay lại,13,278
+SIM-03823,"Mua thường xuyên, đơn nhỏ",30,32
+SIM-03824,"Mua thường xuyên, đơn nhỏ",28,33
+SIM-03825,"Mua ít, đơn giá trị cao",6,86
+SIM-03826,Lâu chưa quay lại,10,344
+SIM-03827,"Mua ít, đơn giá trị cao",3,87
+SIM-03828,Lâu chưa quay lại,14,293
+SIM-03829,"Mua thường xuyên, đơn nhỏ",33,20
+SIM-03830,"Mua ít, đơn giá trị cao",10,71
+SIM-03831,"Mua ít, đơn giá trị cao",2,84
+SIM-03832,Lâu chưa quay lại,14,246
+SIM-03833,Khách mới,2,10
+SIM-03834,Lâu chưa quay lại,13,286
+SIM-03835,Khách mới,2,9
+SIM-03836,"Mua ít, đơn giá trị cao",6,94
+SIM-03837,Khách mới,2,9
+SIM-03838,"Mua thường xuyên, đơn nhỏ",28,41
+SIM-03839,Lâu chưa quay lại,15,274
+SIM-03840,"Trung thành, chi tiêu cao",37,11
+SIM-03841,Lâu chưa quay lại,17,265
+SIM-03842,Lâu chưa quay lại,19,277
+SIM-03843,Lâu chưa quay lại,5,273
+SIM-03844,"Trung thành, chi tiêu cao",36,7
+SIM-03845,Khách mới,1,10
+SIM-03846,"Trung thành, chi tiêu cao",34,17
+SIM-03847,Khách mới,2,6
+SIM-03848,Lâu chưa quay lại,10,263
+SIM-03849,Khách mới,2,3
+SIM-03850,Lâu chưa quay lại,10,298
+SIM-03851,Khách mới,3,12
+SIM-03852,"Mua thường xuyên, đơn nhỏ",32,34
+SIM-03853,Khách mới,3,5
+SIM-03854,"Trung thành, chi tiêu cao",36,25
+SIM-03855,Khách mới,2,13
+SIM-03856,"Trung thành, chi tiêu cao",28,15
+SIM-03857,Khách mới,1,11
+SIM-03858,"Trung thành, chi tiêu cao",39,15
+SIM-03859,Lâu chưa quay lại,9,301
+SIM-03860,"Mua ít, đơn giá trị cao",6,95
+SIM-03861,"Mua ít, đơn giá trị cao",7,109
+SIM-03862,Lâu chưa quay lại,20,284
+SIM-03863,"Mua ít, đơn giá trị cao",5,73
+SIM-03864,Lâu chưa quay lại,17,240
+SIM-03865,Khách mới,2,12
+SIM-03866,"Mua ít, đơn giá trị cao",2,71
+SIM-03867,"Mua ít, đơn giá trị cao",3,62
+SIM-03868,Lâu chưa quay lại,5,259
+SIM-03869,"Trung thành, chi tiêu cao",31,19
+SIM-03870,Khách mới,2,6
+SIM-03871,"Mua ít, đơn giá trị cao",4,90
+SIM-03872,Lâu chưa quay lại,14,278
+SIM-03873,"Trung thành, chi tiêu cao",32,13
+SIM-03874,"Trung thành, chi tiêu cao",36,12
+SIM-03875,Khách mới,2,13
+SIM-03876,"Trung thành, chi tiêu cao",28,19
+SIM-03877,Khách mới,1,11
+SIM-03878,"Trung thành, chi tiêu cao",27,7
+SIM-03879,"Mua ít, đơn giá trị cao",8,79
+SIM-03880,"Mua ít, đơn giá trị cao",1,72
+SIM-03881,"Trung thành, chi tiêu cao",34,17
+SIM-03882,"Mua thường xuyên, đơn nhỏ",29,25
+SIM-03883,Lâu chưa quay lại,15,263
+SIM-03884,"Mua thường xuyên, đơn nhỏ",29,29
+SIM-03885,Khách mới,2,11
+SIM-03886,"Mua thường xuyên, đơn nhỏ",34,32
+SIM-03887,"Mua ít, đơn giá trị cao",6,96
+SIM-03888,"Mua ít, đơn giá trị cao",3,84
+SIM-03889,"Mua thường xuyên, đơn nhỏ",33,25
+SIM-03890,"Mua thường xuyên, đơn nhỏ",39,18
+SIM-03891,"Trung thành, chi tiêu cao",31,16
+SIM-03892,"Mua thường xuyên, đơn nhỏ",30,22
+SIM-03893,"Mua ít, đơn giá trị cao",4,123
+SIM-03894,Khách mới,3,3
+SIM-03895,"Mua ít, đơn giá trị cao",5,104
+SIM-03896,Khách mới,3,1
+SIM-03897,"Trung thành, chi tiêu cao",30,23
+SIM-03898,"Trung thành, chi tiêu cao",35,11
+SIM-03899,"Mua ít, đơn giá trị cao",6,122
+SIM-03900,Lâu chưa quay lại,23,250
+SIM-03901,Lâu chưa quay lại,14,242
+SIM-03902,"Trung thành, chi tiêu cao",41,9
+SIM-03903,"Mua ít, đơn giá trị cao",5,52
+SIM-03904,"Mua thường xuyên, đơn nhỏ",26,20
+SIM-03905,"Mua thường xuyên, đơn nhỏ",28,53
+SIM-03906,"Mua ít, đơn giá trị cao",3,104
+SIM-03907,Lâu chưa quay lại,13,300
+SIM-03908,"Mua thường xuyên, đơn nhỏ",32,28
+SIM-03909,"Mua ít, đơn giá trị cao",5,112
+SIM-03910,Lâu chưa quay lại,13,223
+SIM-03911,"Mua thường xuyên, đơn nhỏ",39,24
+SIM-03912,"Mua ít, đơn giá trị cao",6,97
+SIM-03913,Khách mới,2,10
+SIM-03914,Lâu chưa quay lại,16,240
+SIM-03915,Khách mới,2,7
+SIM-03916,"Trung thành, chi tiêu cao",30,19
+SIM-03917,"Trung thành, chi tiêu cao",28,16
+SIM-03918,Lâu chưa quay lại,12,248
+SIM-03919,"Mua thường xuyên, đơn nhỏ",22,22
+SIM-03920,"Mua ít, đơn giá trị cao",4,80
+SIM-03921,Lâu chưa quay lại,13,248
+SIM-03922,"Mua ít, đơn giá trị cao",3,79
+SIM-03923,Khách mới,3,5
+SIM-03924,"Mua ít, đơn giá trị cao",5,93
+SIM-03925,Lâu chưa quay lại,19,274
+SIM-03926,Lâu chưa quay lại,15,284
+SIM-03927,"Mua thường xuyên, đơn nhỏ",22,17
+SIM-03928,Lâu chưa quay lại,20,282
+SIM-03929,Khách mới,4,12
+SIM-03930,"Trung thành, chi tiêu cao",39,14
+SIM-03931,Khách mới,2,9
+SIM-03932,Khách mới,1,9
+SIM-03933,"Trung thành, chi tiêu cao",40,18
+SIM-03934,Lâu chưa quay lại,17,290
+SIM-03935,"Mua ít, đơn giá trị cao",2,117
+SIM-03936,Khách mới,2,4
+SIM-03937,Lâu chưa quay lại,14,284
+SIM-03938,Khách mới,3,6
+SIM-03939,"Trung thành, chi tiêu cao",46,19
+SIM-03940,"Mua thường xuyên, đơn nhỏ",20,28
+SIM-03941,"Mua thường xuyên, đơn nhỏ",37,19
+SIM-03942,"Mua thường xuyên, đơn nhỏ",38,31
+SIM-03943,"Mua ít, đơn giá trị cao",5,77
+SIM-03944,Lâu chưa quay lại,13,236
+SIM-03945,"Mua ít, đơn giá trị cao",2,112
+SIM-03946,"Mua thường xuyên, đơn nhỏ",33,43
+SIM-03947,Khách mới,3,15
+SIM-03948,"Trung thành, chi tiêu cao",25,15
+SIM-03949,"Mua thường xuyên, đơn nhỏ",36,29
+SIM-03950,Lâu chưa quay lại,19,277
+SIM-03951,Lâu chưa quay lại,17,303
+SIM-03952,"Trung thành, chi tiêu cao",32,25
+SIM-03953,Khách mới,2,12
+SIM-03954,"Mua ít, đơn giá trị cao",5,79
+SIM-03955,Lâu chưa quay lại,18,330
+SIM-03956,"Mua thường xuyên, đơn nhỏ",33,40
+SIM-03957,Khách mới,2,11
+SIM-03958,"Mua thường xuyên, đơn nhỏ",31,36
+SIM-03959,Lâu chưa quay lại,14,306
+SIM-03960,"Mua ít, đơn giá trị cao",8,102
+SIM-03961,"Trung thành, chi tiêu cao",31,19
+SIM-03962,"Mua thường xuyên, đơn nhỏ",32,32
+SIM-03963,Lâu chưa quay lại,17,286
+SIM-03964,"Trung thành, chi tiêu cao",30,18
+SIM-03965,Khách mới,2,11
+SIM-03966,"Trung thành, chi tiêu cao",41,11
+SIM-03967,"Mua thường xuyên, đơn nhỏ",29,14
+SIM-03968,"Trung thành, chi tiêu cao",32,15
+SIM-03969,"Mua ít, đơn giá trị cao",4,49
+SIM-03970,Khách mới,1,12
+SIM-03971,"Mua ít, đơn giá trị cao",3,91
+SIM-03972,"Mua ít, đơn giá trị cao",5,75
+SIM-03973,Lâu chưa quay lại,21,250
+SIM-03974,Lâu chưa quay lại,12,331
+SIM-03975,"Mua thường xuyên, đơn nhỏ",33,36
+SIM-03976,"Mua ít, đơn giá trị cao",5,71
+SIM-03977,Khách mới,2,9
+SIM-03978,"Trung thành, chi tiêu cao",26,25
+SIM-03979,"Mua thường xuyên, đơn nhỏ",33,23
+SIM-03980,Khách mới,1,5
+SIM-03981,"Trung thành, chi tiêu cao",34,13
+SIM-03982,"Mua thường xuyên, đơn nhỏ",37,29
+SIM-03983,Lâu chưa quay lại,14,242
+SIM-03984,Lâu chưa quay lại,21,265
+SIM-03985,"Mua thường xuyên, đơn nhỏ",28,47
+SIM-03986,Khách mới,1,12
+SIM-03987,"Mua ít, đơn giá trị cao",8,78
+SIM-03988,"Trung thành, chi tiêu cao",30,24
+SIM-03989,"Mua ít, đơn giá trị cao",6,55
+SIM-03990,"Trung thành, chi tiêu cao",30,13
+SIM-03991,Khách mới,2,9
+SIM-03992,Khách mới,2,10
+SIM-03993,Lâu chưa quay lại,10,293
+SIM-03994,"Mua thường xuyên, đơn nhỏ",36,31
+SIM-03995,"Mua ít, đơn giá trị cao",4,116
+SIM-03996,"Mua ít, đơn giá trị cao",6,42
+SIM-03997,"Mua ít, đơn giá trị cao",1,83
+SIM-03998,"Mua ít, đơn giá trị cao",4,93
+SIM-03999,"Mua thường xuyên, đơn nhỏ",32,35
+SIM-04000,Lâu chưa quay lại,21,260

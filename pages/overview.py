@@ -13,6 +13,25 @@ def render() -> None:
 
     st.markdown(
         """
+        **Câu hỏi nghiên cứu.** Khi dữ liệu khách hàng có nhiều chiều (trong đó có chiều nhiễu), giảm chiều bằng
+        **t-SNE** (so với **PCA**, **UMAP** và dữ liệu gốc) có giúp K-Means, GMM, DBSCAN tìm đúng nhóm khách hàng hơn không?
+        Đo bằng **ARI so với nhóm thật** trên bộ mô phỏng 5 nhóm, và silhouette đo lại trên không gian gốc để so sánh công bằng.
+        """
+    )
+    with st.expander("Giới hạn cần biết khi đọc kết quả", expanded=False):
+        st.markdown(
+            """
+            - **t-SNE chỉ để quan sát.** Khoảng cách giữa các cụm và kích thước cụm trên bản đồ không có nghĩa định lượng;
+              kết quả phụ thuộc perplexity và seed. t-SNE không có phép chiếu cố định cho điểm mới.
+            - **File gốc 100.000 dòng là dữ liệu ngẫu nhiên độc lập** (Hopkins ≈ 0,50 trên bộ RFM): không có cụm thật.
+              Silhouette trong không gian 2D vẫn cao trên dữ liệu như vậy, nên không dùng nó làm bằng chứng.
+            - **Bộ mô phỏng 5 nhóm** có cụm thật; kết quả giảm chiều có lợi hay không phụ thuộc vào số chiều nhiễu
+              và thuật toán, không phải lúc nào t-SNE cũng thắng.
+            """
+        )
+
+    st.markdown(
+        """
         Hệ thống được thiết kế thành **hai luồng xử lý tách biệt** nhằm giải quyết đồng thời bài toán
         **ứng dụng phân khúc khách hàng thực tế** và bài toán **thực nghiệm so sánh khoa học** giữa các không gian giảm chiều:
         """
@@ -27,10 +46,11 @@ def render() -> None:
         )
         st.code(
             """
-CSV (11 cột)
+CSV thô (20 cột hoặc bộ mô phỏng 5 nhóm)
    │
    ▼
-Preprocessing (Date -> Recency/Tenure, One-Hot, log1p)
+Preprocessing (ngày -> recency_days với ngày tham chiếu cố định,
+               n_orders = chi tiêu / giá trị đơn, subscription 0/1, One-Hot danh mục)
    │
    ▼
 StandardScaler  ──►  X_scaled ("original")

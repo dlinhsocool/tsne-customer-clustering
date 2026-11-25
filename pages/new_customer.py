@@ -42,68 +42,107 @@ def _to_1d_float_array(values: Any) -> np.ndarray:
         return np.array([], dtype=float)
 
 
-def _form(prep: dict[str, Any]) -> dict[str, Any] | None:
-    """Tạo form nhập khách hàng mới theo schema dữ liệu huấn luyện."""
+def _field_key(name: str) -> str:
+    return f"nc_field_{name}"
+
+
+def _typical_values(prep: dict[str, Any], labels: np.ndarray | None, cluster_id: int | None) -> dict[str, Any]:
+    """Giá trị điển hình (trung vị / mốt) của một cụm, hoặc của toàn bộ dữ liệu nếu cluster_id None."""
+    df = prep["df_clean"].reset_index(drop=True)
+    cfg = prep["preprocess_config"]
+    if cluster_id is not None and labels is not None and len(labels) == len(df):
+        df = df[np.asarray(labels) == cluster_id]
+    out: dict[str, Any] = {}
+    for field in cfg.get("form_fields", []):
+        name, kind = field["name"], field["kind"]
+        if name not in df.columns or df.empty:
+            continue
+        if kind in ("int", "float"):
+            value = float(pd.to_numeric(df[name], errors="coerce").median())
+            out[name] = int(round(value)) if kind == "int" else round(value, 2)
+        elif kind == "bool":
+            out[name] = bool(pd.to_numeric(df[name], errors="coerce").mean() >= 0.5)
+        else:
+            out[name] = str(df[name].mode().iloc[0])
+    return out
+
+
+def _apply_preset(values: dict[str, Any]) -> None:
+    for name, value in values.items():
+        st.session_state[_field_key(name)] = value
+
+
+def _form(prep: dict[str, Any], labels: np.ndarray | None, algo_key: str) -> dict[str, Any] | None:
+    """Form nhập khách hàng mới, sinh từ `preprocess_config["form_fields"]` (đúng kiểu & khoảng huấn luyện)."""
+    cfg = prep["preprocess_config"]
+    fields = cfg.get("form_fields") or []
+    if not fields:
+        st.error("preprocess_config không có 'form_fields'. Hãy chạy lại bước tiền xử lý.")
+        return None
+
     st.markdown("**Thông tin khách hàng mới**")
 
-    df = prep["df_clean"]
-    cfg = prep["preprocess_config"]
-    raw_cols = cfg.get("raw_feature_columns") or prep["feature_columns"]
-    classified = cfg.get("column_roles") or {}
-    dt_set = set(classified.get("datetime_columns", []))
-    cat_set = set(classified.get("categorical_columns", []))
-    raw_ranges = cfg.get("raw_feature_ranges") or cfg.get("feature_ranges", {})
-    category_levels = cfg.get("category_levels", {})
-    raw_fill_values = cfg.get("raw_fill_values", {})
-
-    values: dict[str, Any] = {}
-
-    with st.form("new_customer_form"):
-        cols = st.columns(2)
-
-        for i, col_name in enumerate(raw_cols):
-            box = cols[i % 2]
-            label = interface.display_name(col_name)
-
-            if col_name in dt_set:
-                default_str = str(raw_fill_values.get(col_name, "2024-06-01"))
-                default_dt = pd.to_datetime(default_str, errors="coerce")
-                if pd.isna(default_dt):
-                    default_dt = pd.Timestamp("2024-06-01")
-
-                picked = box.date_input(label, value=default_dt.date())
-                values[col_name] = picked.strftime("%Y-%m-%d")
-
-            elif col_name in cat_set:
-                options = category_levels.get(col_name)
-                if options:
-                    values[col_name] = box.selectbox(label, options)
-                else:
-                    default_bool = bool(raw_fill_values.get(col_name, False))
-                    values[col_name] = box.checkbox(label, value=default_bool)
-
-            else:
-                lo, hi = raw_ranges.get(col_name, (0.0, 10000.0))
-                if col_name in df.columns:
-                    median_value = pd.to_numeric(df[col_name], errors="coerce").median()
-                else:
-                    median_value = np.nan
-
-                if pd.isna(median_value):
-                    median_value = (float(lo) + float(hi)) / 2.0
-
-                values[col_name] = box.number_input(
-                    label,
-                    value=float(median_value),
-                    format="%.3f",
-                    help=f"Trong dữ liệu huấn luyện: từ {lo:.3g} đến {hi:.3g}.",
+    # --- Điền mẫu: giá trị điển hình của từng cụm (nút nằm ngoài form để cập nhật được ô nhập) -----
+    if labels is not None:
+        cluster_ids = sorted(int(c) for c in np.unique(labels) if int(c) != -1)
+        if cluster_ids:
+            st.caption("Điền nhanh bằng khách điển hình (trung vị) của một cụm:")
+            cols = st.columns(min(len(cluster_ids), 5))
+            for i, cid in enumerate(cluster_ids[:10]):
+                cols[i % len(cols)].button(
+                    interface.cluster_label_for(algo_key, cid),
+                    key=f"preset_{algo_key}_{cid}",
+                    width="stretch",
+                    on_click=lambda c=cid: _apply_preset(_typical_values(prep, labels, c)),
                 )
 
-        submitted = st.form_submit_button(
-            "Phân tích khách hàng",
-            type="primary",
-            width="stretch",
-        )
+    allow_outside = st.checkbox(
+        "Cho phép nhập ngoài khoảng dữ liệu huấn luyện (để thử khách bất thường)",
+        value=False,
+    )
+
+    values: dict[str, Any] = {}
+    with st.form("new_customer_form"):
+        columns = st.columns(2)
+        for i, field in enumerate(fields):
+            name, kind = field["name"], field["kind"]
+            box = columns[i % 2]
+            label = interface.display_name(name)
+            key = _field_key(name)
+
+            if kind in ("int", "float"):
+                lo, hi = float(field["min"]), float(field["max"])
+                is_int = kind == "int"
+                default = field["default"]
+                if key not in st.session_state:
+                    st.session_state[key] = int(default) if is_int else float(default)
+                bounds = {"min_value": 0 if is_int else 0.0}
+                if not allow_outside:
+                    bounds["min_value"] = int(lo) if is_int else lo
+                    bounds["max_value"] = int(hi) if is_int else hi
+                values[name] = box.number_input(
+                    label,
+                    key=key,
+                    step=1 if is_int else 10.0,
+                    format="%d" if is_int else "%.2f",
+                    help=f"Khoảng trong dữ liệu huấn luyện: {lo:,.4g} đến {hi:,.4g}.",
+                    **bounds,
+                )
+            elif kind == "bool":
+                if key not in st.session_state:
+                    st.session_state[key] = bool(field["default"])
+                values[name] = box.checkbox(label, key=key)
+            else:
+                options = field["options"]
+                if key not in st.session_state or st.session_state[key] not in options:
+                    st.session_state[key] = field["default"]
+                values[name] = box.selectbox(label, options, key=key)
+
+        submitted = st.form_submit_button("Phân tích khách hàng", type="primary", width="stretch")
+
+    total, n_orders = values.get("total_spent"), values.get("n_orders")
+    if total is not None and n_orders:
+        st.caption(f"Giá trị đơn trung bình suy ra = Tổng chi tiêu / Số đơn = {float(total) / float(n_orders):,.2f}.")
 
     return values if submitted else None
 
@@ -131,9 +170,10 @@ def _build_neighbor_table(
 
     cfg = prep.get("preprocess_config", {})
     candidate_cols = (
-        cfg.get("raw_feature_columns")
-        or prep.get("feature_columns", [])
-    )
+        list(cfg.get("numeric_columns", []))
+        + list(cfg.get("binary_columns", []))
+        + list(cfg.get("categorical_columns", []))
+    ) or prep.get("feature_columns", [])
     show_cols = [col for col in candidate_cols if col in df.columns]
     if not show_cols:
         show_cols = df.columns.tolist()
@@ -171,8 +211,9 @@ def render() -> None:
         return
 
     st.caption(
-        "Hai bước độc lập trên X_scaled: (1) gán khách mới vào cụm bằng mô hình phân cụm chính, "
-        "(2) chiếu khách mới lên bản đồ t-SNE 2D để quan sát vị trí."
+        "Hai bước độc lập trên X_scaled: (1) gán khách mới vào cụm bằng mô hình phân cụm chính; "
+        "(2) đặt khách mới lên bản đồ t-SNE 2D. t-SNE không có phép chiếu cố định cho điểm mới nên vị trí chỉ là "
+        "nội suy từ các hàng xóm, dùng để quan sát; cụm được quyết định ở bước (1)."
     )
 
     prep = interface.get(SK.PREP)
@@ -243,7 +284,7 @@ def render() -> None:
                 }[value],
             )
 
-        values = _form(prep)
+        values = _form(prep, np.asarray(selected_result["labels"]), selected_algo)
 
     # Chạy pipeline khi người dùng bấm nút trong form.
     if values is not None:
@@ -328,6 +369,7 @@ def render() -> None:
         col2.metric(
             "Độ tin cậy",
             "N/A" if confidence is None else f"{float(confidence):.0%}",
+            help=assignment.get("confidence_kind"),
         )
 
         mean_distance = assignment.get("mean_neighbor_distance")
@@ -345,6 +387,31 @@ def render() -> None:
             st.warning(
                 "Giá trị ngoài khoảng đã thấy trong dữ liệu huấn luyện: "
                 f"{feature_names}. Kết quả kém chắc chắn hơn."
+            )
+
+        with st.expander("Giá trị đã quy đổi (cùng pipeline với khách cũ, scaler không fit lại)"):
+            raw_row = new_customer_result["X_new_raw"].iloc[0]
+            scaled_row = np.asarray(new_customer_result["X_new_scaled"]).reshape(-1)
+            log_cols = set((prep.get("preprocess_config") or {}).get("log_transform_columns", []))
+            names = [
+                interface.display_name(c) + (" [log(1+x)]" if c in log_cols else "")
+                for c in raw_row.index
+            ]
+            if log_cols:
+                st.caption(
+                    "Cột có [log(1+x)] đã được lấy log trước khi chuẩn hóa (giống khách cũ), "
+                    "nên giá trị khác số bạn nhập. Ví dụ tổng chi tiêu 185,80 → ln(186,80) = 5,23."
+                )
+            st.dataframe(
+                pd.DataFrame(
+                    {
+                        "Đặc trưng": names,
+                        "Sau xử lý (trước scale)": raw_row.to_numpy(dtype=float),
+                        "Sau chuẩn hóa (X_scaled)": scaled_row,
+                    }
+                ).round(3),
+                hide_index=True,
+                width="stretch",
             )
 
         if assignment.get("is_outlier", False) and not assignment.get("is_noise", False):

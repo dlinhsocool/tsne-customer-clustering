@@ -6,7 +6,7 @@ import streamlit as st
 
 from utils import interface
 from utils import visualization as viz
-from utils.constants import SK
+from utils.constants import OPTIONAL_NOISE_FEATURES, REFERENCE_DATE, SK
 
 
 def _load_uploaded(upload, sep: str) -> None:
@@ -42,13 +42,19 @@ def _build_role_table(val: dict) -> pd.DataFrame:
             action = "Chỉ dùng tính ARI, không đưa vào đặc trưng"
         elif col in dt_set:
             role = "Ngày tháng (Date)"
-            action = "Trích xuất Recency / Tenure (số ngày)"
+            action = f"Quy đổi recency_days = ngày tham chiếu cố định ({REFERENCE_DATE}) trừ ngày mua cuối"
+        elif col in OPTIONAL_NOISE_FEATURES:
+            role = "Nhân khẩu / nhiễu (tùy chọn)"
+            action = "Không chọn mặc định; có thể thêm để quan sát ảnh hưởng của chiều nhiễu"
+        elif col == "avg_order_value":
+            role = "Số (suy ra từ chi tiêu / số đơn)"
+            action = "Cùng total_spent tạo n_orders (Frequency); chỉ giữ để diễn giải"
         elif col in cat_set:
             role = "Phân loại / Boolean"
-            action = "Chuyển 0/1 hoặc One-Hot Encoding"
+            action = "Boolean -> 0/1; chữ -> One-Hot (danh sách mức cố định)"
         elif col in num_set:
             role = "Số (Numeric)"
-            action = "Đưa trực tiếp vào StandardScaler"
+            action = "StandardScaler (cột 0/1 giữ nguyên)"
         else:
             role = "Khác"
             action = "Không dùng"
@@ -68,15 +74,19 @@ def render() -> None:
 
     c1, c2, c3 = st.columns([3, 1, 2])
     with c1:
-        upload = st.file_uploader("Tải file CSV (ví dụ: synthetic_customers_11cols.csv)", type=["csv"])
+        upload = st.file_uploader(
+            "Tải file CSV thô (ví dụ: synthetic_customers_20cols.csv hoặc customers_simulated_5groups.csv)",
+            type=["csv"],
+            help="Tải file THÔ (có cột ngày). Không tải customers_scaled.csv / customers_clean.csv: app sẽ chuẩn hóa lại lần nữa.",
+        )
     with c2:
         sep = st.selectbox("Ký tự phân tách", [",", ";", "\t", "|"], format_func=lambda s: {"\t": "Tab"}.get(s, s))
     with c3:
         st.write("")
         st.write("")
         use_sample = st.button(
-            "Dùng dữ liệu mẫu giả lập", width="stretch",
-            help="Chỉ để thử giao diện khi chưa có dữ liệu chuẩn.",
+            "Dùng bộ mô phỏng 5 nhóm (có nhãn)", width="stretch",
+            help="Nạp Data/simulated/customers_simulated_5groups.csv: 4.000 hồ sơ, 5 nhóm thiết kế, cột `nhom` là nhãn thật để tính ARI.",
         )
 
     if upload is not None:
@@ -98,7 +108,12 @@ def render() -> None:
 
     df = interface.get(SK.RAW_DF)
     if df is None:
-        st.info("Tải file CSV hoặc dùng dữ liệu mẫu để bắt đầu.")
+        st.info(
+            "Tải file CSV thô hoặc bấm 'Dùng bộ mô phỏng 5 nhóm' để bắt đầu.\n\n"
+            "- **Bộ mô phỏng 5 nhóm**: có cụm thật và nhãn `nhom`, dùng để chứng minh giảm chiều (ARI).\n"
+            "- **File 20 cột (100.000 dòng)**: dữ liệu ngẫu nhiên độc lập, không có cụm thật; dùng làm đối chứng "
+            "'không có cấu trúc' và để thử tải."
+        )
         return
 
     val = interface.get(SK.VALIDATION)
@@ -126,7 +141,8 @@ def render() -> None:
         st.dataframe(_build_role_table(val), hide_index=True, width="stretch")
 
     with tab_stat:
-        st.dataframe(df.describe(include="all").T, width="stretch")
+        desc = df.describe(include="all").T
+        st.dataframe(desc.round(3).astype(str).replace({"nan": ""}), width="stretch")
 
     numeric = val["numeric_columns"]
     with tab_miss:

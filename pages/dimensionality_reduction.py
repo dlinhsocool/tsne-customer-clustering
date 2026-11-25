@@ -8,8 +8,7 @@ from utils import interface
 from utils import visualization as viz
 from utils.constants import (
     ALGORITHMS,
-    MISSING_STRATEGIES,
-    OUTLIER_METHODS,
+    OPTIONAL_NOISE_FEATURES,
     SK,
     TSNE_DEFAULTS,
 )
@@ -35,23 +34,34 @@ def _section_preprocess(df, val) -> None:
         format_func=interface.display_name,
     )
 
-    a, b, c = st.columns(3)
-    missing = a.selectbox("Giá trị thiếu", MISSING_STRATEGIES, help="Trung vị bền với ngoại lai hơn trung bình.")
-    outlier = b.selectbox(
-        "Ngoại lai (trên biến số)",
-        OUTLIER_METHODS,
-        format_func=lambda v: {None: "Không loại", "iqr": "IQR", "zscore": "Z-score"}[v],
-    )
-    drop_dup = c.checkbox("Bỏ dòng trùng", value=True)
+    noise_present = [c for c in OPTIONAL_NOISE_FEATURES if c in candidate_cols]
+    if noise_present:
+        st.caption(
+            "Mặc định chỉ dùng cột hành vi mua. Các cột "
+            + ", ".join(f"`{c}`" for c in noise_present)
+            + " là nhân khẩu/nhiễu (trong file gốc chúng độc lập ngẫu nhiên với hành vi mua); "
+            "có thể thêm vào để quan sát chiều nhiễu ảnh hưởng thế nào lên phân cụm và giảm chiều."
+        )
+    if "total_spent" in features and "avg_order_value" in features:
+        st.info(
+            "Có cả total_spent và avg_order_value: pipeline tạo **n_orders = total_spent / avg_order_value** "
+            "(tần suất mua) và dùng n_orders thay cho avg_order_value để tránh cộng tuyến."
+        )
+
+    drop_dup = st.checkbox("Bỏ dòng trùng hoàn toàn", value=True)
 
     num_selected = [f for f in features if f in val.get("numeric_columns", [])]
-    skewed = [f for f in num_selected if abs(float(df[f].skew())) > 1]
+    skewed = [
+        f for f in num_selected
+        if abs(float(df[f].skew())) > 1
+        and not (f == "avg_order_value" and "total_spent" in features)  # avg_order_value được thay bằng n_orders
+    ]
     log_cols = st.multiselect(
         "Log-transform (log1p cho cột lệch phải)",
         num_selected,
         default=skewed,
         format_func=interface.display_name,
-        help="Mặc định chọn sẵn các cột số có độ lệch mạnh (|skew| > 1).",
+        help="Mặc định chọn các cột số lệch mạnh (|skew| > 1). Cột phân phối đều không cần log.",
     )
     d, e = st.columns(2)
     sample = d.number_input(
@@ -69,9 +79,7 @@ def _section_preprocess(df, val) -> None:
         prep = interface.preprocess_data(
             df,
             features,
-            missing_strategy=missing,
             drop_duplicates=drop_dup,
-            outlier_method=outlier,
             log_transform_columns=log_cols,
             sample_size=int(sample) or None,
             random_state=int(seed),

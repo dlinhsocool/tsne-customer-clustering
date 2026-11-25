@@ -1,0 +1,35 @@
+{
+  "dataset_name": "Synthetic Customer Data",
+  "description": "100k+ synthetic customer records with demographics, transactions, and behavioral data",
+  "num_rows": 100000,
+  "generated_on": "2023-11-15",
+  "fields": [
+    {"name": "customer_id", "type": "string", "description": "Unique customer identifier"},
+    {"name": "name", "type": "string", "description": "Full name of customer"},
+    {"name": "email", "type": "string", "description": "Email address"},
+    {"name": "age", "type": "integer", "description": "Age (18-80)"},
+    {"name": "gender", "type": "string", "description": "Self-reported gender"},
+    {"name": "city", "type": "string", "description": "City of residence"},
+    {"name": "country", "type": "string", "description": "Country of residence"},
+    {"name": "income", "type": "float", "description": "Annual income in USD"},
+    {"name": "credit_score", "type": "integer", "description": "FICO score (300-850)"},
+    {"name": "loyalty_points", "type": "integer", "description": "Rewards program points"},
+    {"name": "first_purchase_date", "type": "date", "description": "Date of first purchase"},
+    {"name": "last_purchase_date", "type": "date", "description": "Date of most recent purchase"},
+    {"name": "total_spent", "type": "float", "description": "Lifetime spending in USD"},
+    {"name": "avg_order_value", "type": "float", "description": "Average order value in USD"},
+    {"name": "favorite_category", "type": "string", "description": "Most purchased category"},
+    {"name": "device_type", "type": "string", "description": "Primary shopping device"},
+    {"name": "churn_risk", "type": "float", "description": "Predicted churn probability (0-1)"},
+    {"name": "subscription", "type": "boolean", "description": "Has premium subscription?"},
+    {"name": "marketing_opt_in", "type": "boolean", "description": "Opted into marketing emails?"},
+    {"name": "support_tickets", "type": "integer", "description": "Number of support tickets opened"}
+  ],
+  "use_cases": [
+    "Customer segmentation",
+    "Churn prediction modeling",
+    "Lifetime value analysis",
+    "Personalized marketing"
+  ],
+  "data_quality": "Synthetic data with realistic distributions"
+}

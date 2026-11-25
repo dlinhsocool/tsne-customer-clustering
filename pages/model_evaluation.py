@@ -31,6 +31,51 @@ def _sample_benchmark_data(sample_n: int, seed: int) -> tuple[np.ndarray, pd.Dat
     return Xs, df_clean
 
 
+def _build_representations(X_bench: np.ndarray, seed: int, pca_dim, umap_dim: int, tsne_perp: float, tsne_iter: int,
+                           warn: bool = True) -> dict[str, dict]:
+    """Tạo 4 không gian (original, PCA, UMAP, t-SNE 2D) từ cùng một mẫu."""
+    reps: dict[str, dict] = {
+        "original": {"X": X_bench, "reduction_runtime": 0.0, "n_components": X_bench.shape[1]},
+    }
+    pca_res = interface.run_pca(X_bench, n_components=pca_dim, random_state=seed)
+    reps["pca"] = {
+        "X": pca_res["X_pca"], "reduction_runtime": pca_res["runtime_seconds"],
+        "n_components": pca_res["n_components"], "raw_result": pca_res,
+    }
+    try:
+        umap_res = interface.run_umap(
+            X_bench, n_components=max(2, int(umap_dim)),
+            n_neighbors=UMAP_DEFAULTS["n_neighbors"], min_dist=UMAP_DEFAULTS["min_dist"], random_state=seed,
+        )
+        reps["umap"] = {
+            "X": umap_res["embedding"], "reduction_runtime": umap_res["runtime_seconds"],
+            "n_components": umap_res["n_components"], "raw_result": umap_res,
+        }
+    except Exception as exc:  # noqa: BLE001
+        if warn:
+            st.warning(f"Bỏ qua UMAP do lỗi: {exc}")
+    tsne_res = interface.run_tsne(
+        X_bench, n_components=2, perplexity=float(tsne_perp),
+        learning_rate=TSNE_DEFAULTS["learning_rate"], n_iter=int(tsne_iter), random_state=seed,
+    )
+    reps["tsne"] = {
+        "X": tsne_res["embedding"], "reduction_runtime": tsne_res["runtime_seconds"],
+        "n_components": 2, "raw_result": tsne_res,
+    }
+    return reps
+
+
+def _aggregate_seeds(tables: list[pd.DataFrame]) -> pd.DataFrame:
+    """Trung bình ± độ lệch chuẩn qua các seed cho từng (không gian, thuật toán)."""
+    all_rows = pd.concat([t.assign(_seed=i) for i, t in enumerate(tables)], ignore_index=True)
+    metrics = ["ari_score", "silhouette_original", "davies_bouldin_original", "n_clusters", "noise_ratio", "total_runtime"]
+    for m in metrics:
+        all_rows[m] = pd.to_numeric(all_rows[m], errors="coerce")
+    grp = all_rows.groupby(["space", "algorithm"], sort=False)[metrics].agg(["mean", "std"])
+    grp.columns = [f"{a}_{b}" for a, b in grp.columns]
+    return grp.reset_index()
+
+
 def render() -> None:
     st.title("Model Evaluation & Comparison")
     if not interface.require(
@@ -73,6 +118,11 @@ def render() -> None:
             value=False,
             help="Chạy lặp lại với 3 random_state để tính độ ổn định của embedding.",
         )
+        n_repeats = st.slider(
+            "Số lần lặp toàn bộ thí nghiệm với seed khác nhau (báo cáo trung bình ± độ lệch chuẩn)",
+            1, 5, 1,
+            help="t-SNE/UMAP phụ thuộc seed nên một lần chạy chưa đủ để kết luận. 3 lần trở lên là hợp lý.",
+        )
 
         # Cột nhãn tham chiếu nếu dataset có cột nhãn
         prep = interface.get(SK.PREP)
@@ -98,52 +148,8 @@ def render() -> None:
         pca_dim = 2 if force_2d else PCA_DEFAULT_VARIANCE
         umap_dim = 2 if force_2d else min(UMAP_DEFAULTS["n_components"], X_bench.shape[1] - 1)
 
-        reps: dict[str, dict] = {
-            "original": {"X": X_bench, "reduction_runtime": 0.0, "n_components": X_bench.shape[1]},
-        }
-
-        with st.spinner("1/4 Đang chạy PCA..."):
-            pca_res = interface.run_pca(X_bench, n_components=pca_dim, random_state=seed)
-            reps["pca"] = {
-                "X": pca_res["X_pca"],
-                "reduction_runtime": pca_res["runtime_seconds"],
-                "n_components": pca_res["n_components"],
-                "raw_result": pca_res,
-            }
-
-        with st.spinner("2/4 Đang chạy UMAP..."):
-            try:
-                umap_res = interface.run_umap(
-                    X_bench,
-                    n_components=max(2, int(umap_dim)),
-                    n_neighbors=UMAP_DEFAULTS["n_neighbors"],
-                    min_dist=UMAP_DEFAULTS["min_dist"],
-                    random_state=seed,
-                )
-                reps["umap"] = {
-                    "X": umap_res["embedding"],
-                    "reduction_runtime": umap_res["runtime_seconds"],
-                    "n_components": umap_res["n_components"],
-                    "raw_result": umap_res,
-                }
-            except Exception as exc:
-                st.warning(f"Bỏ qua UMAP do lỗi: {exc}")
-
-        with st.spinner("3/4 Đang chạy t-SNE 2D..."):
-            tsne_res = interface.run_tsne(
-                X_bench,
-                n_components=2,
-                perplexity=float(tsne_perp),
-                learning_rate=TSNE_DEFAULTS["learning_rate"],
-                n_iter=int(tsne_iter),
-                random_state=seed,
-            )
-            reps["tsne"] = {
-                "X": tsne_res["embedding"],
-                "reduction_runtime": tsne_res["runtime_seconds"],
-                "n_components": 2,
-                "raw_result": tsne_res,
-            }
+        with st.spinner("1-3/4 Đang chạy PCA, UMAP, t-SNE..."):
+            reps = _build_representations(X_bench, seed, pca_dim, umap_dim, tsne_perp, tsne_iter)
 
         with st.spinner("4/4 Đang đánh giá chất lượng giảm chiều & chạy 12 mô hình phân cụm..."):
             precomputed_dr = {
@@ -176,6 +182,23 @@ def render() -> None:
                 random_state=seed,
             )
 
+        repeat_tables = [bench_out["table"]]
+        if n_repeats > 1:
+            for extra in range(1, int(n_repeats)):
+                with st.spinner(f"Lặp lại thí nghiệm với seed {seed + extra} ({extra + 1}/{n_repeats})..."):
+                    reps_i = _build_representations(
+                        X_bench, seed + extra, pca_dim, umap_dim, tsne_perp, tsne_iter, warn=False
+                    )
+                    out_i = interface.benchmark_clustering_spaces(
+                        reps_i,
+                        clustering_params=clust_params,
+                        X_original=X_bench,
+                        labels_true=labels_true,
+                        random_state=seed + extra,
+                    )
+                    repeat_tables.append(out_i["table"])
+        interface.put(SK.BENCHMARK_REPEATS, repeat_tables)
+
         interface.put(SK.BENCHMARK_SAMPLE, {"X": X_bench, "df": df_bench})
         interface.put(SK.BENCHMARK_REPRESENTATIONS, reps)
         interface.put(SK.BENCHMARK_REDUCTION_TABLE, dr_table)
@@ -187,6 +210,7 @@ def render() -> None:
     reps = interface.get(SK.BENCHMARK_REPRESENTATIONS, {})
     bench_results = interface.get(SK.BENCHMARK_CLUSTER_RESULTS, {})
     bench_sample = interface.get(SK.BENCHMARK_SAMPLE)
+    repeat_tables = interface.get(SK.BENCHMARK_REPEATS) or []
 
     if dr_table is None or bench_table is None:
         st.info("Bấm nút **Chạy toàn bộ Benchmark** ở trên để thực hiện thí nghiệm.")
@@ -247,10 +271,13 @@ def render() -> None:
     with tab_b:
         st.subheader("Bảng so sánh 12 cấu hình (4 không gian × 3 thuật toán)")
         st.caption(
-            "**Lưu ý đọc bảng:** `Silhouette (Space)` đo độ tách cụm trong chính không gian giảm chiều đó; "
-            "`Silhouette (Original)` đánh giá nhãn cụm tìm được quay ngược lại trên dữ liệu gốc chuẩn hóa `X_scaled` "
-            "để đảm bảo mặt bằng so sánh công bằng giữa các không gian."
+            "**Cách đọc:** chỉ số chính là **ARI** (so với nhãn thật, nếu có) và **Silhouette / DB (Original)**: "
+            "nhãn cụm của từng cấu hình được đo lại trên cùng một không gian gốc `X_scaled`, nên so sánh được giữa "
+            "các không gian. **Silhouette (Space)** đo trong chính không gian giảm chiều đó nên *không so sánh được*: "
+            "embedding 2D luôn gom điểm thành khối nên điểm này cao ngay cả với dữ liệu ngẫu nhiên."
         )
+        if bench_table["ari_score"].isna().all():
+            st.info("Chưa có nhãn thật nên không tính được ARI. Chọn cột nhãn (ví dụ `nhom` của bộ mô phỏng) ở phần cấu hình.")
         show_b = bench_table.copy()
         show_b["space"] = show_b["space"].map(
             {"original": "Original", "pca": "PCA", "umap": "UMAP", "tsne": "t-SNE"}
@@ -287,21 +314,48 @@ def render() -> None:
         }
         for c in fmt_cols:
             show_b[c] = pd.to_numeric(show_b[c], errors="coerce")
+        main_cols = ["Không gian", "Thuật toán", "Số chiều", "Số cụm", "ARI", "Silhouette (Original)", "DB (Original)"]
+        rest_cols = [c for c in show_b.columns if c not in main_cols and c != "n_samples"]
         st.dataframe(
-            show_b.drop(columns=["n_samples"], errors="ignore").style.format(fmt_cols, na_rep="N/A"),
+            show_b[[c for c in main_cols if c in show_b.columns] + rest_cols].style.format(fmt_cols, na_rep="N/A"),
             hide_index=True,
             width="stretch",
         )
 
+        if len(repeat_tables) > 1:
+            st.markdown(f"**Trung bình ± độ lệch chuẩn qua {len(repeat_tables)} seed**")
+            agg = _aggregate_seeds(repeat_tables)
+            agg["space"] = agg["space"].map({"original": "Original", "pca": "PCA", "umap": "UMAP", "tsne": "t-SNE"}).fillna(agg["space"])
+            agg["algorithm"] = agg["algorithm"].map(ALGORITHMS).fillna(agg["algorithm"])
+
+            def _pm(mean, std, nd=3):
+                if pd.isna(mean):
+                    return "N/A"
+                return f"{mean:.{nd}f} ± {0.0 if pd.isna(std) else std:.{nd}f}"
+
+            agg_show = pd.DataFrame({
+                "Không gian": agg["space"],
+                "Thuật toán": agg["algorithm"],
+                "Số cụm": [_pm(m, sd, 1) for m, sd in zip(agg["n_clusters_mean"], agg["n_clusters_std"])],
+                "ARI": [_pm(m, sd) for m, sd in zip(agg["ari_score_mean"], agg["ari_score_std"])],
+                "Silhouette (Original)": [_pm(m, sd) for m, sd in zip(agg["silhouette_original_mean"], agg["silhouette_original_std"])],
+                "DB (Original)": [_pm(m, sd) for m, sd in zip(agg["davies_bouldin_original_mean"], agg["davies_bouldin_original_std"])],
+            })
+            st.dataframe(agg_show, hide_index=True, width="stretch")
+
         st.plotly_chart(viz.plot_runtime_comparison(bench_table), width="stretch")
 
+        has_ari = bench_table["ari_score"].notna().any()
         c_left, c_right = st.columns(2, gap="large")
         with c_left:
             st.plotly_chart(
                 viz.plot_benchmark_heatmap(
                     bench_table,
-                    metric="silhouette_original",
-                    title="Heatmap Silhouette trên dữ liệu gốc (càng cao càng tốt)",
+                    metric="ari_score" if has_ari else "silhouette_original",
+                    title=(
+                        "Heatmap ARI so với nhãn thật (càng cao càng tốt)"
+                        if has_ari else "Heatmap Silhouette trên dữ liệu gốc (càng cao càng tốt)"
+                    ),
                 ),
                 width="stretch",
             )

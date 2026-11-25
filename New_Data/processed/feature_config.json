@@ -1,0 +1,213 @@
+{
+  "version": 2,
+  "input_columns": [
+    "first_purchase_date",
+    "last_purchase_date",
+    "total_spent",
+    "avg_order_value",
+    "loyalty_points",
+    "support_tickets",
+    "subscription",
+    "favorite_category"
+  ],
+  "feature_columns": [
+    "total_spent",
+    "loyalty_points",
+    "support_tickets",
+    "recency_days",
+    "n_orders",
+    "subscription",
+    "favorite_category_Beauty",
+    "favorite_category_Books",
+    "favorite_category_Clothing",
+    "favorite_category_Electronics",
+    "favorite_category_Home & Kitchen",
+    "favorite_category_Sports",
+    "favorite_category_Toys"
+  ],
+  "numeric_columns": [
+    "total_spent",
+    "loyalty_points",
+    "support_tickets",
+    "recency_days",
+    "n_orders"
+  ],
+  "binary_columns": [
+    "subscription"
+  ],
+  "categorical_columns": [
+    "favorite_category"
+  ],
+  "category_levels": {
+    "favorite_category": [
+      "Beauty",
+      "Books",
+      "Clothing",
+      "Electronics",
+      "Home & Kitchen",
+      "Sports",
+      "Toys"
+    ]
+  },
+  "date_columns": [
+    "first_purchase_date",
+    "last_purchase_date"
+  ],
+  "first_date_column": "first_purchase_date",
+  "last_date_column": "last_purchase_date",
+  "ref_date": "2025-05-05",
+  "include_tenure": false,
+  "derived_columns": {
+    "recency_days": "ngày tham chiếu 2025-05-05 trừ last_purchase_date",
+    "n_orders": "round(total_spent / avg_order_value), tối thiểu 1"
+  },
+  "n_orders_source": [
+    "total_spent",
+    "avg_order_value"
+  ],
+  "dropped_after_derive": [
+    "avg_order_value"
+  ],
+  "log_transform_columns": [],
+  "medians": {
+    "total_spent": 5031.075000000001,
+    "loyalty_points": 2506.0,
+    "support_tickets": 5.0,
+    "recency_days": 183.0,
+    "n_orders": 25.0,
+    "subscription": 0.0
+  },
+  "raw_feature_ranges": {
+    "total_spent": [
+      50.15,
+      9999.68
+    ],
+    "loyalty_points": [
+      0.0,
+      5000.0
+    ],
+    "support_tickets": [
+      0.0,
+      10.0
+    ],
+    "recency_days": [
+      1.0,
+      366.0
+    ],
+    "n_orders": [
+      1.0,
+      50.0
+    ]
+  },
+  "feature_ranges": {
+    "total_spent": [
+      50.15,
+      9999.68
+    ],
+    "loyalty_points": [
+      0.0,
+      5000.0
+    ],
+    "support_tickets": [
+      0.0,
+      10.0
+    ],
+    "recency_days": [
+      1.0,
+      366.0
+    ],
+    "n_orders": [
+      1.0,
+      50.0
+    ],
+    "subscription": [
+      0.0,
+      1.0
+    ],
+    "favorite_category_Beauty": [
+      0.0,
+      1.0
+    ],
+    "favorite_category_Books": [
+      0.0,
+      1.0
+    ],
+    "favorite_category_Clothing": [
+      0.0,
+      1.0
+    ],
+    "favorite_category_Electronics": [
+      0.0,
+      1.0
+    ],
+    "favorite_category_Home & Kitchen": [
+      0.0,
+      1.0
+    ],
+    "favorite_category_Sports": [
+      0.0,
+      1.0
+    ],
+    "favorite_category_Toys": [
+      0.0,
+      1.0
+    ]
+  },
+  "form_fields": [
+    {
+      "name": "total_spent",
+      "kind": "float",
+      "min": 50.15,
+      "max": 9999.68,
+      "default": 5031.075000000001
+    },
+    {
+      "name": "loyalty_points",
+      "kind": "int",
+      "min": 0.0,
+      "max": 5000.0,
+      "default": 2506.0
+    },
+    {
+      "name": "support_tickets",
+      "kind": "int",
+      "min": 0.0,
+      "max": 10.0,
+      "default": 5.0
+    },
+    {
+      "name": "recency_days",
+      "kind": "int",
+      "min": 1.0,
+      "max": 366.0,
+      "default": 183.0
+    },
+    {
+      "name": "n_orders",
+      "kind": "int",
+      "min": 1.0,
+      "max": 50.0,
+      "default": 25.0
+    },
+    {
+      "name": "subscription",
+      "kind": "bool",
+      "default": false
+    },
+    {
+      "name": "favorite_category",
+      "kind": "category",
+      "options": [
+        "Beauty",
+        "Books",
+        "Clothing",
+        "Electronics",
+        "Home & Kitchen",
+        "Sports",
+        "Toys"
+      ],
+      "default": "Home & Kitchen"
+    }
+  ],
+  "encode_categorical": true
+}
