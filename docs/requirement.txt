@@ -1,11 +1,15 @@
+# Cài đặt: pip install -r requirements.txt
 streamlit>=1.36.0
 numpy>=1.26.0
 pandas>=2.2.0
 scikit-learn>=1.5.0
 scipy>=1.13.0
 plotly>=5.22.0
-torch>=2.2.0
-openTSNE>=1.0.1
-umap-learn>=0.5.6
-hdbscan>=0.8.38
 joblib>=1.4.0
+umap-learn>=0.5.6
+openTSNE>=1.0.1      # t-SNE thư viện, dùng để đối chiếu với CustomTSNE tự viết
+hdbscan>=0.8.38      # chỉ dùng cho chỉ số DBCV
+torch>=2.2.0         # bắt buộc: CustomTSNE (t-SNE viết tay) chạy bằng PyTorch; bản CPU là đủ
+pytest>=8.0.0        # chỉ để chạy tests/
+numba
+matplotlib
