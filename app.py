@@ -10,6 +10,7 @@ from pages import (
     data_exploration,
     dimensionality_reduction,
     new_customer,
+    tsne_scaling,
     overview,
 )
 from utils import interface
@@ -37,6 +38,7 @@ navigation = st.navigation(
         st.Page(model_evaluation.render, title="Model Evaluation", url_path="evaluation"),
         st.Page(customer_profiling.render, title="Customer Profiling", url_path="profiling"),
         st.Page(new_customer.render, title="New Customer", url_path="new-customer"),
+        st.Page(tsne_scaling.render, title="t-SNE Scaling (BH & FFT)", url_path="tsne-scaling"),
     ]
 )
 
