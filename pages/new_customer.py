@@ -366,10 +366,17 @@ def render() -> None:
         )
 
         confidence = assignment.get("confidence")
+        is_far = bool(assignment.get("is_outlier", False)) or bool(new_customer_result.get("out_of_range_features"))
+        kind = assignment.get("confidence_kind") or "mức đồng thuận của hàng xóm"
+        if confidence is None:
+            agree_text = "N/A"
+        else:
+            agree_text = f"{float(confidence):.0%}"
         col2.metric(
-            "Độ tin cậy",
-            "N/A" if confidence is None else f"{float(confidence):.0%}",
-            help=assignment.get("confidence_kind"),
+            "Hàng xóm đồng thuận" if confidence is not None else "Đồng thuận",
+            agree_text,
+            help=(f"Đo {kind}: cho biết khách nằm phía nào của ranh giới cụm, KHÔNG đo việc khách có giống "
+                  "dữ liệu huấn luyện hay không."),
         )
 
         mean_distance = assignment.get("mean_neighbor_distance")
@@ -378,16 +385,16 @@ def render() -> None:
             "N/A" if mean_distance is None else f"{float(mean_distance):.2f}",
         )
 
-        for warning in assignment.get("warnings", []) + new_customer_result.get("warnings", []):
-            st.warning(warning)
-
-        out_of_range = new_customer_result.get("out_of_range_features", [])
-        if out_of_range:
-            feature_names = ", ".join(interface.display_name(name) for name in out_of_range)
-            st.warning(
-                "Giá trị ngoài khoảng đã thấy trong dữ liệu huấn luyện: "
-                f"{feature_names}. Kết quả kém chắc chắn hơn."
-            )
+        # Gộp mọi cảnh báo thành MỘT hộp, bỏ trùng lặp.
+        reasons: list[str] = []
+        for w in assignment.get("warnings", []) + new_customer_result.get("warnings", []):
+            if w not in reasons:
+                reasons.append(w)
+        if reasons or is_far:
+            lines = "\n".join(f"- {w}" for w in reasons)
+            head = ("**Khách này khác với dữ liệu huấn luyện, nên cụm gán chỉ mang tính tham khảo** "
+                    "(tỷ lệ hàng xóm đồng thuận cao vẫn không bảo đảm khách giống nhóm đó).")
+            st.warning((head + "\n\n" if is_far else "") + lines)
 
         with st.expander("Giá trị đã quy đổi (cùng pipeline với khách cũ, scaler không fit lại)"):
             raw_row = new_customer_result["X_new_raw"].iloc[0]
@@ -412,12 +419,6 @@ def render() -> None:
                 ).round(3),
                 hide_index=True,
                 width="stretch",
-            )
-
-        if assignment.get("is_outlier", False) and not assignment.get("is_noise", False):
-            st.warning(
-                "Khách này xa các hàng xóm hơn thông thường "
-                "(dấu hiệu dữ liệu mới lệch khỏi dữ liệu huấn luyện)."
             )
 
         st.markdown("**Vị trí trên bản đồ t-SNE**")
