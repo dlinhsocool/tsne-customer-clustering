@@ -43,13 +43,30 @@ def _to_numpy(value: Any, dtype=None) -> np.ndarray:
     return np.asarray(value, dtype=dtype)
 
 
-def _validate_input(X: np.ndarray) -> np.ndarray:
+
+def _validate_input(X: np.ndarray, min_samples: int = 2) -> np.ndarray:
+    """
+    Kiểm tra ma trận đầu vào.
+
+    min_samples=2: dùng khi huấn luyện phân cụm.
+    min_samples=1: dùng khi dự đoán một khách hàng mới.
+    """
     X_arr = np.asarray(X, dtype=np.float64)
-    if X_arr.ndim != 2 or X_arr.shape[0] < 2 or X_arr.shape[1] < 1:
-        raise ValueError("X phai co shape (n_samples >= 2, n_features >= 1).")
+
+    if (
+        X_arr.ndim != 2
+        or X_arr.shape[0] < min_samples
+        or X_arr.shape[1] < 1
+    ):
+        raise ValueError(
+            f"X phải có shape (n_samples >= {min_samples}, n_features >= 1)."
+        )
+
     if not np.isfinite(X_arr).all():
-        raise ValueError("X chua NaN hoac Inf.")
+        raise ValueError("X chứa NaN hoặc Inf.")
+
     return X_arr
+
 
 
 def estimate_dbscan_eps(
@@ -108,14 +125,42 @@ class _TorchKMeansModel:
         self.n_iter_ = int(n_iter)
         self.n_features_in_ = int(self.cluster_centers_.shape[1])
 
-    def predict(self, X: np.ndarray) -> np.ndarray:
-        X_arr = _validate_input(X)
-        device = _require_cuda()
-        with torch.no_grad():
-            xt = torch.as_tensor(X_arr, dtype=torch.float64, device=device)
-            centers = torch.as_tensor(self.cluster_centers_, dtype=xt.dtype, device=device)
-            labels = torch.cdist(xt, centers).argmin(dim=1)
-        return labels.cpu().numpy().astype(int)
+    
+def predict(self, X: np.ndarray) -> np.ndarray:
+    """
+    Dự đoán nhãn cụm.
+    Cho phép dự đoán chỉ một khách hàng mới.
+    """
+    # Chỉ cần ít nhất 1 dòng khi predict.
+    X_arr = _validate_input(X, min_samples=1)
+
+    # Kiểm tra số đặc trưng phải khớp lúc huấn luyện.
+    if X_arr.shape[1] != self.n_features_in_:
+        raise ValueError(
+            f"Số đặc trưng không khớp: "
+            f"mô hình cần {self.n_features_in_}, "
+            f"nhưng nhận được {X_arr.shape[1]}."
+        )
+
+    device = _require_cuda()
+
+    with torch.no_grad():
+        xt = torch.as_tensor(
+            X_arr,
+            dtype=torch.float64,
+            device=device
+        )
+
+        centers = torch.as_tensor(
+            self.cluster_centers_,
+            dtype=xt.dtype,
+            device=device
+        )
+
+        labels = torch.cdist(xt, centers).argmin(dim=1)
+
+    return labels.cpu().numpy().astype(int)
+
 
     def fit_predict(self, X: np.ndarray) -> np.ndarray:
         raise AttributeError("Model result da fit; hay dung labels_ hoac predict().")
